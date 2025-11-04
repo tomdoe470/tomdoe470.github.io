@@ -48,6 +48,9 @@ Por ejemplo, si un producto se muestra inicialmente a un precio muy alto, cualqu
 
 Ahora que hemos aclarado los conceptos principales, podemos avanzar hacia un terreno más interesante: preguntarnos si estos mismos mecanismos —que emergen del cerebro humano— podrían tener un reflejo o una analogía en los modelos de lenguaje artificial.
 
+# Los grandes modelos de lenguaje
+
+
 **Fuentes y personalidades citadas:**
 - https://www.linkedin.com/in/m-angela-sasse-8589511
 - https://www.miedoalosaviones.com/estadisticas
