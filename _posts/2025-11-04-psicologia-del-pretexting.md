@@ -12,4 +12,4 @@ Cada mentira eficaz nace de una verdad parcial.
 3. Anclar emociones en contextos conocidos.
 
 ---
-[Volver al blog](../blog.md)
+[Volver al blog](../blog.html)
