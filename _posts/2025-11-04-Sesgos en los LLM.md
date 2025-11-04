@@ -1,4 +1,12 @@
 ---
 layout: default
-title: "Sesgos de pensamiento en grandes modelos de lenguaje"
+title: "Sesgos en los LLM"
 ---
+
+El...
+
+**Claves:**
+
+
+---
+[Volver al blog](../blog.html)
