@@ -3,7 +3,7 @@ layout: default
 title: Proyecto Némesis.
 ---
 
-# 👾 Red Team Mind
+# El proyecto Némesis
 
 **Exploración ofensiva, psicología aplicada y tácticas de intrusión.**
 
