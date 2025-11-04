@@ -3,4 +3,4 @@ description: "Pentesting físico, ingeniería social, OSINT y psicología aplica
 theme: jekyll-theme-hacker
 show_downloads: false
 markdown: kramdown
-permalink: /:categories/:year/:month/:day/:title:output_ext
+permalink: /:title:output_ext
