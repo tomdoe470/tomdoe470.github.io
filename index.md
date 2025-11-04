@@ -1,7 +1,10 @@
----
-title: Home
----
+# Bienvenido a Red Team Mind
 
-# Bienvenido
+¡Hola! Soy TomDoe, analista de seguridad ofensiva y entusiasta de la psicología y la Criminologia
+aplicada al hacking. 
+Este espacio reúne mis notas sobre pentesting físico, ingeniería social, OSINT y herramientas.
 
-Este es un archivo index.md en blanco con front matter mínimo.
+---
+- [Blog](blog.md)
+- [Proyectos](projects.md)
+- [Acerca de mí](about.md)
