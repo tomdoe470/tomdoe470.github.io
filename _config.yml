@@ -1,5 +1,6 @@
-title: "Red Team Mind — TomDoe"
-description: "Pentesting físico, ingeniería social, OSINT y psicología aplicada a la ciberseguridad."
+title: "Red Team Mind"
+description: "Pentesting físico, ingeniería social, OSINT y psicología aplicada a la seguridad."
 theme: jekyll-theme-hacker
 show_downloads: false
 markdown: kramdown
+permalink: /:categories/:year/:month/:day/:title:output_ext
