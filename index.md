@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Red Team Mind
+title: Proyecto: Némesis.
 ---
 
 # 👾 Red Team Mind
