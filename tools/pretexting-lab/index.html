@@ -19,7 +19,9 @@
             --primary-glow: rgba(59, 130, 246, 0.5);
             --accent-green: #10b981;  /* Verde Terminal */
             --accent-red: #f43f5e;    /* Rojo Alerta */
-            --accent-gold: #f59e0b;   /* Advertencia */
+            --accent-gold: #f59e0b;   /* Escasez/Codicia */
+            --accent-purple: #a855f7; /* Curiosidad */
+            --accent-teal: #14b8a6;   /* Quid Pro Quo */
 
             /* Texto */
             --text-main: #f1f5f9;
@@ -58,7 +60,7 @@
             align-items: center;
             padding: 15px 40px;
             background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(100px);
             border-bottom: var(--border);
             z-index: 100;
         }
@@ -163,9 +165,9 @@
         .section-header { text-align: center; margin-bottom: 50px; }
         .section-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
         
-        .cards-grid { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        .cards-grid { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; max-width: 1200px; margin-bottom: 40px;}
         
-        .flip-card { background-color: transparent; width: 340px; height: 420px; perspective: 1000px; cursor: pointer; }
+        .flip-card { background-color: transparent; width: 340px; height: 420px; perspective: 1000px; cursor: pointer; margin-bottom: 20px; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         
@@ -178,10 +180,15 @@
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Card Colors - Exact match to request */
+        /* Card Colors - Extended */
         .style-auth .flip-card-front { background: linear-gradient(145deg, #1e3a8a, #172554); } /* Blue */
         .style-urge .flip-card-front { background: linear-gradient(145deg, #7f1d1d, #450a0a); } /* Red */
         .style-trust .flip-card-front { background: linear-gradient(145deg, #064e3b, #022c22); } /* Green */
+        
+        /* New Colors */
+        .style-curiosity .flip-card-front { background: linear-gradient(145deg, #581c87, #3b0764); } /* Purple */
+        .style-scarcity .flip-card-front { background: linear-gradient(145deg, #78350f, #451a03); } /* Gold/Brownish for contrast */
+        .style-quid .flip-card-front { background: linear-gradient(145deg, #0f766e, #115e59); } /* Teal */
 
         .card-icon-circle {
             width: 80px; height: 80px; border-radius: 50%; 
@@ -323,6 +330,15 @@
         .bubble { background: #1e293b; padding: 15px; border-radius: 0 12px 12px 12px; color: #e2e8f0; font-size: 0.95rem; line-height: 1.5; border: 1px solid rgba(255,255,255,0.05); }
         .msg-name { color: #818cf8; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; display: block; }
 
+        /* WhatsApp Style */
+        .wsp-header { background: #202c33; color: #e9edef; padding: 10px 15px; display: flex; align-items: center; gap: 15px; }
+        .wsp-avatar { width: 40px; height: 40px; border-radius: 50%; background: #00a884; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .wsp-body { background: #0b141a; padding: 20px; display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-size: 300px; }
+        .wsp-msg { max-width: 70%; padding: 8px 10px; border-radius: 8px; font-size: 0.9rem; line-height: 1.4; position: relative; }
+        .wsp-in { background: #202c33; align-self: flex-start; color: #e9edef; }
+        .wsp-out { background: #005c4b; align-self: flex-end; color: #e9edef; }
+        .wsp-time { font-size: 0.65rem; color: #8696a0; text-align: right; margin-top: 4px; }
+
         /* Toast Notification */
         .toast {
             position: fixed; top: 30px; right: 30px;
@@ -357,8 +373,8 @@
     <div id="home-view" class="view active">
         <canvas id="matrix"></canvas>
         <div style="position: relative; z-index: 2;">
-            <div class="hero-badge">v2.0 // ACCESS GRANTED</div>
-            <h1 class="hero-title">MASTER THE ART OF<br><span>HUMAN HACKING</span></h1>
+            <div class="hero-badge">v2.5 // SYSTEM ACTIVE</div>
+            <h1 class="hero-title">DECONSTRUCT THE ART OF<br><span>DECEPTION</span></h1>
             <p class="hero-desc">Interactive training environment designed to deconstruct social engineering attacks. Analyze payloads, identify pretexts, and harden your human firewall.</p>
             <div class="cta-group">
                 <button class="btn-hero btn-secondary" onclick="navTo('methodologies')">VIEW VECTORS</button>
@@ -383,9 +399,9 @@
                         <div class="reveal-hint">Click to Decrypt</div>
                     </div>
                     <div class="flip-card-back">
-                        <h4>Vector Analysis</h4>
-                        <p style="font-size: 0.9rem; line-height: 1.6;">Targets are conditioned to comply with superiors to avoid insubordination. Attackers exploit hierarchy to bypass verification.</p>
-                        <div class="example-box">
+                        <h4 style="color: #60a5fa">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Targets are conditioned to comply with superiors to avoid insubordination.</p>
+                        <div class="example-box" style="border-color: #60a5fa">
                             > "This is the CEO. Wire funds for acquisition Project X immediately."
                         </div>
                     </div>
@@ -420,13 +436,68 @@
                     </div>
                     <div class="flip-card-back">
                         <h4 style="color: var(--accent-green)">Vector Analysis</h4>
-                        <p style="font-size: 0.9rem; line-height: 1.6;">Attackers mine social media for common interests. Building familiarity lowers natural defenses.</p>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Building familiarity lowers natural defenses. Attackers mine social media for shared interests.</p>
                         <div class="example-box" style="border-color: var(--accent-green)">
                             > "Loved your Bali pics! Btw, can you send that Q3 sheet?"
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="flip-card style-curiosity" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon-circle">🧐</div>
+                        <h3>Curiosity</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Enticing the victim with hidden or forbidden information.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 style="color: var(--accent-purple)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Humans have an innate desire to know the unknown. Vague filenames or "leaked" subjects trigger clicks.</p>
+                        <div class="example-box" style="border-color: var(--accent-purple)">
+                            > "Fwd: Layoff_Plan_Q4_FINAL.docx - Do not share"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card style-scarcity" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon-circle">💎</div>
+                        <h3>Scarcity</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Creating a false sense of limited availability.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 style="color: var(--accent-gold)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Fear of missing out (FOMO) drives impulsive action. Offers that seem "too good to be true" usually are.</p>
+                        <div class="example-box" style="border-color: var(--accent-gold)">
+                            > "Only 2 spots left for the Executive Bonus Program. Apply here."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card style-quid" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon-circle">🎁</div>
+                        <h3>Quid Pro Quo</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Offering a benefit or service in exchange for info.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 style="color: var(--accent-teal)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">"Something for something". Attackers offer help (often technical) to get credentials in return.</p>
+                        <div class="example-box" style="border-color: var(--accent-teal)">
+                            > "I can fix that slow network speed for you, just need your password."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -449,6 +520,23 @@
                     </div>
                     <div style="font-size: 0.8rem; color: var(--text-muted)">Direct message requesting auth tokens...</div>
                 </div>
+                <div style="height: 10px;"></div>
+                <div class="scenario-item" onclick="loadSim('job')" id="btn-job">
+                    <div class="sc-header">
+                        <span>Dream Job Recruiter</span>
+                        <span class="badge badge-hard">HARD</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">LinkedIn lure with malicious attachment...</div>
+                </div>
+                
+                <div style="height: 10px;"></div>
+                <div class="scenario-item" onclick="loadSim('wsp')" id="btn-wsp">
+                    <div class="sc-header">
+                        <span>Vendor Pay Update</span>
+                        <span class="badge badge-med">MEDIUM</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">WhatsApp msg from known supplier...</div>
+                </div>
             </div>
 
             <div class="analysis-box">
@@ -459,6 +547,9 @@
                     <option value="authority">Abuse of Authority</option>
                     <option value="urgency">False Sense of Urgency</option>
                     <option value="rapport">Fabricated Rapport</option>
+                    <option value="curiosity">Curiosity / Mystery</option>
+                    <option value="scarcity">Scarcity / Greed</option>
+                    <option value="quidproquo">Quid Pro Quo</option>
                 </select>
                 <button class="btn-hero btn-primary" style="width: 100%; margin-top: 10px;" onclick="submitAnalysis()">SUBMIT REPORT</button>
             </div>
@@ -517,6 +608,62 @@
                 </div>
             </div>
 
+            <div id="sim-job" class="os-window">
+                <div class="window-bar">
+                    <div class="traffic-light tl-red"></div>
+                    <div class="traffic-light tl-yellow"></div>
+                    <div class="traffic-light tl-green"></div>
+                    <div class="address-bar">🔒 linkedin.com/inbox</div>
+                </div>
+                <div class="email-body" style="border-top: 4px solid #0a66c2;">
+                    <div class="email-meta" style="border-bottom: none;">
+                        <h2 style="font-size: 1.2rem; margin-bottom: 5px;">Lead Security Architect (Remote)</h2>
+                        <div style="font-size: 0.85rem; color: #64748b;">From: Sarah J. (Tech Recruiter at Gooogle)</div>
+                    </div>
+                    <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">Hey! I stumbled upon your profile and I'm blown away. We have a confidential opening that fits your skills perfectly. Pays 60% above market.</p>
+                    <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">We are closing applications <strong>tonight</strong>. I've attached the full compensation breakdown and role details below.</p>
+                    <div style="background: #f1f5f9; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; font-weight: 600; color: #0f172a;">
+                        📄 Compensation_Pkg_Macro_Enabled.doc
+                    </div>
+                </div>
+            </div>
+
+            <div id="sim-wsp" class="os-window">
+                <div class="window-bar" style="background: #202c33; border-bottom: none;">
+                    <div class="traffic-light tl-red"></div>
+                    <div class="traffic-light tl-yellow"></div>
+                    <div class="traffic-light tl-green"></div>
+                    <div class="address-bar" style="background: #111b21; color: #aebac1;">web.whatsapp.com</div>
+                </div>
+                
+                <div class="wsp-header">
+                    <div class="wsp-avatar">🏢</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.95rem;">Global Suppliers Inc. (Alex)</div>
+                        <div style="font-size: 0.75rem; color: #8696a0;">online</div>
+                    </div>
+                </div>
+
+                <div class="wsp-body">
+                    <div class="wsp-msg wsp-in">
+                        Hey Tom! 👋 Hope you're having a good week. Just wanted to flag something about Invoice #9092 for the server racks.
+                        <div class="wsp-time">10:15 AM</div>
+                    </div>
+                    <div class="wsp-msg wsp-out">
+                        Hi Alex. What's the issue? We scheduled that for payment this Friday.
+                        <div class="wsp-time">10:18 AM</div>
+                    </div>
+                    <div class="wsp-msg wsp-in">
+                        Yeah, that's the thing. Our corporate audit froze our main USD account this morning. Bureaucracy 🙄
+                        <div class="wsp-time">10:20 AM</div>
+                    </div>
+                    <div class="wsp-msg wsp-in">
+                        Can you reroute the payment to our subsidiary's account in Singapore? I'll send the new IBAN now. Needs to go out today or shipping gets delayed 2 weeks. 😬
+                        <div class="wsp-time">10:20 AM</div>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -568,8 +715,7 @@
             
             // Update Buttons
             document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
-            // Simple active state logic for demo purposes
-            event.target.classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
         // --- SIMULATOR ---
@@ -599,8 +745,13 @@
 
             let correct = false;
 
+            // Validation Logic
             if (currentSim === 'ceo' && (val === 'authority' || val === 'urgency')) correct = true;
-            if (currentSim === 'it' && (val === 'urgency' || val === 'authority')) correct = true; // IT also uses authority technically
+            if (currentSim === 'it' && (val === 'urgency' || val === 'quidproquo')) correct = true;
+            if (currentSim === 'job' && (val === 'scarcity' || val === 'curiosity')) correct = true;
+            
+            // New Challenge Validation
+            if (currentSim === 'wsp' && (val === 'urgency' || val === 'rapport')) correct = true;
 
             if (correct) {
                 toast.className = "toast show";
