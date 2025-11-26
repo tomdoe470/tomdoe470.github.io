@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pretexting Defense Lab | Elite Edition</title>
+    <title>Pretexting Defense Lab | Elite + Advanced</title>
     <style>
         /* --- FUENTES: Inter para UI limpia, JetBrains Mono para toque Cyber --- */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
-
         :root {
             /* Paleta Base Cyber-Dark */
             --bg-deep: #020617;
@@ -15,13 +14,13 @@
             --bg-element: #1e293b;
             
             /* Colores de Estado/Acción */
-            --primary: #3b82f6;       /* Azul Eléctrico */
+            --primary: #3b82f6; /* Azul Eléctrico */
             --primary-glow: rgba(59, 130, 246, 0.5);
             --accent-green: #10b981;  /* Verde Terminal */
-            --accent-red: #f43f5e;    /* Rojo Alerta */
-            --accent-gold: #f59e0b;   /* Escasez/Codicia */
+            --accent-red: #f43f5e; /* Rojo Alerta */
+            --accent-gold: #f59e0b; /* Escasez/Codicia */
             --accent-purple: #a855f7; /* Curiosidad */
-            --accent-teal: #14b8a6;   /* Quid Pro Quo */
+            --accent-teal: #14b8a6; /* Quid Pro Quo */
 
             /* Texto */
             --text-main: #f1f5f9;
@@ -69,7 +68,7 @@
             letter-spacing: -0.5px;
             display: flex; 
             align-items: center; 
-            gap: 12px; 
+            gap: 12px;
         }
         
         .nav-links button {
@@ -85,7 +84,7 @@
             letter-spacing: 1px;
         }
         .nav-links button:hover, .nav-links button.active { 
-            color: var(--primary); 
+            color: var(--primary);
             text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
         }
         
@@ -124,7 +123,7 @@
 
         .hero-title { font-size: 4.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 20px; text-transform: uppercase;}
         .hero-title span { 
-            background: linear-gradient(to right, #3b82f6, #8b5cf6); 
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
         }
@@ -195,12 +194,7 @@
         .flip-card h3 { font-family: var(--font-code); font-size: 1.4rem; margin-bottom: 10px; letter-spacing: -0.5px; }
         .reveal-hint { margin-top: auto; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; }
 
-        .flip-card-back {
-            background: var(--bg-element);
-            transform: rotateY(180deg);
-            align-items: flex-start; text-align: left;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        .flip-card-back { background: var(--bg-element); transform: rotateY(180deg); align-items: flex-start; text-align: left; border: 1px solid rgba(255,255,255,0.1); }
         .flip-card-back h4 { color: var(--primary); font-family: var(--font-code); margin-bottom: 15px; text-transform: uppercase; font-size: 0.9rem; }
         .example-box {
             background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; 
@@ -218,16 +212,23 @@
             background: var(--bg-panel);
             border-right: var(--border);
             padding: 30px;
-            display: flex; flex-direction: column; gap: 25px;
+            display: flex; flex-direction: column; gap: 20px;
             box-shadow: 5px 0 20px rgba(0,0,0,0.2);
             z-index: 10;
         }
 
+        /* --- MERGED TABS FROM CODE 2 --- */
+        .sim-tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; }
+        .sim-tab { flex: 1; padding: 10px; text-align: center; font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; }
+        .sim-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 700; }
+
+        .sc-list { display: none; flex-direction: column; gap: 10px; }
+        .sc-list.visible { display: flex; }
+
         .panel-title { font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
 
         .scenario-item {
-            padding: 15px;
-            border-radius: 8px;
+            padding: 15px; border-radius: 8px;
             background: rgba(255,255,255,0.03);
             border: 1px solid transparent;
             cursor: pointer;
@@ -245,57 +246,62 @@
         .badge-easy { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
         .badge-med { background: rgba(59, 130, 246, 0.2); color: var(--primary); }
         .badge-hard { background: rgba(244, 63, 94, 0.2); color: var(--accent-red); }
+        .badge-adv { background: rgba(245, 158, 11, 0.2); color: var(--accent-gold); border: 1px solid var(--accent-gold); }
 
-        .analysis-box {
-            margin-top: auto;
-            padding: 20px;
-            background: #020617;
-            border-radius: 12px;
-            border: var(--border);
-        }
+        .control-panel { display: none; margin-top: auto; padding: 20px; background: #020617; border-radius: 12px; border: var(--border); }
+        .control-panel.visible { display: block; }
         
         select {
-            width: 100%;
-            background: var(--bg-element);
-            color: white;
-            padding: 12px;
-            border: var(--border);
-            border-radius: 6px;
-            margin: 15px 0;
-            font-family: var(--font-ui);
+            width: 100%; background: var(--bg-element);
+            color: white; padding: 12px;
+            border: var(--border); border-radius: 6px;
+            margin: 15px 0; font-family: var(--font-ui);
         }
+
+        /* VERDICT BUTTONS (Advanced Mode) */
+        .verdict-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .btn-verdict { padding: 15px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; font-family: var(--font-code); color: #020617; transition: 0.2s; }
+        .btn-legit { background: var(--accent-green); }
+        .btn-mal { background: var(--accent-red); }
+        .btn-legit:hover, .btn-mal:hover { filter: brightness(1.1); transform: scale(1.02); }
 
         /* Right Viewport */
         .sim-viewport {
-            flex: 1;
-            background: #000;
+            flex: 1; background: #000;
             background-image: radial-gradient(#1e293b 1px, transparent 1px);
             background-size: 20px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            padding: 40px; position: relative;
         }
 
-        /* Mockup Windows */
+        /* Mockup Windows (Code 1 Style) */
         .os-window {
             width: 100%; max-width: 700px;
             background: var(--bg-element);
             border-radius: 10px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
             border: 1px solid rgba(255,255,255,0.1);
-            overflow: hidden;
-            display: none;
+            overflow: hidden; display: none;
             animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .os-window.active { display: block; }
 
+        /* PHONE MOCKUP (Merged from Code 2) */
+        .phone-mockup { width: 320px; height: 650px; background: #000; border-radius: 40px; border: 8px solid #333; position: relative; overflow: hidden; display: none; box-shadow: 0 0 50px rgba(0,0,0,0.8); animation: slideUp 0.5s ease-out; }
+        .phone-mockup.active { display: block; }
+        .phone-screen { width: 100%; height: 100%; background: #111; position: relative; }
+        .phone-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); }
+        
+        .sms-popup { position: absolute; top: 40px; left: 10px; right: 10px; background: rgba(255,255,255,0.95); border-radius: 12px; padding: 15px; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: slideDown 0.5s 1s forwards; opacity: 0; transform: translateY(-20px); z-index: 20;}
+        .call-ui { position: absolute; top: 120px; width: 100%; text-align: center; color: white; z-index: 10; }
+        .caller-avatar { width: 80px; height: 80px; background: #94a3b8; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+
         @keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideDown { to { opacity: 1; transform: translateY(0); } }
 
         .window-bar {
-            background: #0f172a;
-            padding: 12px 15px;
+            background: #0f172a; padding: 12px 15px;
             display: flex; align-items: center; gap: 8px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
@@ -310,22 +316,17 @@
             display: flex; justify-content: center; align-items: center; gap: 6px;
         }
 
-        /* Email Content */
+        /* Content Styles (Email, Chat, etc) */
         .email-body { padding: 40px; background: #ffffff; color: #1e293b; }
         .email-meta { border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 20px; }
-        .sender-tag { 
-            background: #fee2e2; color: #991b1b; 
-            padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-code);
-        }
+        .sender-tag { background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-code); }
 
-        /* Chat Content */
         .chat-body { padding: 30px; background: #0f172a; display: flex; flex-direction: column; gap: 20px; }
         .chat-row { display: flex; gap: 15px; }
         .avatar { width: 40px; height: 40px; border-radius: 8px; background: #6366f1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         .bubble { background: #1e293b; padding: 15px; border-radius: 0 12px 12px 12px; color: #e2e8f0; font-size: 0.95rem; line-height: 1.5; border: 1px solid rgba(255,255,255,0.05); }
         .msg-name { color: #818cf8; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; display: block; }
 
-        /* WhatsApp Style */
         .wsp-header { background: #202c33; color: #e9edef; padding: 10px 15px; display: flex; align-items: center; gap: 15px; }
         .wsp-avatar { width: 40px; height: 40px; border-radius: 50%; background: #00a884; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         .wsp-body { background: #0b141a; padding: 20px; display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-size: 300px; }
@@ -352,7 +353,6 @@
         }
         .modal-body { padding: 30px; }
 
-        /* Defensive Phase */
         .defense-options { display: flex; flex-direction: column; gap: 15px; }
         .def-btn {
             padding: 20px; text-align: left; background: var(--bg-deep);
@@ -363,15 +363,10 @@
         .def-btn:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.05); }
         .def-icon { font-size: 1.5rem; }
 
-        /* Analysis Phase */
         .coach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .coach-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 8px; }
         .coach-label { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; font-weight: 700;}
-        .highlight-red { color: var(--accent-red); font-weight: 600; }
-        .highlight-green { color: var(--accent-green); font-weight: 600; }
-        .quote { font-style: italic; border-left: 2px solid var(--primary); padding-left: 10px; color: #e2e8f0; margin: 5px 0; }
-
-        /* Toast */
+        
         .toast {
             position: fixed; top: 30px; right: 30px;
             background: var(--bg-element); border-left: 4px solid var(--accent-green);
@@ -400,7 +395,7 @@
     <div id="home-view" class="view active">
         <canvas id="matrix"></canvas>
         <div style="position: relative; z-index: 2;">
-            <div class="hero-badge">v3.0 // COACHING MODULE ACTIVE</div>
+            <div class="hero-badge">v3.5 // OPS MODULE ACTIVE</div>
             <h1 class="hero-title">DECONSTRUCT THE ART OF<br><span>DECEPTION</span></h1>
             <p class="hero-desc">Interactive training environment designed to deconstruct social engineering attacks. Analyze payloads, identify pretexts, and harden your human firewall.</p>
             <div class="cta-group">
@@ -428,9 +423,7 @@
                     <div class="flip-card-back">
                         <h4 style="color: #60a5fa">Vector Analysis</h4>
                         <p style="font-size: 0.9rem; line-height: 1.6;">Targets are conditioned to comply with superiors to avoid insubordination.</p>
-                        <div class="example-box" style="border-color: #60a5fa">
-                            > "This is the CEO. Wire funds for acquisition Project X immediately."
-                        </div>
+                        <div class="example-box" style="border-color: #60a5fa">> "This is the CEO. Wire funds for acquisition Project X immediately."</div>
                     </div>
                 </div>
             </div>
@@ -445,9 +438,7 @@
                     <div class="flip-card-back">
                         <h4 style="color: var(--accent-red)">Vector Analysis</h4>
                         <p style="font-size: 0.9rem; line-height: 1.6;">Fear induces cognitive tunneling. When victims believe time is running out, critical thinking is suspended.</p>
-                        <div class="example-box" style="border-color: var(--accent-red)">
-                            > "Account suspension in 5 min. Verify credentials NOW."
-                        </div>
+                        <div class="example-box" style="border-color: var(--accent-red)">> "Account suspension in 5 min. Verify credentials NOW."</div>
                     </div>
                 </div>
             </div>
@@ -462,9 +453,7 @@
                     <div class="flip-card-back">
                         <h4 style="color: var(--accent-green)">Vector Analysis</h4>
                         <p style="font-size: 0.9rem; line-height: 1.6;">Building familiarity lowers natural defenses. Attackers mine social media for shared interests.</p>
-                        <div class="example-box" style="border-color: var(--accent-green)">
-                            > "Loved your Bali pics! Btw, can you send that Q3 sheet?"
-                        </div>
+                        <div class="example-box" style="border-color: var(--accent-green)">> "Loved your Bali pics! Btw, can you send that Q3 sheet?"</div>
                     </div>
                 </div>
             </div>
@@ -479,9 +468,7 @@
                     <div class="flip-card-back">
                         <h4 style="color: var(--accent-purple)">Vector Analysis</h4>
                         <p style="font-size: 0.9rem; line-height: 1.6;">Humans have an innate desire to know the unknown. Vague filenames trigger clicks.</p>
-                        <div class="example-box" style="border-color: var(--accent-purple)">
-                            > "Fwd: Layoff_Plan_Q4_FINAL.docx - Do not share"
-                        </div>
+                        <div class="example-box" style="border-color: var(--accent-purple)">> "Fwd: Layoff_Plan_Q4_FINAL.docx - Do not share"</div>
                     </div>
                 </div>
             </div>
@@ -496,9 +483,7 @@
                     <div class="flip-card-back">
                         <h4 style="color: var(--accent-gold)">Vector Analysis</h4>
                         <p style="font-size: 0.9rem; line-height: 1.6;">FOMO drives impulsive action. Offers that seem "too good to be true" usually are.</p>
-                        <div class="example-box" style="border-color: var(--accent-gold)">
-                            > "Only 2 spots left for the Executive Bonus Program."
-                        </div>
+                        <div class="example-box" style="border-color: var(--accent-gold)">> "Only 2 spots left for the Executive Bonus Program."</div>
                     </div>
                 </div>
             </div>
@@ -513,9 +498,7 @@
                     <div class="flip-card-back">
                         <h4 style="color: var(--accent-teal)">Vector Analysis</h4>
                         <p style="font-size: 0.9rem; line-height: 1.6;">"Something for something". Attackers offer help (often technical) to get credentials.</p>
-                        <div class="example-box" style="border-color: var(--accent-teal)">
-                            > "I can fix that slow network speed, just need your pass."
-                        </div>
+                        <div class="example-box" style="border-color: var(--accent-teal)">> "I can fix that slow network speed, just need your pass."</div>
                     </div>
                 </div>
             </div>
@@ -524,42 +507,43 @@
 
     <div id="simulator-view" class="view">
         <aside class="sim-sidebar">
-            <div>
-                <div class="panel-title">INCOMING THREATS</div>
-                <div class="scenario-item active" onclick="loadSim('ceo')" id="btn-ceo">
-                    <div class="sc-header">
-                        <span>The 'Urgent' CEO</span>
-                        <span class="badge badge-med">MEDIUM</span>
-                    </div>
+            
+            <div class="sim-tabs">
+                <div class="sim-tab active" onclick="switchTab('basic')">BASIC TRAINING</div>
+                <div class="sim-tab" onclick="switchTab('advanced')">ADVANCED OPS</div>
+            </div>
+
+            <div id="list-basic" class="sc-list visible">
+                <div class="scenario-item active" onclick="loadSim('ceo', 'basic')" id="btn-ceo">
+                    <div class="sc-header"><span>The 'Urgent' CEO</span><span class="badge badge-med">MEDIUM</span></div>
                     <div style="font-size: 0.8rem; color: var(--text-muted)">Email payload from high-value target...</div>
                 </div>
-                <div style="height: 10px;"></div>
-                <div class="scenario-item" onclick="loadSim('it')" id="btn-it">
-                    <div class="sc-header">
-                        <span>IT Support Reset</span>
-                        <span class="badge badge-easy">EASY</span>
-                    </div>
+                <div class="scenario-item" onclick="loadSim('it', 'basic')" id="btn-it">
+                    <div class="sc-header"><span>IT Support Reset</span><span class="badge badge-easy">EASY</span></div>
                     <div style="font-size: 0.8rem; color: var(--text-muted)">Direct message requesting auth tokens...</div>
                 </div>
-                <div style="height: 10px;"></div>
-                <div class="scenario-item" onclick="loadSim('job')" id="btn-job">
-                    <div class="sc-header">
-                        <span>Dream Job Recruiter</span>
-                        <span class="badge badge-hard">HARD</span>
-                    </div>
+                <div class="scenario-item" onclick="loadSim('job', 'basic')" id="btn-job">
+                    <div class="sc-header"><span>Dream Job Recruiter</span><span class="badge badge-hard">HARD</span></div>
                     <div style="font-size: 0.8rem; color: var(--text-muted)">LinkedIn lure with malicious attachment...</div>
                 </div>
-                <div style="height: 10px;"></div>
-                <div class="scenario-item" onclick="loadSim('wsp')" id="btn-wsp">
-                    <div class="sc-header">
-                        <span>Vendor Pay Update</span>
-                        <span class="badge badge-med">MEDIUM</span>
-                    </div>
+                <div class="scenario-item" onclick="loadSim('wsp', 'basic')" id="btn-wsp">
+                    <div class="sc-header"><span>Vendor Pay Update</span><span class="badge badge-med">MEDIUM</span></div>
                     <div style="font-size: 0.8rem; color: var(--text-muted)">WhatsApp msg from known supplier...</div>
                 </div>
             </div>
 
-            <div class="analysis-box">
+            <div id="list-advanced" class="sc-list">
+                <div class="scenario-item" onclick="loadSim('gov_ato', 'advanced')" id="btn-gov_ato">
+                    <div class="sc-header"><span>Operation: Civic Duty</span><span class="badge badge-adv">ADVANCED</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Multi-channel attack (Voice + SMS)...</div>
+                </div>
+                <div class="scenario-item" onclick="loadSim('mfa_fatigue', 'advanced')" id="btn-mfa_fatigue">
+                    <div class="sc-header"><span>Midnight Storm</span><span class="badge badge-adv">ADVANCED</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">High volume notification request...</div>
+                </div>
+            </div>
+
+            <div class="control-panel visible" id="panel-analysis">
                 <div class="panel-title" style="color: var(--primary)">ANALYST CONSOLE</div>
                 <p style="font-size: 0.85rem;">Identify the primary psychological lever:</p>
                 <select id="analysis-select">
@@ -573,9 +557,19 @@
                 </select>
                 <button class="btn-hero btn-primary" style="width: 100%; margin-top: 10px;" onclick="submitAnalysis()">SUBMIT REPORT</button>
             </div>
+
+            <div class="control-panel" id="panel-verdict">
+                <div style="color: var(--accent-gold); font-family: var(--font-code); font-size: 0.8rem;">DECISION REQUIRED</div>
+                <p style="font-size: 0.9rem; margin: 5px 0;">Is this communication legitimate?</p>
+                <div class="verdict-btns">
+                    <button class="btn-verdict btn-legit" onclick="submitAdvanced(true)">✅ LEGITIMATE</button>
+                    <button class="btn-verdict btn-mal" onclick="submitAdvanced(false)">❌ MALICIOUS</button>
+                </div>
+            </div>
         </aside>
 
         <main class="sim-viewport">
+            
             <div id="sim-ceo" class="os-window active">
                 <div class="window-bar">
                     <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
@@ -640,6 +634,45 @@
                     <div class="wsp-msg wsp-in">Can you reroute the payment to our subsidiary's account in Singapore? I'll send the new IBAN now. Needs to go out today or shipping gets delayed 2 weeks. 😬<div class="wsp-time">10:20 AM</div></div>
                 </div>
             </div>
+
+            <div id="sim-gov_ato" class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="phone-overlay"></div>
+                    <div class="sms-popup">
+                        <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#666; margin-bottom:5px;"><span>MESSAGES</span> <span>now</span></div>
+                        <div style="font-size:0.9rem;"><strong>WhatsApp:</strong> Your verification code is 449-120. Do not share this with anyone.</div>
+                    </div>
+                    <div class="call-ui">
+                        <div class="caller-avatar">🏛️</div>
+                        <div style="font-size:1.5rem; font-weight:600;">Ministerio de Salud</div>
+                        <div style="opacity:0.8;">Mobile +54 9 11...</div>
+                        <p style="margin-top: 30px; font-size: 0.9rem; padding: 0 30px; font-style: italic;">"Hola, le llamamos por su turno de vacunación. Le enviamos un código SMS para confirmar identidad..."</p>
+                        <div style="display: flex; gap: 40px; justify-content: center; margin-top: 60px;">
+                            <div style="width: 60px; height: 60px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📞</div>
+                            <div style="width: 60px; height: 60px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📞</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sim-mfa_fatigue" class="phone-mockup">
+                <div class="phone-screen" style="background-color: #111; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🔒</div>
+                    <h2 style="margin-bottom: 20px; color:white;">Authenticator</h2>
+                    <div style="background: #333; padding: 20px; border-radius: 12px; width:80%; margin-bottom: 10px; animation: shake 0.5s; color:white;">
+                        <h3>Approve sign-in?</h3>
+                        <p style="color: #aaa; font-size: 0.8rem; margin:5px 0 15px 0;">Azure AD • California, US</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button style="flex:1; padding: 10px; background: #444; border:none; color: white; border-radius: 4px;">Deny</button>
+                            <button style="flex:1; padding: 10px; background: var(--primary); border:none; color: white; border-radius: 4px;">Approve</button>
+                        </div>
+                    </div>
+                    <div style="background: #333; padding: 20px; border-radius: 12px; width:80%; opacity: 0.5; transform: scale(0.95); color:white;">
+                        <h3>Approve sign-in?</h3>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -720,6 +753,19 @@
             event.currentTarget.classList.add('active');
         }
 
+        // --- SIMULATOR TABS LOGIC (Added from Code 2) ---
+        function switchTab(mode) {
+            document.querySelectorAll('.sim-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('list-basic').className = mode === 'basic' ? 'sc-list visible' : 'sc-list';
+            document.getElementById('list-advanced').className = mode === 'advanced' ? 'sc-list visible' : 'sc-list';
+            
+            // Toggle panels
+            document.getElementById('panel-analysis').className = mode === 'basic' ? 'control-panel visible' : 'control-panel';
+            document.getElementById('panel-verdict').className = mode === 'advanced' ? 'control-panel visible' : 'control-panel';
+        }
+
         // --- DATA: EDUCATIONAL CONTENT ---
         const scenarioData = {
             'ceo': {
@@ -773,24 +819,59 @@
                     proto: "<strong>Dual-Control:</strong> Bank account changes require verification via a second channel and approval from a second internal person. Never trust IM for payments.",
                     why: "You separated the relationship from the transaction."
                 }
+            },
+            // --- ADVANCED SCENARIOS (Merged & Normalized to Code 1 Format) ---
+            'gov_ato': {
+                isMalicious: true, // Specific for Advanced Logic
+                defensiveOptions: [
+                    { text: "Read the code to the caller.", correct: false },
+                    { text: "Hang up immediately.", correct: true },
+                    { text: "Ask for their badge number.", correct: false }
+                ],
+                analysis: {
+                    tech: "<strong>Authority (Gov) & Urgency:</strong> The 'Vaccine/Health' call is a pretext. The code sent is for <strong>WhatsApp Registration</strong> (ATO - Account Takeover).",
+                    ling: "<strong>Context Switching:</strong> Mixing a verbal 'Health' context with a digital 'WhatsApp' notification code to confuse the victim.",
+                    proto: "<strong>Never Share OTPs:</strong> No legitimate organization asks for a code sent to your phone. It grants account takeover instantly.",
+                    why: "You identified the disparity between the caller's claim and the SMS content."
+                }
+            },
+            'mfa_fatigue': {
+                isMalicious: true, // Specific for Advanced Logic
+                defensiveOptions: [
+                    { text: "Approve to stop the noise.", correct: false },
+                    { text: "Report Account Compromise immediately.", correct: true },
+                    { text: "Turn off the phone.", correct: false }
+                ],
+                analysis: {
+                    tech: "<strong>MFA Fatigue / Exhaustion:</strong> Flooding the victim with prompts hoping they click 'Approve' out of frustration or habit.",
+                    ling: "N/A (System Notification). The psychological trigger is <strong>Annoyance</strong> and <strong>Normalization</strong>.",
+                    proto: "<strong>Deny & Report:</strong> If you didn't trigger the login, someone has your password. Change it immediately.",
+                    why: "You withstood the pressure to silence the device and reported the breach."
+                }
             }
         };
 
         // --- SIMULATOR LOGIC ---
         let currentSim = 'ceo';
 
-        function loadSim(simId) {
+        function loadSim(simId, mode) {
             currentSim = simId;
             document.querySelectorAll('.scenario-item').forEach(el => el.classList.remove('active'));
             document.getElementById('btn-' + simId).classList.add('active');
-            document.querySelectorAll('.os-window').forEach(el => el.classList.remove('active'));
+            
+            // Hide all windows (both Code 1 OS windows and Code 2 Phones)
+            document.querySelectorAll('.os-window, .phone-mockup').forEach(el => el.classList.remove('active'));
+            
+            // Show target
             document.getElementById('sim-' + simId).classList.add('active');
+            
+            // Reset selectors
             document.getElementById('analysis-select').value = "";
         }
 
+        // BASIC MODE SUBMISSION (Code 1 Logic)
         function submitAnalysis() {
             const val = document.getElementById('analysis-select').value;
-            const toast = document.getElementById('toast');
             
             let correct = false;
             if (currentSim === 'ceo' && (val === 'authority' || val === 'urgency')) correct = true;
@@ -799,12 +880,23 @@
             if (currentSim === 'wsp' && (val === 'urgency' || val === 'rapport')) correct = true;
 
             if (correct) {
-                // Success -> Launch Defense Phase
                 showToast("Analysis Verified. Initiating Countermeasures...", "success");
                 setTimeout(() => openDefenseModal(), 1500);
             } else {
-                // Fail
                 showToast("Analysis Failed. Review the indicators.", "error");
+            }
+        }
+
+        // ADVANCED MODE SUBMISSION (Code 2 Logic adapted to Code 1 UI)
+        function submitAdvanced(userSaysLegit) {
+            const data = scenarioData[currentSim];
+            const userSaysMalicious = !userSaysLegit;
+            
+            if (data.isMalicious === userSaysMalicious) {
+                showToast("Threat Verified. Initiating Countermeasures...", "success");
+                setTimeout(() => openDefenseModal(), 1500);
+            } else {
+                showToast("Wrong Verdict. System Compromised.", "error");
             }
         }
 
@@ -822,7 +914,7 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // --- MODAL LOGIC ---
+        // --- MODAL LOGIC (Shared) ---
         function openDefenseModal() {
             const data = scenarioData[currentSim];
             const container = document.getElementById('defense-options-container');
