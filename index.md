@@ -28,4 +28,5 @@ Es una respuesta simbólica y ética ante la soberbia tecnológica, una voz que 
 
 🧠 [Sobre mí](about.md)  
 📓 [Blog](blog.md)
+🛡️ [Pretexting Defense Lab](/tools/pretexting-lab/)
 
