@@ -377,7 +377,41 @@
         .toast.show { transform: translateX(0); }
         .toast.error { border-left-color: var(--accent-red); }
 
+        /* --- ESTILOS DEL TOUR (Driver.js Custom) --- */
+        .driver-popover.driverjs-theme {
+            background-color: var(--bg-element);
+            color: var(--text-main);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            font-family: var(--font-ui);
+        }
+        .driver-popover.driverjs-theme .driver-popover-title {
+            font-family: var(--font-code);
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .driver-popover.driverjs-theme .driver-popover-description {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .driver-popover.driverjs-theme button {
+            background-color: var(--bg-panel);
+            color: var(--text-main);
+            border: 1px solid var(--text-muted);
+            text-shadow: none;
+            font-family: var(--font-code);
+            border-radius: 4px;
+        }
+        .driver-popover.driverjs-theme button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
+    
 </head>
 <body>
 
@@ -744,6 +778,77 @@
             }
         }
         setInterval(draw, 33);
+
+        // --- TOUR EXPLICATIVO (Nueva Función) ---
+        function startOnboarding() {
+            const driver = window.driver.js.driver;
+            
+            const driverObj = driver({
+                showProgress: true,
+                popoverClass: 'driverjs-theme', // Aplica nuestro estilo cyber
+                steps: [
+                    { 
+                        element: '.sim-sidebar', 
+                        popover: { 
+                            title: '1. Panel de Misiones', 
+                            description: 'Aquí seleccionas los casos. Empieza con los de nivel Básico y avanza hacia los ataques complejos.' 
+                        } 
+                    },
+                    { 
+                        element: '.sim-viewport', 
+                        popover: { 
+                            title: '2. Entorno de Análisis', 
+                            description: 'Aquí verás el correo, chat o SMS simulado. Lee atentamente buscando señales de peligro (remitentes extraños, urgencia, errores).' 
+                        } 
+                    },
+                    { 
+                        element: '#panel-analysis', 
+                        popover: { 
+                            title: '3. Tu Herramienta', 
+                            description: 'Una vez detectes el engaño, usa este menú para clasificar qué técnica psicológica están usando contra ti.' 
+                        } 
+                    },
+                    { 
+                        element: 'button[onclick="submitAnalysis()"]', 
+                        popover: { 
+                            title: '4. Ejecutar Defensa', 
+                            description: 'Envía tu reporte. Si aciertas, activarás los protocolos de contramedida.' 
+                        } 
+                    }
+                ]
+            });
+        
+            driverObj.drive();
+        }
+        
+        // --- MODIFICACIÓN DE NAVEGACIÓN ---
+        // Busca tu función navTo existente y reemplázala por esta versión mejorada:
+        function navTo(viewId) {
+            // Lógica original de cambio de vista
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId + '-view').classList.add('active');
+            document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+            
+            // Buscar el botón correspondiente para marcarlo activo
+            const btnMap = { 'home': 0, 'methodologies': 1, 'simulator': 2 };
+            const navButtons = document.querySelectorAll('.nav-links button');
+            if(navButtons[btnMap[viewId]]) navButtons[btnMap[viewId]].classList.add('active');
+        
+            // --- LÓGICA NUEVA: DETECTOR DE PRIMERA VEZ ---
+            if (viewId === 'simulator') {
+                // Verificamos si ya vio el tutorial usando LocalStorage
+                const hasSeenTutorial = localStorage.getItem('pretext_lab_tutorial_v1');
+                
+                if (!hasSeenTutorial) {
+                    // Esperamos 500ms a que la animación de entrada termine para lanzar el tour
+                    setTimeout(() => {
+                        startOnboarding();
+                        // Marcamos como visto para que no salga la próxima vez
+                        localStorage.setItem('pretext_lab_tutorial_v1', 'true');
+                    }, 800);
+                }
+            }
+        }
 
         // --- NAVIGATION ---
         function navTo(viewId) {
