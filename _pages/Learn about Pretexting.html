@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pretexting Defense Lab | Elite Edition</title>
+    <style>
+        /* --- FUENTES: Inter para UI limpia, JetBrains Mono para toque Cyber --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            /* Paleta Base Cyber-Dark */
+            --bg-deep: #020617;
+            --bg-panel: #0f172a;
+            --bg-element: #1e293b;
+            
+            /* Colores de Estado/Acción */
+            --primary: #3b82f6;       /* Azul Eléctrico */
+            --primary-glow: rgba(59, 130, 246, 0.5);
+            --accent-green: #10b981;  /* Verde Terminal */
+            --accent-red: #f43f5e;    /* Rojo Alerta */
+            --accent-gold: #f59e0b;   /* Advertencia */
+
+            /* Texto */
+            --text-main: #f1f5f9;
+            --text-muted: #64748b;
+            --font-ui: 'Inter', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+
+            /* Bordes y Efectos */
+            --border: 1px solid rgba(148, 163, 184, 0.1);
+            --border-hover: 1px solid rgba(148, 163, 184, 0.3);
+            --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --shadow-neon: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+
+        body {
+            font-family: var(--font-ui);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            /* Fondo sutil de cuadrícula cyber */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border);
+            z-index: 100;
+        }
+
+        .logo { 
+            font-family: var(--font-code);
+            font-weight: 700; 
+            font-size: 1.1rem; 
+            letter-spacing: -0.5px;
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+        
+        .nav-links button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            margin-left: 25px;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav-links button:hover, .nav-links button.active { 
+            color: var(--primary); 
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-launch {
+            background: linear-gradient(135deg, var(--accent-green), #059669);
+            color: #022c22 !important;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 700 !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+        .btn-launch:hover { box-shadow: 0 0 25px rgba(16, 185, 129, 0.4); transform: translateY(-1px); }
+
+        /* --- VIEWS SYSTEM --- */
+        .view { display: none; height: 100%; overflow-y: auto; position: relative; }
+        .view.active { display: flex; animation: fadeIn 0.4s ease-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- HOME VIEW (Matrix Redesigned) --- */
+        #home-view { flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        
+        canvas { position: absolute; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+
+        .hero-badge {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            background: rgba(16, 185, 129, 0.05);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+
+        .hero-title { font-size: 4.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 20px; }
+        .hero-title span { 
+            background: linear-gradient(to right, #3b82f6, #8b5cf6); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .hero-desc { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; line-height: 1.6; }
+
+        .cta-group { display: flex; gap: 20px; }
+        .btn-hero {
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-family: var(--font-code);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            background: var(--primary);
+            border: none;
+            color: white;
+            box-shadow: var(--shadow-neon);
+        }
+        .btn-primary:hover { background: #2563eb; box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-main);
+        }
+        .btn-secondary:hover { border-color: var(--text-main); background: rgba(255,255,255,0.05); }
+
+        /* --- METHODOLOGIES (Styled Flip Cards) --- */
+        #methodologies-view { flex-direction: column; padding: 60px; align-items: center; }
+        
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        
+        .cards-grid { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        
+        .flip-card { background-color: transparent; width: 340px; height: 420px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            border-radius: 16px; padding: 30px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Card Colors - Exact match to request */
+        .style-auth .flip-card-front { background: linear-gradient(145deg, #1e3a8a, #172554); } /* Blue */
+        .style-urge .flip-card-front { background: linear-gradient(145deg, #7f1d1d, #450a0a); } /* Red */
+        .style-trust .flip-card-front { background: linear-gradient(145deg, #064e3b, #022c22); } /* Green */
+
+        .card-icon-circle {
+            width: 80px; height: 80px; border-radius: 50%; 
+            background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .flip-card h3 { font-family: var(--font-code); font-size: 1.4rem; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .reveal-hint { margin-top: auto; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; }
+
+        .flip-card-back {
+            background: var(--bg-element);
+            transform: rotateY(180deg);
+            align-items: flex-start; text-align: left;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .flip-card-back h4 { color: var(--primary); font-family: var(--font-code); margin-bottom: 15px; text-transform: uppercase; font-size: 0.9rem; }
+        .example-box {
+            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; 
+            border-left: 3px solid var(--text-muted); margin-top: 20px;
+            font-family: var(--font-code); font-size: 0.8rem; color: #e2e8f0;
+        }
+
+        /* --- SIMULATOR (Dashboard UI) --- */
+        #simulator-view { padding: 0; height: calc(100vh - 70px); display: none; }
+        #simulator-view.active { display: flex; }
+
+        /* Left Control Panel */
+        .sim-sidebar {
+            width: 380px;
+            background: var(--bg-panel);
+            border-right: var(--border);
+            padding: 30px;
+            display: flex; flex-direction: column; gap: 25px;
+            box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .panel-title { font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+        .scenario-item {
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .scenario-item:hover { background: rgba(255,255,255,0.05); }
+        .scenario-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+        }
+
+        .sc-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: 600; }
+        .badge { font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-family: var(--font-code); }
+        .badge-easy { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+        .badge-med { background: rgba(59, 130, 246, 0.2); color: var(--primary); }
+        .badge-hard { background: rgba(244, 63, 94, 0.2); color: var(--accent-red); }
+
+        .analysis-box {
+            margin-top: auto;
+            padding: 20px;
+            background: #020617;
+            border-radius: 12px;
+            border: var(--border);
+        }
+        
+        select {
+            width: 100%;
+            background: var(--bg-element);
+            color: white;
+            padding: 12px;
+            border: var(--border);
+            border-radius: 6px;
+            margin: 15px 0;
+            font-family: var(--font-ui);
+        }
+
+        /* Right Viewport */
+        .sim-viewport {
+            flex: 1;
+            background: #000;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        /* Mockup Windows */
+        .os-window {
+            width: 100%; max-width: 700px;
+            background: var(--bg-element);
+            border-radius: 10px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            display: none;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .os-window.active { display: block; }
+
+        @keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .window-bar {
+            background: #0f172a;
+            padding: 12px 15px;
+            display: flex; align-items: center; gap: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .traffic-light { width: 10px; height: 10px; border-radius: 50%; }
+        .tl-red { background: #ef4444; } .tl-yellow { background: #f59e0b; } .tl-green { background: #22c55e; }
+        
+        .address-bar {
+            margin-left: 15px; flex: 1;
+            background: #1e293b; color: var(--text-muted);
+            font-size: 0.75rem; padding: 4px 10px; border-radius: 4px;
+            text-align: center; font-family: var(--font-code);
+            display: flex; justify-content: center; align-items: center; gap: 6px;
+        }
+
+        /* Email Content */
+        .email-body { padding: 40px; background: #ffffff; color: #1e293b; }
+        .email-meta { border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 20px; }
+        .sender-tag { 
+            background: #fee2e2; color: #991b1b; 
+            padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-code);
+        }
+
+        /* Chat Content */
+        .chat-body { padding: 30px; background: #0f172a; display: flex; flex-direction: column; gap: 20px; }
+        .chat-row { display: flex; gap: 15px; }
+        .avatar { width: 40px; height: 40px; border-radius: 8px; background: #6366f1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .bubble { background: #1e293b; padding: 15px; border-radius: 0 12px 12px 12px; color: #e2e8f0; font-size: 0.95rem; line-height: 1.5; border: 1px solid rgba(255,255,255,0.05); }
+        .msg-name { color: #818cf8; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; display: block; }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed; top: 30px; right: 30px;
+            background: var(--bg-element);
+            border-left: 4px solid var(--accent-green);
+            padding: 20px 30px;
+            border-radius: 4px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.error { border-left-color: var(--accent-red); }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <span style="color: var(--primary)">//</span> PRETEXT_LAB
+        </div>
+        <div class="nav-links">
+            <button onclick="navTo('home')" class="active">Home</button>
+            <button onclick="navTo('methodologies')">Intel</button>
+            <button onclick="navTo('simulator')" class="btn-launch">LAUNCH SIM</button>
+        </div>
+    </nav>
+
+    <div id="home-view" class="view active">
+        <canvas id="matrix"></canvas>
+        <div style="position: relative; z-index: 2;">
+            <div class="hero-badge">v2.0 // ACCESS GRANTED</div>
+            <h1 class="hero-title">MASTER THE ART OF<br><span>HUMAN HACKING</span></h1>
+            <p class="hero-desc">Interactive training environment designed to deconstruct social engineering attacks. Analyze payloads, identify pretexts, and harden your human firewall.</p>
+            <div class="cta-group">
+                <button class="btn-hero btn-secondary" onclick="navTo('methodologies')">VIEW VECTORS</button>
+                <button class="btn-hero btn-primary" onclick="navTo('simulator')">START SIMULATION_</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="methodologies-view" class="view">
+        <div class="section-header">
+            <div style="font-family: var(--font-code); color: var(--primary); margin-bottom: 10px;">KNOWLEDGE BASE</div>
+            <h2>Core Pretexting Vectors</h2>
+        </div>
+
+        <div class="cards-grid">
+            <div class="flip-card style-auth" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon-circle">👮‍♂️</div>
+                        <h3>Authority</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Impersonating executives, legal entities, or sysadmins.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Targets are conditioned to comply with superiors to avoid insubordination. Attackers exploit hierarchy to bypass verification.</p>
+                        <div class="example-box">
+                            > "This is the CEO. Wire funds for acquisition Project X immediately."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card style-urge" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon-circle">🧨</div>
+                        <h3>Urgency</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Demanding immediate action to prevent disaster.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 style="color: var(--accent-red)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Fear induces cognitive tunneling. When victims believe time is running out, critical thinking is suspended.</p>
+                        <div class="example-box" style="border-color: var(--accent-red)">
+                            > "Account suspension in 5 min. Verify credentials NOW."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card style-trust" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon-circle">🤝</div>
+                        <h3>Trust & Rapport</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Leveraging OSINT to appear as a friend or colleague.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 style="color: var(--accent-green)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Attackers mine social media for common interests. Building familiarity lowers natural defenses.</p>
+                        <div class="example-box" style="border-color: var(--accent-green)">
+                            > "Loved your Bali pics! Btw, can you send that Q3 sheet?"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="simulator-view" class="view">
+        <aside class="sim-sidebar">
+            <div>
+                <div class="panel-title">INCOMING THREATS</div>
+                <div class="scenario-item active" onclick="loadSim('ceo')" id="btn-ceo">
+                    <div class="sc-header">
+                        <span>The 'Urgent' CEO</span>
+                        <span class="badge badge-med">MEDIUM</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Email payload from high-value target...</div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="scenario-item" onclick="loadSim('it')" id="btn-it">
+                    <div class="sc-header">
+                        <span>IT Support Reset</span>
+                        <span class="badge badge-easy">EASY</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Direct message requesting auth tokens...</div>
+                </div>
+            </div>
+
+            <div class="analysis-box">
+                <div class="panel-title" style="color: var(--primary)">ANALYST CONSOLE</div>
+                <p style="font-size: 0.85rem;">Identify the primary psychological lever:</p>
+                <select id="analysis-select">
+                    <option value="">-- Select Vector --</option>
+                    <option value="authority">Abuse of Authority</option>
+                    <option value="urgency">False Sense of Urgency</option>
+                    <option value="rapport">Fabricated Rapport</option>
+                </select>
+                <button class="btn-hero btn-primary" style="width: 100%; margin-top: 10px;" onclick="submitAnalysis()">SUBMIT REPORT</button>
+            </div>
+        </aside>
+
+        <main class="sim-viewport">
+            
+            <div id="sim-ceo" class="os-window active">
+                <div class="window-bar">
+                    <div class="traffic-light tl-red"></div>
+                    <div class="traffic-light tl-yellow"></div>
+                    <div class="traffic-light tl-green"></div>
+                    <div class="address-bar">🔒 mail.corp-internal.net</div>
+                </div>
+                <div class="email-body">
+                    <div class="email-meta">
+                        <h2 style="font-size: 1.4rem; margin-bottom: 10px;">URGENT: Wire Transfer Required</h2>
+                        <div style="font-size: 0.9rem;">
+                            <strong>From:</strong> <span class="sender-tag">e.musk@tesla-motors.com</span><br>
+                            <strong style="color: #64748b">To:</strong> You (Finance Dept)
+                        </div>
+                    </div>
+                    <div style="font-family: serif; font-size: 1.1rem; line-height: 1.6;">
+                        <p style="margin-bottom: 15px;">Hi,</p>
+                        <p style="margin-bottom: 15px;">I'm currently stuck in a meeting with partners in Tokyo and my company card is being declined. This is embarrassing and critical for the acquisition deal.</p>
+                        <p style="margin-bottom: 15px;">Process an immediate wire transfer of <strong>$14,500</strong> to the vendor account attached below. Do not discuss this with anyone yet as the deal is under NDA.</p>
+                        <p style="margin-bottom: 20px;">Process this NOW. I will sign paperwork when I land.</p>
+                        <p style="font-style: italic; color: #64748b;">Sent from my iPhone</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sim-it" class="os-window">
+                <div class="window-bar">
+                    <div class="traffic-light tl-red"></div>
+                    <div class="traffic-light tl-yellow"></div>
+                    <div class="traffic-light tl-green"></div>
+                    <div class="address-bar"># slack-internal</div>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-row">
+                        <div class="avatar">🦄</div>
+                        <div class="bubble">
+                            <span class="msg-name">SysAdmin_Helpdesk</span>
+                            Hi there. We've detected a critical syncing error with your Active Directory profile. It looks like your account is flagging 403 errors on the main server.
+                        </div>
+                    </div>
+                    <div class="chat-row">
+                        <div class="avatar">🦄</div>
+                        <div class="bubble">
+                            <span class="msg-name">SysAdmin_Helpdesk</span>
+                            We need to re-authenticate your session token manually to prevent a lockout. <span style="color: #f87171; font-weight: bold;">Please reply with your current temporary 2FA code</span> so I can resync the database.
+                        </div>
+                    </div>
+                    <div style="color: var(--primary); font-size: 0.8rem; font-family: var(--font-code);">SysAdmin_Helpdesk is typing...</div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="toast" class="toast">
+        <div style="font-size: 2rem;" id="toast-icon">✅</div>
+        <div>
+            <h3 style="margin-bottom: 5px;" id="toast-title">Success</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted);" id="toast-msg">Vector correctly identified.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- MATRIX EFFECT ---
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+
+        // --- NAVIGATION ---
+        function navTo(viewId) {
+            // Update Content
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId + '-view').classList.add('active');
+            
+            // Update Buttons
+            document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+            // Simple active state logic for demo purposes
+            event.target.classList.add('active');
+        }
+
+        // --- SIMULATOR ---
+        let currentSim = 'ceo';
+
+        function loadSim(simId) {
+            currentSim = simId;
+            
+            // Sidebar UI
+            document.querySelectorAll('.scenario-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('btn-' + simId).classList.add('active');
+
+            // Windows UI
+            document.querySelectorAll('.os-window').forEach(el => el.classList.remove('active'));
+            document.getElementById('sim-' + simId).classList.add('active');
+
+            // Reset select
+            document.getElementById('analysis-select').value = "";
+        }
+
+        function submitAnalysis() {
+            const val = document.getElementById('analysis-select').value;
+            const toast = document.getElementById('toast');
+            const title = document.getElementById('toast-title');
+            const msg = document.getElementById('toast-msg');
+            const icon = document.getElementById('toast-icon');
+
+            let correct = false;
+
+            if (currentSim === 'ceo' && (val === 'authority' || val === 'urgency')) correct = true;
+            if (currentSim === 'it' && (val === 'urgency' || val === 'authority')) correct = true; // IT also uses authority technically
+
+            if (correct) {
+                toast.className = "toast show";
+                title.innerText = "THREAT NEUTRALIZED";
+                title.style.color = "var(--accent-green)";
+                msg.innerText = "Analysis verified. Attack methodology confirmed.";
+                icon.innerText = "🛡️";
+            } else {
+                toast.className = "toast show error";
+                title.innerText = "SYSTEM COMPROMISED";
+                title.style.color = "var(--accent-red)";
+                msg.innerText = "Incorrect analysis. Review the methodology indicators.";
+                icon.innerText = "💀";
+            }
+
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
