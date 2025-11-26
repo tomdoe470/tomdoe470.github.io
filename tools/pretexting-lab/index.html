@@ -760,7 +760,7 @@
         </div>
     </div>
 
-    <script>
+<script>
         // --- MATRIX EFFECT ---
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
@@ -779,13 +779,13 @@
         }
         setInterval(draw, 33);
 
-        // --- TOUR EXPLICATIVO (Nueva Función) ---
+        // --- TOUR EXPLICATIVO (Lógica Nueva) ---
         function startOnboarding() {
             const driver = window.driver.js.driver;
             
             const driverObj = driver({
                 showProgress: true,
-                popoverClass: 'driverjs-theme', // Aplica nuestro estilo cyber
+                popoverClass: 'driverjs-theme',
                 steps: [
                     { 
                         element: '.sim-sidebar', 
@@ -798,67 +798,56 @@
                         element: '.sim-viewport', 
                         popover: { 
                             title: '2. Entorno de Análisis', 
-                            description: 'Aquí verás el correo, chat o SMS simulado. Lee atentamente buscando señales de peligro (remitentes extraños, urgencia, errores).' 
+                            description: 'Aquí verás el correo, chat o SMS simulado. Lee atentamente buscando señales de peligro.' 
                         } 
                     },
                     { 
                         element: '#panel-analysis', 
                         popover: { 
                             title: '3. Tu Herramienta', 
-                            description: 'Una vez detectes el engaño, usa este menú para clasificar qué técnica psicológica están usando contra ti.' 
+                            description: 'Una vez detectes el engaño, usa este menú para clasificar qué técnica psicológica están usando.' 
                         } 
                     },
                     { 
-                        element: 'button[onclick="submitAnalysis()"]', 
+                        element: '#panel-verdict', 
                         popover: { 
-                            title: '4. Ejecutar Defensa', 
-                            description: 'Envía tu reporte. Si aciertas, activarás los protocolos de contramedida.' 
+                            title: '4. Veredicto (Avanzado)', 
+                            description: 'En misiones avanzadas, tendrás que decidir si el mensaje es Legítimo o Malicioso.' 
                         } 
                     }
                 ]
             });
-        
+
             driverObj.drive();
         }
-        
-        // --- MODIFICACIÓN DE NAVEGACIÓN ---
-        // Busca tu función navTo existente y reemplázala por esta versión mejorada:
+
+        // --- NAVIGATION (Modificada para activar el Tour) ---
         function navTo(viewId) {
-            // Lógica original de cambio de vista
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId + '-view').classList.add('active');
             document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
             
-            // Buscar el botón correspondiente para marcarlo activo
+            // Activar botón del menú
             const btnMap = { 'home': 0, 'methodologies': 1, 'simulator': 2 };
             const navButtons = document.querySelectorAll('.nav-links button');
             if(navButtons[btnMap[viewId]]) navButtons[btnMap[viewId]].classList.add('active');
-        
-            // --- LÓGICA NUEVA: DETECTOR DE PRIMERA VEZ ---
+
+            // --- DETECTOR DE PRIMERA VEZ ---
             if (viewId === 'simulator') {
-                // Verificamos si ya vio el tutorial usando LocalStorage
-                const hasSeenTutorial = localStorage.getItem('pretext_lab_tutorial_v1');
+                // Comprobamos si ya vio el tutorial
+                const hasSeen = localStorage.getItem('pretext_tour_seen_v2'); 
                 
-                if (!hasSeenTutorial) {
-                    // Esperamos 500ms a que la animación de entrada termine para lanzar el tour
+                if (!hasSeen) {
+                    // Esperamos 800ms a que la animación de la ventana termine
                     setTimeout(() => {
                         startOnboarding();
-                        // Marcamos como visto para que no salga la próxima vez
-                        localStorage.setItem('pretext_lab_tutorial_v1', 'true');
+                        localStorage.setItem('pretext_tour_seen_v2', 'true');
                     }, 800);
                 }
             }
         }
 
-        // --- NAVIGATION ---
-        function navTo(viewId) {
-            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-            document.getElementById(viewId + '-view').classList.add('active');
-            document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-        }
-
-        // --- SIMULATOR TABS LOGIC (Added from Code 2) ---
+        // --- SIMULATOR TABS LOGIC ---
         function switchTab(mode) {
             document.querySelectorAll('.sim-tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
@@ -925,9 +914,8 @@
                     why: "You separated the relationship from the transaction."
                 }
             },
-            // --- ADVANCED SCENARIOS (Merged & Normalized to Code 1 Format) ---
             'gov_ato': {
-                isMalicious: true, // Specific for Advanced Logic
+                isMalicious: true,
                 defensiveOptions: [
                     { text: "Read the code to the caller.", correct: false },
                     { text: "Hang up immediately.", correct: true },
@@ -941,7 +929,7 @@
                 }
             },
             'mfa_fatigue': {
-                isMalicious: true, // Specific for Advanced Logic
+                isMalicious: true,
                 defensiveOptions: [
                     { text: "Approve to stop the noise.", correct: false },
                     { text: "Report Account Compromise immediately.", correct: true },
@@ -964,20 +952,14 @@
             document.querySelectorAll('.scenario-item').forEach(el => el.classList.remove('active'));
             document.getElementById('btn-' + simId).classList.add('active');
             
-            // Hide all windows (both Code 1 OS windows and Code 2 Phones)
             document.querySelectorAll('.os-window, .phone-mockup').forEach(el => el.classList.remove('active'));
-            
-            // Show target
             document.getElementById('sim-' + simId).classList.add('active');
             
-            // Reset selectors
             document.getElementById('analysis-select').value = "";
         }
 
-        // BASIC MODE SUBMISSION (Code 1 Logic)
         function submitAnalysis() {
             const val = document.getElementById('analysis-select').value;
-            
             let correct = false;
             if (currentSim === 'ceo' && (val === 'authority' || val === 'urgency')) correct = true;
             if (currentSim === 'it' && (val === 'urgency' || val === 'quidproquo')) correct = true;
@@ -992,7 +974,6 @@
             }
         }
 
-        // ADVANCED MODE SUBMISSION (Code 2 Logic adapted to Code 1 UI)
         function submitAdvanced(userSaysLegit) {
             const data = scenarioData[currentSim];
             const userSaysMalicious = !userSaysLegit;
@@ -1019,7 +1000,6 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // --- MODAL LOGIC (Shared) ---
         function openDefenseModal() {
             const data = scenarioData[currentSim];
             const container = document.getElementById('defense-options-container');
@@ -1041,11 +1021,9 @@
         function checkDefenseChoice(index) {
             const data = scenarioData[currentSim];
             if (data.defensiveOptions[index].correct) {
-                // Correct Defense -> Show Coach
                 document.getElementById('modal-defense').style.display = 'none';
                 document.getElementById('modal-analysis').style.display = 'block';
                 
-                // Populate Coach
                 document.getElementById('coach-tech').innerHTML = data.analysis.tech;
                 document.getElementById('coach-ling').innerHTML = data.analysis.ling;
                 document.getElementById('coach-proto').innerHTML = data.analysis.proto;
