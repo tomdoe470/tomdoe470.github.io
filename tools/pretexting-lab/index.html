@@ -259,6 +259,7 @@
         .profile-stats {
             width: 100%;
             display: flex; flex-direction: column; gap: 15px;
+            margin-top: 20px; /* Separacion de la seccion superior */
         }
         .stat-item {
             background: rgba(255,255,255,0.03);
@@ -632,7 +633,16 @@
                 <h2 class="profile-name">TomDoe</h2>
                 <div class="profile-role">PENTESTER & SOCIAL ENGINEER</div>
 
-                <!-- Statistics Removed as per request -->
+                <!-- ADDED CONTACT SECTION IN SIDEBAR -->
+                <div class="profile-stats">
+                    <div style="font-family: var(--font-code); color: var(--accent-green); font-size: 0.8rem; margin-bottom: 10px; letter-spacing: 1px;">> ESTABLISH CONNECTION</div>
+                    <a href="https://www.linkedin.com/in/tomas-de-otaduy/" target="_blank" style="text-decoration: none;">
+                        <div class="stat-item" style="border-left: 3px solid #0a66c2;">
+                            <div class="stat-label" style="color: #0a66c2;">LINKEDIN PROFILE</div>
+                            <div class="stat-value" style="font-size: 0.9rem;">tomas-de-otaduy ↗</div>
+                        </div>
+                    </a>
+                </div>
             </aside>
 
             <main class="profile-content">
