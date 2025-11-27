@@ -407,6 +407,29 @@
         .btn-mal { background: var(--accent-red); }
         .btn-legit:hover, .btn-mal:hover { filter: brightness(1.1); transform: scale(1.02); }
 
+        /* Checklist Styles for New Challenge */
+        .checklist-item {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.05); padding: 10px;
+            border-radius: 6px; margin-bottom: 8px; cursor: pointer;
+            transition: 0.2s;
+        }
+        .checklist-item:hover { background: rgba(255,255,255,0.1); }
+        .checklist-item.checked { border-left: 3px solid var(--accent-green); background: rgba(16, 185, 129, 0.1); }
+        .check-box {
+            width: 18px; height: 18px; border: 2px solid var(--text-muted); border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .checklist-item.checked .check-box { border-color: var(--accent-green); background: var(--accent-green); color: #000; }
+        .btn-switch-view {
+            position: absolute; bottom: 20px; right: 20px; z-index: 50;
+            background: var(--bg-panel); color: white; border: 1px solid var(--primary);
+            padding: 10px 20px; border-radius: 30px; font-family: var(--font-code);
+            cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .btn-switch-view:hover { background: var(--primary); }
+
         /* Right Viewport */
         .sim-viewport {
             flex: 1; background: #000;
@@ -786,6 +809,11 @@
                     <div class="sc-header"><span>Midnight Storm</span><span class="badge badge-adv">ADVANCED</span></div>
                     <div style="font-size: 0.8rem; color: var(--text-muted)">High volume notification request...</div>
                 </div>
+                <!-- NEW CHALLENGE -->
+                <div class="scenario-item" onclick="loadSim('recruitment', 'advanced')" id="btn-recruitment">
+                    <div class="sc-header"><span>Headhunter Verification</span><span class="badge badge-adv">ADVANCED</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Multi-stage Recruitment Ops...</div>
+                </div>
             </div>
 
             <div class="control-panel visible" id="panel-analysis">
@@ -804,11 +832,34 @@
             </div>
 
             <div class="control-panel" id="panel-verdict">
-                <div style="color: var(--accent-gold); font-family: var(--font-code); font-size: 0.8rem;">DECISION REQUIRED</div>
-                <p style="font-size: 0.9rem; margin: 5px 0;">Is this communication legitimate?</p>
-                <div class="verdict-btns">
-                    <button class="btn-verdict btn-legit" onclick="submitAdvanced(true)">✅ LEGITIMATE</button>
-                    <button class="btn-verdict btn-mal" onclick="submitAdvanced(false)">❌ MALICIOUS</button>
+                <div id="verdict-buttons-container">
+                    <div style="color: var(--accent-gold); font-family: var(--font-code); font-size: 0.8rem;">DECISION REQUIRED</div>
+                    <p style="font-size: 0.9rem; margin: 5px 0;">Is this communication legitimate?</p>
+                    <div class="verdict-btns">
+                        <button class="btn-verdict btn-legit" onclick="submitAdvanced(true)">✅ LEGITIMATE</button>
+                        <button class="btn-verdict btn-mal" onclick="submitAdvanced(false)">❌ MALICIOUS</button>
+                    </div>
+                </div>
+                
+                <!-- Zero Trust Verification Panel (Initially Hidden) -->
+                <div id="zero-trust-panel" style="display: none;">
+                    <div style="color: var(--accent-teal); font-family: var(--font-code); font-size: 0.8rem; margin-bottom: 10px;">ZERO TRUST PROTOCOL</div>
+                    <p style="font-size: 0.85rem; margin-bottom: 15px;">Verify indicators before verdict:</p>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="check-box"></div>
+                        <div style="font-size: 0.8rem;">Verified LinkedIn Profile</div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="check-box"></div>
+                        <div style="font-size: 0.8rem;">Checked Email Domain</div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="check-box"></div>
+                        <div style="font-size: 0.8rem;">Headers/SPF Verified</div>
+                    </div>
+
+                    <button class="btn-hero btn-primary" style="width: 100%; margin-top: 10px;" onclick="unlockVerdict()">CONFIRM CHECKS</button>
                 </div>
             </div>
         </aside>
@@ -916,6 +967,75 @@
                         <h3>Approve sign-in?</h3>
                     </div>
                 </div>
+            </div>
+
+            <!-- NEW RECRUITMENT CHALLENGE CONTAINER -->
+            <div id="sim-recruitment" style="display: none; width: 100%; height: 100%; justify-content: center; align-items: center; position: relative;">
+                
+                <div class="btn-switch-view" onclick="toggleRecruitmentView()">
+                    <span>🔄</span> Switch Device
+                </div>
+
+                <!-- Part 1: WhatsApp -->
+                <div id="sim-recruitment-phone" class="phone-mockup" style="display: block;">
+                    <div class="phone-screen">
+                        <div class="phone-overlay"></div>
+                        <div style="background: #075e54; height: 80px; padding: 40px 20px 10px; color: white; display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 35px; height: 35px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #075e54; font-weight: bold;">E</div>
+                            <div>
+                                <div style="font-weight: 600;">Elena (TechFlow HR)</div>
+                                <div style="font-size: 0.7rem; opacity: 0.8;">Online</div>
+                            </div>
+                        </div>
+                        <div style="padding: 20px; background: #e5ddd5; height: calc(100% - 80px); display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');">
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">Hi Tom! 👋 I'm Elena from TechFlow. I saw your profile on LinkedIn and it's exactly what we are looking for.<div class="wsp-time">09:30 AM</div></div>
+                            <div class="wsp-msg wsp-out" style="background: #dcf8c6; color: black; align-self: flex-end;">Hi Elena. Thanks for reaching out. What role is this for?<div class="wsp-time">09:35 AM</div></div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">It's for the Senior SecOps Lead. Fully remote, $140k/yr + equity. 🚀<div class="wsp-time">09:36 AM</div></div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">I just sent the formal offer letter and benefits package to your email address. Let me know when you receive it!<div class="wsp-time">09:37 AM</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part 2: Email -->
+                <div id="sim-recruitment-email" class="os-window" style="display: none;">
+                    <div class="window-bar">
+                        <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                        <div class="address-bar">🔒 mail.google.com</div>
+                    </div>
+                    <div class="email-body">
+                        <div class="email-meta">
+                            <h2 style="font-size: 1.4rem; margin-bottom: 10px;">Official Offer: Senior Security Operations Lead</h2>
+                            <div style="font-size: 0.9rem;">
+                                <strong>From:</strong> <span class="sender-tag" style="background: #d1fae5; color: #065f46;">elena.gomez@techflow.io</span> ✅<br>
+                                <strong style="color: #64748b">To:</strong> tom.doe@gmail.com
+                            </div>
+                            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 5px;">
+                                Security: Standard encryption (TLS) • Signed by: techflow.io
+                            </div>
+                        </div>
+                        <div style="font-family: sans-serif; font-size: 1rem; line-height: 1.6; color: #334155;">
+                            <p style="margin-bottom: 15px;">Dear Tom,</p>
+                            <p style="margin-bottom: 15px;">Following our conversation, we are thrilled to offer you the position of <strong>Senior SecOps Lead</strong> at TechFlow Inc.</p>
+                            <p style="margin-bottom: 15px;">Attached you will find the formal offer letter outlining the compensation package, equity details, and benefits.</p>
+                            <p style="margin-bottom: 20px;">We are excited to have you join the team!</p>
+                            
+                            <div style="background: #f1f5f9; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 2rem;">📄</div>
+                                <div>
+                                    <div style="font-weight: 700; color: #0f172a;">TechFlow_Offer_Letter_TD.pdf</div>
+                                    <div style="font-size: 0.8rem; color: #64748b;">1.2 MB • No threats detected</div>
+                                </div>
+                            </div>
+
+                            <p style="margin-top: 20px; font-style: italic; color: #64748b;">
+                                Best regards,<br>
+                                Elena Gomez<br>
+                                HR Director | TechFlow Inc.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </main>
@@ -1112,6 +1232,20 @@
                     proto: "<strong>Deny & Report:</strong> If you didn't trigger the login, someone has your password. Change it immediately.",
                     why: "You withstood the pressure to silence the device and reported the breach."
                 }
+            },
+            'recruitment': {
+                isMalicious: false, // IT IS LEGITIMATE
+                defensiveOptions: [
+                    { text: "Reply asking for a higher salary.", correct: false },
+                    { text: "Schedule an onboarding call with HR.", correct: true },
+                    { text: "Report as phishing.", correct: false }
+                ],
+                analysis: {
+                    tech: "<strong>Channel Hopping:</strong> Attackers often start on LinkedIn/WhatsApp and move to Email to build legitimacy. However, in this case, the <strong>DKIM/SPF Headers</strong> and domain were valid.",
+                    ling: "The offer was consistent with the initial conversation. No urgency, no macros in the PDF, no credential harvesting links.",
+                    proto: "<strong>Trust but Verify:</strong> You performed the correct checks (LinkedIn, Domain, Headers) and confirmed it was a real offer. Zero Trust doesn't mean Zero Business.",
+                    why: "You verified the evidence instead of succumbing to paranoia."
+                }
             }
         };
 
@@ -1125,12 +1259,65 @@
             
             // Hide all windows (both Code 1 OS windows and Code 2 Phones)
             document.querySelectorAll('.os-window, .phone-mockup').forEach(el => el.classList.remove('active'));
+            document.getElementById('sim-recruitment').style.display = 'none'; // Hide recruitment container specially
             
             // Show target
-            document.getElementById('sim-' + simId).classList.add('active');
+            if (simId === 'recruitment') {
+                document.getElementById('sim-recruitment').style.display = 'flex';
+                // Reset recruitment view to phone
+                document.getElementById('sim-recruitment-phone').style.display = 'block';
+                document.getElementById('sim-recruitment-email').style.display = 'none';
+                
+                // Show Zero Trust Panel instead of buttons initially
+                document.getElementById('verdict-buttons-container').style.display = 'none';
+                document.getElementById('zero-trust-panel').style.display = 'block';
+            } else {
+                document.getElementById('sim-' + simId).classList.add('active');
+                
+                // Show standard verdict buttons
+                document.getElementById('verdict-buttons-container').style.display = 'block';
+                document.getElementById('zero-trust-panel').style.display = 'none';
+            }
             
             // Reset selectors
             document.getElementById('analysis-select').value = "";
+        }
+
+        // SPECIFIC LOGIC FOR RECRUITMENT CHALLENGE
+        function toggleRecruitmentView() {
+            const phone = document.getElementById('sim-recruitment-phone');
+            const email = document.getElementById('sim-recruitment-email');
+            
+            if (phone.style.display !== 'none') {
+                phone.style.display = 'none';
+                email.style.display = 'block';
+                email.classList.add('active');
+            } else {
+                phone.style.display = 'block';
+                email.style.display = 'none';
+                email.classList.remove('active');
+            }
+        }
+
+        function toggleCheck(el) {
+            el.classList.toggle('checked');
+        }
+
+        function unlockVerdict() {
+            const checks = document.querySelectorAll('.checklist-item.checked');
+            if (checks.length < 3) {
+                showToast("Perform all checks before deciding.", "error");
+                return;
+            }
+            
+            // Show verification success and reveal buttons
+            showToast("Zero Trust Protocol Verified.", "success");
+            setTimeout(() => {
+                document.getElementById('zero-trust-panel').style.display = 'none';
+                document.getElementById('verdict-buttons-container').style.display = 'block';
+                // Reset checks for next time
+                document.querySelectorAll('.checklist-item').forEach(el => el.classList.remove('checked'));
+            }, 1000);
         }
 
         // BASIC MODE SUBMISSION (Code 1 Logic)
