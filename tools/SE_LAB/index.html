@@ -94,7 +94,9 @@
             ChevronRight: (props) => <IconBase {...props}><path d="m9 18 6-6-6-6"/></IconBase>,
             Database: (props) => <IconBase {...props}><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></IconBase>,
             Fingerprint: (props) => <IconBase {...props}><path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 6"/><path d="M5 15.1a1 1 0 0 0 1.4 1.4l1-1"/><path d="M18.4 12.8a2.5 2.5 0 0 0-2.6-2.6l-1.3.1"/><path d="M11.9 19.3a4.4 4.4 0 0 1-2.3-2.3"/><path d="M12 12a4 4 0 0 1 1.6-7.5"/><path d="M16 19.5a5.5 5.5 0 0 0 3.3-3.6"/><path d="M16.5 15.7a11.1 11.1 0 0 1-5.7.5"/><path d="M5.5 9a9 9 0 0 1 12 0"/><path d="M15 15.1a3 3 0 0 1-3.9.7"/><path d="M20.5 10a11.5 11.5 0 0 0-2.2-6.5"/></IconBase>,
-            Copy: (props) => <IconBase {...props}><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></IconBase>
+            Copy: (props) => <IconBase {...props}><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></IconBase>,
+            Zap: (props) => <IconBase {...props}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></IconBase>,
+            Scale: (props) => <IconBase {...props}><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></IconBase>
         };
 
         // --- DATA & CONFIGURATION ---
@@ -143,11 +145,20 @@
         };
 
         const DISC_DATA = {
-            D: { title: "Dominante", color: "text-red-500", border: "border-red-500", desc: "Directo, orientado a resultados, impaciente.", strat: "Sé breve, ve al grano, ofrece soluciones rápidas." },
-            I: { title: "Influyente", color: "text-yellow-400", border: "border-yellow-400", desc: "Sociable, entusiasta, optimista, habla mucho.", strat: "Déjalo hablar, sé amigable, usa el humor." },
-            S: { title: "Estable", color: "text-green-400", border: "border-green-400", desc: "Paciente, leal, buen oyente, teme al cambio.", strat: "Transmite seguridad, garantías y calma. No presiones." },
-            C: { title: "Concienzudo", color: "text-blue-400", border: "border-blue-400", desc: "Analítico, preciso, sigue reglas, escéptico.", strat: "Usa datos, lógica, cita normas y procedimientos." }
+            D: { title: "Dominante", color: "text-red-500", border: "border-red-500", desc: "Directo, orientado a resultados, impaciente.", strat: "Sé breve, ve al grano, ofrece soluciones rápidas.", tactics: "Autoridad, Urgencia" },
+            I: { title: "Influyente", color: "text-yellow-400", border: "border-yellow-400", desc: "Sociable, entusiasta, optimista, habla mucho.", strat: "Déjalo hablar, sé amigable, usa el humor.", tactics: "Liking, Reciprocidad" },
+            S: { title: "Estable", color: "text-green-400", border: "border-green-400", desc: "Paciente, leal, buen oyente, teme al cambio.", strat: "Transmite seguridad, garantías y calma. No presiones.", tactics: "Cooperación, Consistencia" },
+            C: { title: "Concienzudo", color: "text-blue-400", border: "border-blue-400", desc: "Analítico, preciso, sigue reglas, escéptico.", strat: "Usa datos, lógica, cita normas y procedimientos.", tactics: "Claridad, Credenciales" }
         };
+
+        const BIASES = [
+            { title: "Autoridad", desc: "Obediencia a figuras superiores o expertos.", trigger: "Uniforme, Rol TI, Auditor" },
+            { title: "Reciprocidad", desc: "Necesidad de devolver favores.", trigger: "Dar información/ayuda primero" },
+            { title: "Compromiso", desc: "Mantener coherencia con actos previos.", trigger: "Foot-in-the-door" },
+            { title: "Escasez/Urgencia", desc: "Miedo a perder tiempo o recurso.", trigger: "Límites de tiempo, plazos" },
+            { title: "Liking (Afinidad)", desc: "Confianza en quienes nos agradan.", trigger: "Similitud, Halagos, Rapport" },
+            { title: "Prueba Social", desc: "Hacer lo que otros hacen.", trigger: "'Otros ya lo aprobaron'" }
+        ];
 
         // --- COMPONENTS ---
 
@@ -188,7 +199,6 @@
             return <div className="text-green-500 font-mono text-xs mb-1 animate-pulse">&gt; {text}</div>;
         };
 
-        // Componente DorkCard para mostrar cada dork individualmente
         const DorkCard = ({ query, label }) => {
             const [copied, setCopied] = useState(false);
             
@@ -222,6 +232,18 @@
             );
         };
 
+        const InfoCard = ({ title, children, color="blue" }) => (
+            <div className={`p-5 bg-slate-900/80 border border-slate-800 rounded-lg hover:border-${color}-500/30 transition-colors h-full`}>
+                <h3 className={`text-white font-bold mb-3 flex items-center`}>
+                    <div className={`w-1 h-4 bg-${color}-500 mr-2 rounded-full`}></div>
+                    {title}
+                </h3>
+                <div className="text-sm text-slate-400 leading-relaxed">
+                    {children}
+                </div>
+            </div>
+        );
+
         function RedOpsPortal() {
             const [activeModule, setActiveModule] = useState(0);
             const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -232,6 +254,9 @@
             const [scanning, setScanning] = useState(false);
             const [scanComplete, setScanComplete] = useState(false);
             const [showOsintTool, setShowOsintTool] = useState(false); 
+
+            // Psychology States
+            const [psychTab, setPsychTab] = useState('cognition');
 
             // Vishing States
             const [vishingStep, setVishingStep] = useState(0);
@@ -589,47 +614,262 @@
                     </div>
                     );
 
-                case 2: // Psicología (DISC)
+                case 2: // Psicología (Refactorizado)
                     return (
-                    <div className="space-y-6">
-                        <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold text-white mb-2">Matriz Psicológica DISC</h2>
-                        <p className="text-slate-400 max-w-2xl mx-auto">
-                            El modelo DISC clasifica el comportamiento en cuatro estilos. Adaptar tu pretexto al perfil DISC del objetivo aumenta la probabilidad de éxito en un 300%.
-                        </p>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {Object.entries(DISC_DATA).map(([key, data]) => (
-                            <div key={key} className={`bg-slate-900 border ${data.border} p-6 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer group h-64 flex flex-col`}>
-                            <div className="flex items-center justify-between mb-4">
-                                <span className={`text-4xl font-black ${data.color}`}>{key}</span>
-                                <span className="text-slate-500 font-mono text-xs opacity-0 group-hover:opacity-100">CLICK PARA DETALLES</span>
+                        <div className="flex flex-col h-full animate-fadeIn">
+                            {/* Navegación del Módulo */}
+                            <div className="flex flex-wrap gap-2 mb-6 border-b border-slate-800 pb-4">
+                                {['cognition', 'models', 'comm', 'training'].map((tab) => (
+                                    <button
+                                        key={tab}
+                                        onClick={() => setPsychTab(tab)}
+                                        className={`px-4 py-2 rounded text-sm font-mono font-bold transition-all ${
+                                            psychTab === tab 
+                                            ? 'bg-blue-600 text-white' 
+                                            : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
+                                        }`}
+                                    >
+                                        {tab === 'cognition' && '1. Cognición y Sesgos'}
+                                        {tab === 'models' && '2. Perfiles e Influencia'}
+                                        {tab === 'comm' && '3. Comunicación'}
+                                        {tab === 'training' && 'Entrenamiento Táctico'}
+                                    </button>
+                                ))}
                             </div>
-                            <h3 className={`text-xl font-bold text-white mb-2`}>{data.title}</h3>
-                            <p className="text-slate-400 text-sm mb-4 flex-grow">{data.desc}</p>
-                            <div className="bg-slate-950 p-3 rounded border border-slate-800 text-xs">
-                                <span className="text-slate-500 font-bold block mb-1">ESTRATEGIA:</span>
-                                <span className="text-white">{data.strat}</span>
-                            </div>
-                            </div>
-                        ))}
-                        </div>
 
-                        <div className="bg-slate-900 p-6 rounded-lg border border-slate-700 flex items-center mt-6">
-                            <div className="bg-red-600 p-3 rounded-full mr-4">
-                            <Icons.Brain className="text-white w-6 h-6" />
-                            </div>
-                            <div>
-                            <h3 className="text-white font-bold">Entrenamiento Rápido: Identifica el Perfil</h3>
-                            <p className="text-slate-400 text-sm">"El objetivo te interrumpe constantemente, exige saber 'cuánto tardará esto' y no quiere escuchar excusas."</p>
-                            <div className="mt-3 flex gap-2">
-                                <button className="px-3 py-1 bg-slate-800 hover:bg-red-900 border border-slate-600 rounded text-xs text-white">Es Dominante (D)</button>
-                                <button className="px-3 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded text-xs text-white">Es Estable (S)</button>
-                            </div>
+                            <div className="flex-grow overflow-y-auto pr-2 pb-20">
+                                {psychTab === 'cognition' && (
+                                    <div className="space-y-8 animate-fadeIn">
+                                        {/* Intro */}
+                                        <div className="bg-slate-900 p-6 rounded-lg border-l-4 border-blue-500">
+                                            <h2 className="text-2xl font-bold text-white mb-2">La Mente Humana como Superficie de Ataque</h2>
+                                            <p className="text-slate-400">
+                                                Para un operador de Red Team, la superficie cognitiva del target es tan explotable como un servidor vulnerable. 
+                                                El objetivo no es "convencer con lógica", sino activar los sesgos correctos para bypassear el pensamiento crítico.
+                                            </p>
+                                        </div>
+
+                                        {/* Kahneman */}
+                                        <div>
+                                            <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                                                <Icons.Brain className="w-6 h-6 mr-2 text-purple-500" />
+                                                Modelo Dual de Procesamiento (Kahneman)
+                                            </h3>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <div className="bg-red-900/10 border border-red-900/30 p-5 rounded-lg">
+                                                    <div className="flex justify-between items-center mb-3">
+                                                        <h4 className="text-red-400 font-bold text-lg">SISTEMA 1 (Rápido)</h4>
+                                                        <Icons.Zap className="w-6 h-6 text-red-500" />
+                                                    </div>
+                                                    <ul className="text-sm text-slate-300 space-y-2 list-disc pl-4 marker:text-red-500">
+                                                        <li>Emocional e intuitivo.</li>
+                                                        <li>Opera por defecto (Ahorro de energía).</li>
+                                                        <li>Vulnerable a urgencia y autoridad.</li>
+                                                        <li><strong className="text-white">Objetivo del atacante:</strong> Mantener al target aquí.</li>
+                                                    </ul>
+                                                </div>
+                                                <div className="bg-blue-900/10 border border-blue-900/30 p-5 rounded-lg">
+                                                    <div className="flex justify-between items-center mb-3">
+                                                        <h4 className="text-blue-400 font-bold text-lg">SISTEMA 2 (Lento)</h4>
+                                                        <Icons.Scale className="w-6 h-6 text-blue-500" />
+                                                    </div>
+                                                    <ul className="text-sm text-slate-300 space-y-2 list-disc pl-4 marker:text-blue-500">
+                                                        <li>Racional y analítico.</li>
+                                                        <li>Requiere esfuerzo y atención.</li>
+                                                        <li>Cuestiona y verifica.</li>
+                                                        <li><strong className="text-white">Amenaza:</strong> Evitar que se active mediante ritmo rápido.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Heuristicas */}
+                                        <div>
+                                            <h3 className="text-xl font-bold text-white mb-4">Heurísticas Clave (Atajos Mentales)</h3>
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                <InfoCard title="Disponibilidad" color="yellow">
+                                                    Juzgar probabilidad por facilidad de recuerdo. <br/><em className="text-slate-500">Uso: Citar eventos recientes de noticias o fraudes conocidos.</em>
+                                                </InfoCard>
+                                                <InfoCard title="Representatividad" color="yellow">
+                                                    Si parece pato, es pato. <br/><em className="text-slate-500">Uso: Imitación visual perfecta de correos o roles corporativos.</em>
+                                                </InfoCard>
+                                                <InfoCard title="Anclaje" color="yellow">
+                                                    La primera información condiciona todo. <br/><em className="text-slate-500">Uso: "Vengo de RRHH" (El cerebro ancla 'confianza interna').</em>
+                                                </InfoCard>
+                                                <InfoCard title="Framing (Encuadre)" color="yellow">
+                                                    La presentación importa más que el dato. <br/><em className="text-slate-500">Uso: Enmarcar una intrusión como "ayuda de soporte".</em>
+                                                </InfoCard>
+                                                <InfoCard title="Efecto Halo" color="yellow">
+                                                    Una cualidad positiva irradia a todo. <br/><em className="text-slate-500">Uso: Buena presencia y voz calmada = Persona honesta.</em>
+                                                </InfoCard>
+                                                <InfoCard title="Normalidad" color="yellow">
+                                                    Asumir que todo está bien. <br/><em className="text-slate-500">Uso: Actuar como si pertenecieras al lugar (Tailgating).</em>
+                                                </InfoCard>
+                                            </div>
+                                        </div>
+
+                                        {/* Sesgos */}
+                                        <div>
+                                            <h3 className="text-xl font-bold text-white mb-4">Sesgos Cognitivos Explotables</h3>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                {BIASES.map((bias, idx) => (
+                                                    <div key={idx} className="bg-slate-900 border border-slate-700 p-4 rounded hover:bg-slate-800 transition-colors">
+                                                        <h4 className="text-red-400 font-bold mb-1">{bias.title}</h4>
+                                                        <p className="text-xs text-slate-300 mb-2">{bias.desc}</p>
+                                                        <div className="text-xs font-mono bg-slate-950 p-2 rounded text-slate-500">
+                                                            <span className="text-red-500">Trigger:</span> {bias.trigger}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {psychTab === 'models' && (
+                                    <div className="space-y-8 animate-fadeIn">
+                                        {/* DISC Section */}
+                                        <div>
+                                            <h2 className="text-2xl font-bold text-white mb-4">Matriz DISC para Ingeniería Social</h2>
+                                            <p className="text-slate-400 mb-6">Adapta el tono, ritmo y contenido del pretexto a la personalidad del target para maximizar el éxito.</p>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                                {Object.entries(DISC_DATA).map(([key, data]) => (
+                                                    <div key={key} className={`bg-slate-900 border ${data.border} p-6 rounded-lg h-full flex flex-col`}>
+                                                        <div className="flex items-center justify-between mb-4">
+                                                            <span className={`text-4xl font-black ${data.color}`}>{key}</span>
+                                                        </div>
+                                                        <h3 className={`text-xl font-bold text-white mb-2`}>{data.title}</h3>
+                                                        <p className="text-slate-400 text-sm mb-4 flex-grow">{data.desc}</p>
+                                                        <div className="bg-slate-950 p-3 rounded border border-slate-800 text-xs mb-2">
+                                                            <span className="text-slate-500 font-bold block mb-1">TACTICA:</span>
+                                                            <span className="text-white">{data.strat}</span>
+                                                        </div>
+                                                        <div className="text-xs font-mono text-slate-500">
+                                                            <span className="text-white font-bold">Trigger:</span> {data.tactics}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Cialdini */}
+                                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+                                            <h3 className="text-xl font-bold text-white mb-4">Principios de Influencia (Cialdini)</h3>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <ul className="space-y-3">
+                                                    <li className="flex items-start"><div className="bg-blue-500 w-2 h-2 mt-2 mr-2 rounded-full"></div><div><strong className="text-white">Reciprocidad:</strong> Dar para recibir.</div></li>
+                                                    <li className="flex items-start"><div className="bg-blue-500 w-2 h-2 mt-2 mr-2 rounded-full"></div><div><strong className="text-white">Compromiso y Consistencia:</strong> Deseo de ser coherente con lo dicho o hecho.</div></li>
+                                                    <li className="flex items-start"><div className="bg-blue-500 w-2 h-2 mt-2 mr-2 rounded-full"></div><div><strong className="text-white">Prueba Social:</strong> Seguimos a la manada ante la incertidumbre.</div></li>
+                                                    <li className="flex items-start"><div className="bg-blue-500 w-2 h-2 mt-2 mr-2 rounded-full"></div><div><strong className="text-white">Autoridad:</strong> Obediencia a títulos, uniformes o expertos.</div></li>
+                                                </ul>
+                                                <ul className="space-y-3">
+                                                    <li className="flex items-start"><div className="bg-blue-500 w-2 h-2 mt-2 mr-2 rounded-full"></div><div><strong className="text-white">Simpatía (Liking):</strong> Decimos sí a quienes nos gustan o se parecen a nosotros.</div></li>
+                                                    <li className="flex items-start"><div className="bg-blue-500 w-2 h-2 mt-2 mr-2 rounded-full"></div><div><strong className="text-white">Escasez:</strong> Valoramos más lo que es limitado o exclusivo.</div></li>
+                                                    <li className="flex items-start"><div className="bg-blue-500 w-2 h-2 mt-2 mr-2 rounded-full"></div><div><strong className="text-white">Unidad:</strong> Identidad compartida ("Somos del mismo equipo").</div></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {psychTab === 'comm' && (
+                                    <div className="space-y-8 animate-fadeIn">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                            {/* Verbal */}
+                                            <div className="bg-slate-900 p-6 rounded-lg border border-slate-700">
+                                                <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                                                    <Icons.MessageSquare className="w-5 h-5 mr-2 text-green-500"/> Comunicación Verbal
+                                                </h3>
+                                                <div className="space-y-4 text-sm text-slate-300">
+                                                    <div>
+                                                        <h4 className="text-white font-bold mb-1">Uso Ofensivo</h4>
+                                                        <ul className="list-disc pl-4 space-y-1">
+                                                            <li>Ajustar ritmo y tono (Matching) para inducir confianza.</li>
+                                                            <li>Uso de "Puentes Narrativos" para rellenar silencios incómodos.</li>
+                                                            <li>Evitar muletillas que denoten duda.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-white font-bold mb-1">Señales de Fuga (Detección)</h4>
+                                                        <ul className="list-disc pl-4 space-y-1">
+                                                            <li>Latencias excesivas antes de responder.</li>
+                                                            <li>Uso de evasivas o responder con otra pregunta.</li>
+                                                            <li>Exceso de detalles irrelevantes (sobre-explicación).</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* No Verbal */}
+                                            <div className="bg-slate-900 p-6 rounded-lg border border-slate-700">
+                                                <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                                                    <Icons.Eye className="w-5 h-5 mr-2 text-blue-500"/> Comunicación No Verbal
+                                                </h3>
+                                                <div className="space-y-4 text-sm text-slate-300">
+                                                    <div>
+                                                        <h4 className="text-white font-bold mb-1">Conceptos Clave</h4>
+                                                        <ul className="list-disc pl-4 space-y-1">
+                                                            <li><strong>Baseline:</strong> Establecer el comportamiento normal del target para detectar desviaciones.</li>
+                                                            <li><strong>Microexpresiones:</strong> Fugas emocionales de milisegundos (miedo, desprecio).</li>
+                                                            <li><strong>Congruencia:</strong> ¿Coincide lo que dice con su cuerpo?</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-white font-bold mb-1">Micro-tensiones</h4>
+                                                        <p>Búsqueda de señales de estrés: frotarse el cuello, bloqueo visual, tocarse la cara, pies apuntando a la salida.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-6 rounded-lg border-l-4 border-green-500">
+                                            <h3 className="text-lg font-bold text-white mb-2">Integración Operativa: Checklist</h3>
+                                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-300 font-mono">
+                                                <li className="flex items-center"><Icons.CheckCircle className="w-4 h-4 mr-2 text-green-500"/> Detectar perfil DISC en 30s.</li>
+                                                <li className="flex items-center"><Icons.CheckCircle className="w-4 h-4 mr-2 text-green-500"/> Diseñar pretexto activando sesgo primario.</li>
+                                                <li className="flex items-center"><Icons.CheckCircle className="w-4 h-4 mr-2 text-green-500"/> Controlar presentación (Voz/Cuerpo).</li>
+                                                <li className="flex items-center"><Icons.CheckCircle className="w-4 h-4 mr-2 text-green-500"/> Evitar activación del Sistema 2 (Lógica).</li>
+                                                <li className="flex items-center"><Icons.CheckCircle className="w-4 h-4 mr-2 text-green-500"/> Mantener OPSEC Psicológico (Coherencia).</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {psychTab === 'training' && (
+                                    <div className="flex flex-col items-center justify-center h-full animate-fadeIn">
+                                        <div className="bg-slate-900 p-8 rounded-lg border border-slate-700 max-w-2xl w-full text-center">
+                                            <div className="bg-red-600 p-4 rounded-full mx-auto w-16 h-16 flex items-center justify-center mb-6">
+                                                <Icons.Brain className="text-white w-8 h-8" />
+                                            </div>
+                                            <h3 className="text-2xl font-bold text-white mb-2">Simulador de Perfilado Rápido</h3>
+                                            <p className="text-slate-400 mb-8">
+                                                Entrena tu capacidad para identificar perfiles DISC y sesgos cognitivos bajo presión de tiempo. 
+                                            </p>
+                                            
+                                            <div className="bg-slate-800/50 p-4 rounded text-left border-l-2 border-red-500 mb-6">
+                                                <p className="text-sm font-mono text-slate-300 mb-2">ESCENARIO:</p>
+                                                <p className="text-white italic">"El objetivo te interrumpe constantemente, exige saber 'cuánto tardará esto' y no quiere escuchar excusas técnicas."</p>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <button className="px-4 py-3 bg-slate-800 hover:bg-red-600 border border-slate-600 hover:border-red-500 rounded text-white transition-all font-bold">
+                                                    Es Dominante (D) - Ser breve
+                                                </button>
+                                                <button className="px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded text-white transition-all">
+                                                    Es Estable (S) - Dar seguridad
+                                                </button>
+                                                <button className="px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded text-white transition-all">
+                                                    Es Influyente (I) - Usar humor
+                                                </button>
+                                                <button className="px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded text-white transition-all">
+                                                    Es Concienzudo (C) - Dar datos
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
-                    </div>
                     );
 
                 case 4: // Vectores (Vishing)
