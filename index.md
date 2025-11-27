@@ -32,3 +32,5 @@ Es una respuesta simbólica y ética ante la soberbia tecnológica, una voz que 
 
 🛡️ [Pretexting Defense Lab](/tools/pretexting-lab/)
 
+🗡️ [Social Engineering lab](/tools/SE_lab/)
+
