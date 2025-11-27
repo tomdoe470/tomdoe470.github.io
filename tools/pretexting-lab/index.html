@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pretexting Defense Lab | Elite + Profile</title>
+    <title>Pretexting Defense Lab | About Me & Ops</title>
     <style>
         /* --- FUENTES: Inter para UI limpia, JetBrains Mono para toque Cyber --- */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
@@ -202,7 +202,7 @@
             font-family: var(--font-code); font-size: 0.8rem; color: #e2e8f0;
         }
 
-        /* --- PROFILE VIEW (ABOUT ME - NEW MODULE) --- */
+        /* --- PROFILE VIEW (ABOUT ME) --- */
         #profile-view {
             padding: 40px;
             justify-content: center;
@@ -542,9 +542,59 @@
         .toast.show { transform: translateX(0); }
         .toast.error { border-left-color: var(--accent-red); }
 
+        /* ONBOARDING MODAL STYLES */
+        #onboarding-modal {
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-deep);
+            z-index: 5000;
+        }
+        
+        .onboarding-content {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .terminal-input-group {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--primary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-family: var(--font-code);
+        }
+
+        .blink-cursor {
+            animation: blink 1s step-end infinite;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- ONBOARDING MODAL -->
+    <div class="modal-overlay" id="onboarding-modal" style="display: flex;">
+        <div class="onboarding-content">
+            <h1 class="hero-title" style="font-size: 3rem;">SYSTEM<br><span>INITIALIZATION</span></h1>
+            <p class="hero-desc">Identity verification required to access operational modules.</p>
+            
+            <div class="terminal-input-group">
+                <span style="color: var(--accent-green); margin-right: 10px;">root@system:~$</span>
+                <input type="text" id="username-input" placeholder="Enter Operator Alias..." 
+                       style="background: transparent; border: none; color: white; width: 100%; font-family: var(--font-code); font-size: 1.1rem; outline: none;" 
+                       autocomplete="off" onkeypress="handleEnter(event)">
+                <span class="blink-cursor">_</span>
+            </div>
+
+            <button class="btn-hero btn-primary" style="width: 100%; margin-top: 20px;" onclick="completeOnboarding()">ESTABLISH SESSION</button>
+        </div>
+    </div>
 
     <nav>
         <div class="logo">
@@ -553,7 +603,7 @@
         <div class="nav-links">
             <button onclick="navTo('home')" class="active">Home</button>
             <button onclick="navTo('methodologies')">Intel</button>
-            <button onclick="navTo('profile')">PROFILE</button>
+            <button onclick="navTo('profile')">ABOUT ME</button>
             <button onclick="navTo('simulator')" class="btn-launch">LAUNCH SIM</button>
         </div>
     </nav>
@@ -874,10 +924,10 @@
                 <div class="email-body">
                     <div class="email-meta">
                         <h2 style="font-size: 1.4rem; margin-bottom: 10px;">URGENT: Wire Transfer Required</h2>
-                        <div style="font-size: 0.9rem;"><strong>From:</strong> <span class="sender-tag">e.musk@tesla-motors.com</span><br><strong style="color: #64748b">To:</strong> You (Finance Dept)</div>
+                        <div style="font-size: 0.9rem;"><strong>From:</strong> <span class="sender-tag">e.musk@tesla-motors.com</span><br><strong style="color: #64748b">To:</strong> <span class="user-target">You</span> (Finance Dept)</div>
                     </div>
                     <div style="font-family: serif; font-size: 1.1rem; line-height: 1.6;">
-                        <p style="margin-bottom: 15px;">Hi,</p>
+                        <p style="margin-bottom: 15px;">Hi <span class="user-target">there</span>,</p>
                         <p style="margin-bottom: 15px;">I'm currently stuck in a meeting with partners in Tokyo and my company card is being declined. This is embarrassing and critical for the acquisition deal.</p>
                         <p style="margin-bottom: 15px;">Process an immediate wire transfer of <strong>$14,500</strong> to the vendor account attached below. Do not discuss this with anyone yet as the deal is under NDA.</p>
                         <p style="margin-bottom: 20px;">Process this NOW. I will sign paperwork when I land.</p>
@@ -892,7 +942,7 @@
                     <div class="address-bar"># slack-internal</div>
                 </div>
                 <div class="chat-body">
-                    <div class="chat-row"><div class="avatar">🦄</div><div class="bubble"><span class="msg-name">SysAdmin_Helpdesk</span>Hi there. We've detected a critical syncing error with your Active Directory profile. It looks like your account is flagging 403 errors on the main server.</div></div>
+                    <div class="chat-row"><div class="avatar">🦄</div><div class="bubble"><span class="msg-name">SysAdmin_Helpdesk</span>Hi <span class="user-target">there</span>. We've detected a critical syncing error with your Active Directory profile. It looks like your account is flagging 403 errors on the main server.</div></div>
                     <div class="chat-row"><div class="avatar">🦄</div><div class="bubble"><span class="msg-name">SysAdmin_Helpdesk</span>We need to re-authenticate your session token manually to prevent a lockout. <span style="color: #f87171; font-weight: bold;">Please reply with your current temporary 2FA code</span> so I can resync the database.</div></div>
                     <div style="color: var(--primary); font-size: 0.8rem; font-family: var(--font-code);">SysAdmin_Helpdesk is typing...</div>
                 </div>
@@ -908,7 +958,7 @@
                         <h2 style="font-size: 1.2rem; margin-bottom: 5px;">Lead Security Architect (Remote)</h2>
                         <div style="font-size: 0.85rem; color: #64748b;">From: Sarah J. (Tech Recruiter at Gooogle)</div>
                     </div>
-                    <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">Hey! I stumbled upon your profile and I'm blown away. We have a confidential opening that fits your skills perfectly. Pays 60% above market.</p>
+                    <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">Hey <span class="user-target">there</span>! I stumbled upon your profile and I'm blown away. We have a confidential opening that fits your skills perfectly. Pays 60% above market.</p>
                     <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">We are closing applications <strong>tonight</strong>. I've attached the full compensation breakdown and role details below.</p>
                     <div style="background: #f1f5f9; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; font-weight: 600; color: #0f172a;">📄 Compensation_Pkg_Macro_Enabled.doc</div>
                 </div>
@@ -924,7 +974,7 @@
                     <div><div style="font-weight: 600; font-size: 0.95rem;">Global Suppliers Inc. (Alex)</div><div style="font-size: 0.75rem; color: #8696a0;">online</div></div>
                 </div>
                 <div class="wsp-body">
-                    <div class="wsp-msg wsp-in">Hey Tom! 👋 Hope you're having a good week. Just wanted to flag something about Invoice #9092 for the server racks.<div class="wsp-time">10:15 AM</div></div>
+                    <div class="wsp-msg wsp-in">Hey <span class="user-target">Tom</span>! 👋 Hope you're having a good week. Just wanted to flag something about Invoice #9092 for the server racks.<div class="wsp-time">10:15 AM</div></div>
                     <div class="wsp-msg wsp-out">Hi Alex. What's the issue? We scheduled that for payment this Friday.<div class="wsp-time">10:18 AM</div></div>
                     <div class="wsp-msg wsp-in">Yeah, that's the thing. Our corporate audit froze our main USD account this morning. Bureaucracy 🙄<div class="wsp-time">10:20 AM</div></div>
                     <div class="wsp-msg wsp-in">Can you reroute the payment to our subsidiary's account in Singapore? I'll send the new IBAN now. Needs to go out today or shipping gets delayed 2 weeks. 😬<div class="wsp-time">10:20 AM</div></div>
@@ -942,7 +992,7 @@
                         <div class="caller-avatar">🏛️</div>
                         <div style="font-size:1.5rem; font-weight:600;">Ministerio de Salud</div>
                         <div style="opacity:0.8;">Mobile +54 9 11...</div>
-                        <p style="margin-top: 30px; font-size: 0.9rem; padding: 0 30px; font-style: italic;">"Hola, le llamamos por su turno de vacunación. Le enviamos un código SMS para confirmar identidad..."</p>
+                        <p style="margin-top: 30px; font-size: 0.9rem; padding: 0 30px; font-style: italic;">"Hola <span class="user-target"></span>, le llamamos por su turno de vacunación. Le enviamos un código SMS para confirmar identidad..."</p>
                         <div style="display: flex; gap: 40px; justify-content: center; margin-top: 60px;">
                             <div style="width: 60px; height: 60px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📞</div>
                             <div style="width: 60px; height: 60px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📞</div>
@@ -988,7 +1038,7 @@
                             </div>
                         </div>
                         <div style="padding: 20px; background: #e5ddd5; height: calc(100% - 80px); display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');">
-                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">Hi Tom! 👋 I'm Elena from TechFlow. I saw your profile on LinkedIn and it's exactly what we are looking for.<div class="wsp-time">09:30 AM</div></div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">Hi <span class="user-target">Tom</span>! 👋 I'm Elena from TechFlow. I saw your profile on LinkedIn and it's exactly what we are looking for.<div class="wsp-time">09:30 AM</div></div>
                             <div class="wsp-msg wsp-out" style="background: #dcf8c6; color: black; align-self: flex-end;">Hi Elena. Thanks for reaching out. What role is this for?<div class="wsp-time">09:35 AM</div></div>
                             <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">It's for the Senior SecOps Lead. Fully remote, $140k/yr + equity. 🚀<div class="wsp-time">09:36 AM</div></div>
                             <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">I just sent the formal offer letter and benefits package to your email address. Let me know when you receive it!<div class="wsp-time">09:37 AM</div></div>
@@ -1007,14 +1057,14 @@
                             <h2 style="font-size: 1.4rem; margin-bottom: 10px;">Official Offer: Senior Security Operations Lead</h2>
                             <div style="font-size: 0.9rem;">
                                 <strong>From:</strong> <span class="sender-tag" style="background: #d1fae5; color: #065f46;">elena.gomez@techflow.io</span> ✅<br>
-                                <strong style="color: #64748b">To:</strong> tom.doe@gmail.com
+                                <strong style="color: #64748b">To:</strong> <span class="user-target-email">tom.doe</span>@gmail.com
                             </div>
                             <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 5px;">
                                 Security: Standard encryption (TLS) • Signed by: techflow.io
                             </div>
                         </div>
                         <div style="font-family: sans-serif; font-size: 1rem; line-height: 1.6; color: #334155;">
-                            <p style="margin-bottom: 15px;">Dear Tom,</p>
+                            <p style="margin-bottom: 15px;">Dear <span class="user-target">Tom</span>,</p>
                             <p style="margin-bottom: 15px;">Following our conversation, we are thrilled to offer you the position of <strong>Senior SecOps Lead</strong> at TechFlow Inc.</p>
                             <p style="margin-bottom: 15px;">Attached you will find the formal offer letter outlining the compensation package, equity details, and benefits.</p>
                             <p style="margin-bottom: 20px;">We are excited to have you join the team!</p>
@@ -1022,7 +1072,7 @@
                             <div style="background: #f1f5f9; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px;">
                                 <div style="font-size: 2rem;">📄</div>
                                 <div>
-                                    <div style="font-weight: 700; color: #0f172a;">TechFlow_Offer_Letter_TD.pdf</div>
+                                    <div style="font-weight: 700; color: #0f172a;">TechFlow_Offer_Letter_<span class="user-initials">TD</span>.pdf</div>
                                     <div style="font-size: 0.8rem; color: #64748b;">1.2 MB • No threats detected</div>
                                 </div>
                             </div>
@@ -1092,6 +1142,61 @@
     </div>
 
     <script>
+        // --- ONBOARDING & PERSONALIZATION LOGIC ---
+        let currentUser = localStorage.getItem('operatorAlias') || "Operator";
+
+        function handleEnter(e) {
+            if(e.key === 'Enter') completeOnboarding();
+        }
+
+        function completeOnboarding() {
+            const input = document.getElementById('username-input');
+            const name = input.value.trim();
+            
+            if(name) {
+                currentUser = name;
+                localStorage.setItem('operatorAlias', currentUser);
+                updatePersonalization();
+                document.getElementById('onboarding-modal').style.display = 'none';
+            } else {
+                input.style.border = "1px solid var(--accent-red)";
+                input.placeholder = "IDENTITY REQUIRED...";
+            }
+        }
+
+        function updatePersonalization() {
+            // NOTE: Profile Sidebar logic removed to keep it static (TomDoe).
+            
+            // Update Simulation Targets
+            document.querySelectorAll('.user-target').forEach(el => {
+                el.innerText = currentUser;
+            });
+            
+            // Update Email Targets (Lower case)
+            document.querySelectorAll('.user-target-email').forEach(el => {
+                el.innerText = currentUser.toLowerCase().replace(/\s/g, '.');
+            });
+
+            // Update Initials in PDF
+            const initials = currentUser.split(" ").map((n)=>n[0]).join("").toUpperCase().substring(0,2);
+            document.querySelectorAll('.user-initials').forEach(el => {
+                el.innerText = initials;
+            });
+        }
+
+        // Check if user already exists on load
+        window.addEventListener('load', () => {
+            if(localStorage.getItem('operatorAlias')) {
+                currentUser = localStorage.getItem('operatorAlias');
+                updatePersonalization();
+                document.getElementById('onboarding-modal').style.display = 'none';
+            } else {
+                // Focus input automatically
+                setTimeout(() => document.getElementById('username-input').focus(), 500);
+            }
+        });
+
+
         // --- MATRIX EFFECT ---
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
