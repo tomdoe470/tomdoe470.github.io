@@ -431,6 +431,38 @@
         }
         .btn-switch-view:hover { background: var(--primary); }
 
+        /* Multi-Stage Challenge Styles */
+        .timeline-controls {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); 
+            z-index: 200; /* FIXED: Increased z-index to be above the overlay */
+            background: var(--bg-panel); border-radius: 30px; border: 1px solid var(--primary);
+            display: flex; align-items: center; padding: 5px 10px; gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .timeline-dot {
+            width: 12px; height: 12px; border-radius: 50%; background: #334155; cursor: pointer; transition: 0.3s;
+        }
+        .timeline-dot.active { background: var(--primary); box-shadow: 0 0 10px var(--primary); transform: scale(1.2); }
+        .btn-timeline {
+            background: transparent; border: none; color: white; cursor: pointer; font-size: 1.2rem;
+            width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+        }
+        .btn-timeline:hover { background: rgba(255,255,255,0.1); }
+
+        /* Fake AV Popup */
+        .fake-av-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            display: flex; align-items: center; justify-content: center; z-index: 100; animation: flashRed 2s infinite;
+        }
+        .fake-av-window {
+            width: 500px; background: #fff; color: #000; font-family: 'Segoe UI', sans-serif;
+            border: 1px solid #ccc; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+        .av-header {
+            background: #d13438; color: white; padding: 10px 15px; font-weight: 600; display: flex; align-items: center; gap: 10px;
+        }
+        @keyframes flashRed { 0%, 100% { box-shadow: inset 0 0 50px rgba(209, 52, 56, 0.2); } 50% { box-shadow: inset 0 0 100px rgba(209, 52, 56, 0.5); } }
+
         /* Right Viewport */
         .sim-viewport {
             flex: 1; background: #000;
@@ -448,6 +480,7 @@
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
             border: 1px solid rgba(255,255,255,0.1);
             overflow: hidden; display: none;
+            position: relative; /* FIXED: Added relative positioning */
             animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .os-window.active { display: block; }
@@ -869,10 +902,14 @@
                     <div class="sc-header"><span>Midnight Storm</span><span class="badge badge-adv">ADVANCED</span></div>
                     <div style="font-size: 0.8rem; color: var(--text-muted)">High volume notification request...</div>
                 </div>
-                <!-- NEW CHALLENGE -->
                 <div class="scenario-item" onclick="loadSim('recruitment', 'advanced')" id="btn-recruitment">
                     <div class="sc-header"><span>Headhunter Verification</span><span class="badge badge-adv">ADVANCED</span></div>
                     <div style="font-size: 0.8rem; color: var(--text-muted)">Multi-stage Recruitment Ops...</div>
+                </div>
+                <!-- NEW MULTI-STAGE CHALLENGE -->
+                <div class="scenario-item" onclick="loadSim('multistage', 'advanced')" id="btn-multistage">
+                    <div class="sc-header"><span>Operation: TechNova</span><span class="badge badge-adv">COMPLEX</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Persistent threat chain. 5 Stages.</div>
                 </div>
             </div>
 
@@ -887,6 +924,7 @@
                     <option value="curiosity">Curiosity / Mystery</option>
                     <option value="scarcity">Scarcity / Greed</option>
                     <option value="quidproquo">Quid Pro Quo</option>
+                    <option value="multivector">Complex / Multi-Vector APT</option>
                 </select>
                 <button class="btn-hero btn-primary" style="width: 100%; margin-top: 10px;" onclick="submitAnalysis()">SUBMIT REPORT</button>
             </div>
@@ -1029,7 +1067,7 @@
                 </div>
             </div>
 
-            <!-- NEW RECRUITMENT CHALLENGE CONTAINER -->
+            <!-- RECRUITMENT CHALLENGE CONTAINER -->
             <div id="sim-recruitment" style="display: none; width: 100%; height: 100%; justify-content: center; align-items: center; position: relative;">
                 
                 <div class="btn-switch-view" onclick="toggleRecruitmentView()">
@@ -1092,6 +1130,129 @@
                                 Elena Gomez<br>
                                 HR Director | TechFlow Inc.
                             </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- NEW MULTI-STAGE ATTACK CONTAINER -->
+            <div id="sim-multistage" style="display: none; width: 100%; height: 100%; justify-content: center; align-items: center; position: relative;">
+                
+                <div class="timeline-controls">
+                    <button class="btn-timeline" onclick="changeStage(0)">◀</button>
+                    <div class="timeline-dot active" onclick="changeStage(0)"></div>
+                    <div class="timeline-dot" onclick="changeStage(1)"></div>
+                    <div class="timeline-dot" onclick="changeStage(2)"></div>
+                    <div class="timeline-dot" onclick="changeStage(3)"></div>
+                    <div class="timeline-dot" onclick="changeStage(4)"></div>
+                    <button class="btn-timeline" onclick="changeStage('next')">▶</button>
+                </div>
+
+                <!-- STAGE 1: EMAIL -->
+                <div id="stage-0" class="os-window active">
+                    <div class="window-bar">
+                        <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                        <div class="address-bar">🔒 outlook.office365.com</div>
+                    </div>
+                    <div class="email-body">
+                        <div class="email-meta">
+                            <h2 style="font-size: 1.4rem; margin-bottom: 10px; color: #d93025;">Actualización urgente de beneficios – Acción requerida hoy</h2>
+                            <div style="font-size: 0.9rem;">
+                                <strong>From:</strong> <span class="sender-tag" style="background: #fef2f2; color: #991b1b;">maria.torres@tech-nova-hr.com</span> ⚠️<br>
+                                <strong style="color: #64748b">To:</strong> <span class="user-target-email">tom.doe</span>@technova.com
+                            </div>
+                        </div>
+                        <div style="font-family: sans-serif; font-size: 1rem; line-height: 1.6; color: #334155;">
+                            <p>Hola <span class="user-target">Tom</span>,</p>
+                            <p>Por una actualización en la plataforma de beneficios 2025 debes revisar tu información antes de las 12:00.</p>
+                            <p>Accede aquí:</p>
+                            <a href="#" style="display: block; padding: 10px; background: #2563eb; color: white; text-align: center; border-radius: 4px; text-decoration: none; margin: 20px 0;">👉 https://tecnova-benefits-secure.com/update</a>
+                            <p style="font-size: 0.9rem; color: #d93025;">Si no completas el formulario podrías quedar temporalmente sin cobertura médica.</p>
+                            <p style="margin-top: 20px; color: #64748b;">– María Torres, RRHH</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STAGE 2: WHATSAPP -->
+                <div id="stage-1" class="phone-mockup" style="display: none;">
+                    <div class="phone-screen">
+                        <div class="phone-overlay"></div>
+                        <div style="background: #075e54; height: 80px; padding: 40px 20px 10px; color: white; display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 35px; height: 35px; background: #128c7e; border-radius: 50%; display: flex; align-items: center; justify-content: center;">💻</div>
+                            <div>
+                                <div style="font-weight: 600;">Carlos - Soporte TI</div>
+                                <div style="font-size: 0.7rem; opacity: 0.8;">Online</div>
+                            </div>
+                        </div>
+                        <div style="padding: 20px; background: #e5ddd5; height: calc(100% - 80px); display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');">
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">Hola! Soy Carlos de TI. Notamos que tu sesión en Outlook ha tenido actividad inusual.</div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">¿Recibiste un correo de RRHH hoy?</div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">Si sí, necesito validar tu identidad para evitar que bloqueen tu cuenta. Envíame por favor el código que te llegará por SMS.</div>
+                            <div class="sms-popup" style="animation: slideDown 0.5s forwards; opacity: 1; transform: translateY(0); top: 120px;">
+                                <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#666; margin-bottom:5px;"><span>Microsoft</span> <span>now</span></div>
+                                <div style="font-size:0.9rem;">Use code 882910 for Microsoft authentication.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STAGE 3: CALL -->
+                <div id="stage-2" class="phone-mockup" style="display: none;">
+                    <div class="phone-screen" style="background: radial-gradient(circle at center, #1f2937, #000);">
+                        <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 60px 20px;">
+                            <div style="text-align: center; color: white;">
+                                <div style="width: 100px; height: 100px; background: #374151; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 20px;">🛡️</div>
+                                <h2 style="font-size: 1.8rem; font-weight: 400; margin-bottom: 5px;">Ana Robles</h2>
+                                <p style="color: #9ca3af;">Seguridad Interna</p>
+                                <p style="color: #4ade80; margin-top: 10px;">04:12</p>
+                            </div>
+                            <div style="width: 100%; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; color: #e5e7eb; font-size: 0.9rem; font-style: italic;">
+                                "Hola, te llamo porque tu cuenta aparece vinculada a un movimiento sospechoso desde Argentina. Necesito confirmar tu ID de empleado y modelo de equipo para evitar suspensión..."
+                            </div>
+                            <div style="display: flex; gap: 40px;">
+                                <div style="width: 65px; height: 65px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🎤</div>
+                                <div style="width: 65px; height: 65px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer;">📞</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STAGE 4: FAKE AV -->
+                <div id="stage-3" class="os-window" style="display: none; height: 100%; background: url('https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2574&auto=format&fit=crop') center/cover;">
+                    <div class="fake-av-overlay">
+                        <div class="fake-av-window">
+                            <div class="av-header">
+                                <span>🛡️ Windows Defender Security Center</span>
+                            </div>
+                            <div style="padding: 30px; text-align: center;">
+                                <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
+                                <h2 style="margin-bottom: 10px;">Threat Detected!</h2>
+                                <p style="margin-bottom: 20px; color: #444;">Se detectó actividad maliciosa proveniente de su cuenta. Trojan.Win32.Generic</p>
+                                <button style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">Descargar herramienta de reparación (Fix-Security2025.exe)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STAGE 5: SLACK -->
+                <div id="stage-4" class="os-window" style="display: none;">
+                    <div class="window-bar">
+                        <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                        <div class="address-bar"># general - Slack</div>
+                    </div>
+                    <div class="chat-body" style="background: #1a1d21; height: 100%;">
+                        <div class="chat-row" style="align-items: flex-start;">
+                            <div class="avatar" style="background: #e01e5a; min-width: 40px;">L</div>
+                            <div style="display: flex; flex-direction: column; width: 100%;">
+                                <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 5px;">
+                                    <span style="color: white; font-weight: bold;">Luis (IT Support)</span>
+                                    <span style="color: #9ca3af; font-size: 0.75rem;">11:45 AM</span>
+                                </div>
+                                <div style="color: #d1d5db; font-size: 0.95rem; line-height: 1.5;">
+                                    Oye, ¿tú también recibiste lo de RRHH? Yo ya validé con Carlos de TI. Todo está bien. 👍 Ellos solo están actualizando sistemas.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1175,8 +1336,6 @@
         }
 
         function updatePersonalization() {
-            // NOTE: Profile Sidebar logic removed to keep it static (TomDoe).
-            
             // Update Simulation Targets
             document.querySelectorAll('.user-target').forEach(el => {
                 el.innerText = currentUser;
@@ -1361,11 +1520,26 @@
                     proto: "<strong>Trust but Verify:</strong> You performed the correct checks (LinkedIn, Domain, Headers) and confirmed it was a real offer. Zero Trust doesn't mean Zero Business.",
                     why: "You verified the evidence instead of succumbing to paranoia."
                 }
+            },
+            'multistage': {
+                isMalicious: true, // MULTI-VECTOR APT
+                defensiveOptions: [
+                    { text: "Trust Luis (Slack) since he is a known colleague.", correct: false },
+                    { text: "Report the entire chain to Security Operations Center (SOC).", correct: true },
+                    { text: "Download the fix tool but scan it with another AV.", correct: false }
+                ],
+                analysis: {
+                    tech: "<strong>Advanced Persistent Threat (APT):</strong> This simulation mimics a complex attack chain: 1. Credential Harvesting (Email), 2. MFA Bypass (WhatsApp/Call), 3. Malware Delivery (Fake AV), 4. Persistence via Compromised Internal Account (Slack).",
+                    ling: "<strong>Sound Boarding & Social Proof:</strong> The attackers used multiple identities to validate each other ('Carlos sent me', 'Luis confirmed it'). This creates a 'Bubble of Trust'.",
+                    proto: "<strong>Out-of-Band Verification:</strong> When multiple independent channels push the same urgent narrative, it is likely a coordinated attack. Never download 'fixes' from pop-ups. Verify status with the real Helpdesk via a clean channel.",
+                    why: "You recognized the orchestrated nature of the campaign despite the social proof."
+                }
             }
         };
 
         // --- SIMULATOR LOGIC ---
         let currentSim = 'ceo';
+        let currentStage = 0;
 
         function loadSim(simId, mode) {
             currentSim = simId;
@@ -1374,7 +1548,8 @@
             
             // Hide all windows (both Code 1 OS windows and Code 2 Phones)
             document.querySelectorAll('.os-window, .phone-mockup').forEach(el => el.classList.remove('active'));
-            document.getElementById('sim-recruitment').style.display = 'none'; // Hide recruitment container specially
+            document.getElementById('sim-recruitment').style.display = 'none'; 
+            document.getElementById('sim-multistage').style.display = 'none';
             
             // Show target
             if (simId === 'recruitment') {
@@ -1386,7 +1561,16 @@
                 // Show Zero Trust Panel instead of buttons initially
                 document.getElementById('verdict-buttons-container').style.display = 'none';
                 document.getElementById('zero-trust-panel').style.display = 'block';
-            } else {
+            } 
+            else if (simId === 'multistage') {
+                document.getElementById('sim-multistage').style.display = 'flex';
+                currentStage = 0;
+                updateStageDisplay();
+                // Show standard verdict buttons
+                document.getElementById('verdict-buttons-container').style.display = 'block';
+                document.getElementById('zero-trust-panel').style.display = 'none';
+            }
+            else {
                 document.getElementById('sim-' + simId).classList.add('active');
                 
                 // Show standard verdict buttons
@@ -1396,6 +1580,34 @@
             
             // Reset selectors
             document.getElementById('analysis-select').value = "";
+        }
+
+        // LOGIC FOR MULTI-STAGE CHALLENGE
+        function changeStage(target) {
+            if (target === 'next') {
+                if (currentStage < 4) currentStage++;
+            } else {
+                currentStage = target;
+            }
+            updateStageDisplay();
+        }
+
+        function updateStageDisplay() {
+            // Hide all stages inside multistage container
+            for (let i = 0; i <= 4; i++) {
+                const el = document.getElementById('stage-' + i);
+                if (el) el.style.display = 'none';
+                // Reset active class on dots
+                document.querySelectorAll('.timeline-dot')[i].classList.remove('active');
+            }
+            
+            // Show current
+            const currentEl = document.getElementById('stage-' + currentStage);
+            if (currentEl) {
+                currentEl.style.display = 'block';
+                currentEl.classList.add('active'); // Ensure OS windows get the popIn animation if applicable
+            }
+            document.querySelectorAll('.timeline-dot')[currentStage].classList.add('active');
         }
 
         // SPECIFIC LOGIC FOR RECRUITMENT CHALLENGE
@@ -1444,6 +1656,7 @@
             if (currentSim === 'it' && (val === 'urgency' || val === 'quidproquo')) correct = true;
             if (currentSim === 'job' && (val === 'scarcity' || val === 'curiosity')) correct = true;
             if (currentSim === 'wsp' && (val === 'urgency' || val === 'rapport')) correct = true;
+            if (currentSim === 'multistage' && val === 'multivector') correct = true; // Allow explicit multi-vector selection
 
             if (correct) {
                 showToast("Analysis Verified. Initiating Countermeasures...", "success");
