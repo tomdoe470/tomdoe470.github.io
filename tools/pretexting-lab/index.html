@@ -74,11 +74,6 @@
             gap: 12px;
         }
         
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
-
         .nav-links button {
             background: transparent;
             border: none;
@@ -98,7 +93,7 @@
         
         .btn-launch {
             /* Updated to a more vivid neon green as requested */
-            background: var(--neon-green) !important; 
+            background: var(--neon-green); 
             color: #000 !important; /* Black text for contrast */
             padding: 8px 20px;
             border-radius: 4px;
@@ -110,32 +105,7 @@
         .btn-launch:hover { 
             box-shadow: 0 0 35px rgba(0, 255, 157, 0.6); 
             transform: translateY(-2px) scale(1.05);
-            background: #33ffad !important;
-        }
-
-        /* Language Toggle */
-        .lang-toggle {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            margin-left: 25px;
-            padding: 2px;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .lang-opt {
-            padding: 4px 10px;
-            font-size: 0.75rem;
-            font-family: var(--font-code);
-            border-radius: 15px;
-            color: var(--text-muted);
-            transition: 0.3s;
-        }
-        .lang-opt.active {
-            background: var(--primary);
-            color: white;
-            font-weight: bold;
+            background: #33ffad;
         }
 
         /* --- VIEWS SYSTEM --- */
@@ -675,16 +645,10 @@
             <span style="color: var(--primary)">//</span> PRETEXT_LAB
         </div>
         <div class="nav-links">
-            <button onclick="navTo('home')" class="active t-home">Home</button>
-            <button onclick="navTo('methodologies')" class="t-intel">Intel</button>
-            <button onclick="navTo('profile')" class="t-about">ABOUT ME</button>
-            <button onclick="navTo('simulator')" class="btn-launch t-launch">LAUNCH SIM</button>
-            
-            <!-- Language Toggle -->
-            <div class="lang-toggle" onclick="toggleLanguage()">
-                <div class="lang-opt active" id="lang-en">EN</div>
-                <div class="lang-opt" id="lang-es">ES</div>
-            </div>
+            <button onclick="navTo('home')" class="active">Home</button>
+            <button onclick="navTo('methodologies')">Intel</button>
+            <button onclick="navTo('profile')">ABOUT ME</button>
+            <button onclick="navTo('simulator')" class="btn-launch">LAUNCH SIM</button>
         </div>
     </nav>
 
@@ -692,11 +656,11 @@
         <canvas id="matrix"></canvas>
         <div style="position: relative; z-index: 2;">
             <div class="hero-badge">v3.5 // OPS MODULE ACTIVE</div>
-            <h1 class="hero-title t-hero-title">DECONSTRUCT THE ART OF<br><span>DECEPTION</span></h1>
-            <p class="hero-desc t-hero-desc">Interactive training environment designed to deconstruct social engineering attacks. Analyze payloads, identify pretexts, and harden your human firewall.</p>
+            <h1 class="hero-title">DECONSTRUCT THE ART OF<br><span>DECEPTION</span></h1>
+            <p class="hero-desc">Interactive training environment designed to deconstruct social engineering attacks. Analyze payloads, identify pretexts, and harden your human firewall.</p>
             <div class="cta-group">
-                <button class="btn-hero btn-secondary t-view-vectors" onclick="navTo('methodologies')">VIEW VECTORS</button>
-                <button class="btn-hero btn-primary t-start-sim" onclick="navTo('simulator')">START SIMULATION_</button>
+                <button class="btn-hero btn-secondary" onclick="navTo('methodologies')">VIEW VECTORS</button>
+                <button class="btn-hero btn-primary" onclick="navTo('simulator')">START SIMULATION_</button>
             </div>
         </div>
     </div>
@@ -714,7 +678,7 @@
 
                 <!-- ADDED CONTACT SECTION IN SIDEBAR -->
                 <div class="profile-stats">
-                    <div class="t-establish-conn" style="font-family: var(--font-code); color: var(--accent-green); font-size: 0.8rem; margin-bottom: 10px; letter-spacing: 1px;">> ESTABLISH CONNECTION</div>
+                    <div style="font-family: var(--font-code); color: var(--accent-green); font-size: 0.8rem; margin-bottom: 10px; letter-spacing: 1px;">> ESTABLISH CONNECTION</div>
                     <a href="https://www.linkedin.com/in/tomas-de-otaduy/" target="_blank" style="text-decoration: none;">
                         <div class="stat-item" style="border-left: 3px solid #0a66c2;">
                             <div class="stat-label" style="color: #0a66c2;">LINKEDIN PROFILE</div>
@@ -727,28 +691,28 @@
             <main class="profile-content">
                 <div>
                     <h1 class="decrypt-header" id="typing-text">DECRYPTING...</h1>
-                    <p class="t-init-profile" style="color: var(--text-muted); font-family: var(--font-code);">Initializing... Loading profile</p>
+                    <p style="color: var(--text-muted); font-family: var(--font-code);">Initializing... Loading profile</p>
                 </div>
 
                 <div class="bio-section">
                     <div class="bio-card">
-                        <div class="bio-title t-bio-origin-title"><span style="font-size: 1.2rem;">📂</span> ORIGIN</div>
-                        <p class="t-bio-origin-text" style="font-size: 0.9rem; line-height: 1.6; color: #cbd5e1;">Argentinian specializing in information security, forged in the digital revolution. I'm an enthusiast in the psychological aspects of information security and intelligence operations. "Every system is only as strong as the human operating it."</p>
+                        <div class="bio-title"><span style="font-size: 1.2rem;">📂</span> ORIGIN</div>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #cbd5e1;">Argentinian specializing in information security, forged in the digital revolution. I'm an enthusiast in the psychological aspects of information security and intelligence operations. "Every system is only as strong as the human operating it."</p>
                     </div>
                     <div class="bio-card">
-                        <div class="bio-title t-bio-interests-title"><span style="font-size: 1.2rem;">🧬</span> INTERESTS</div>
-                        <p class="t-bio-interests-text" style="font-size: 0.9rem; line-height: 1.6; color: #cbd5e1;">Obsessed with the mechanics of social engineering and the methodology of detection. I also enjoy everything related to web pentesting and intelligence operations based on OSINT.</p>
+                        <div class="bio-title"><span style="font-size: 1.2rem;">🧬</span> INTERESTS</div>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #cbd5e1;">Obsessed with the mechanics of social engineering and the methodology of detection. I also enjoy everything related to web pentesting and intelligence operations based on OSINT.</p>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="t-ops-vectors-title" style="font-family: var(--font-code); margin-bottom: 20px; color: var(--primary);">OPERATIONAL VECTORS</h3>
+                    <h3 style="font-family: var(--font-code); margin-bottom: 20px; color: var(--primary);">OPERATIONAL VECTORS</h3>
                     <div class="vectors-grid">
                         <div class="skill-card">
                             <div class="skill-header">
                                 <span style="font-size: 1.5rem;">⚙️</span> SOCIAL ENGINEERING
                             </div>
-                            <p class="t-se-desc" style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px;">Crafting sophisticated pretexts and leveraging human psychology to bypass authentication protocols for the purpose of enhancing user training and evaluating security during red-team operations.</p>
+                            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px;">Crafting sophisticated pretexts and leveraging human psychology to bypass authentication protocols for the purpose of enhancing user training and evaluating security during red-team operations.</p>
                             <div class="tags-container">
                                 <span class="skill-tag">[OSINT]</span>
                                 <span class="skill-tag">[VISHING]</span>
@@ -760,7 +724,7 @@
                             <div class="skill-header">
                                 <span style="font-size: 1.5rem;">🛡️</span> SECURITY & PENTESTING
                             </div>
-                            <p class="t-sec-desc" style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px;">Identifying vulnerabilities in physical and digital infrastructure. Hardening systems against intrusion.</p>
+                            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px;">Identifying vulnerabilities in physical and digital infrastructure. Hardening systems against intrusion.</p>
                             <div class="tags-container">
                                 <span class="skill-tag">[OWASP]</span>
                                 <span class="skill-tag">[BURP SUITE]</span>
@@ -772,39 +736,39 @@
 
                 <div class="uplink-terminal">
                     <div class="terminal-header">
-                        <span class="t-establish-uplink">ESTABLISH UPLINK</span>
+                        <span>ESTABLISH UPLINK</span>
                         <span>root@system:~/profile/contact</span>
                     </div>
                     <div class="terminal-body">
                         <div class="cmd-line">
                             <span class="prompt">root@visitor:~$</span>
-                            <span class="t-set-sender" style="color: #64748b;">set_sender_id</span>
+                            <span style="color: #64748b;">set_sender_id</span>
                         </div>
                         <div class="cmd-line">
                             <span class="prompt">></span>
-                            <input type="text" class="cmd-input t-placeholder-name" placeholder="Enter your name/alias...">
+                            <input type="text" class="cmd-input" placeholder="Enter your name/alias...">
                         </div>
                         
                         <div class="cmd-line" style="margin-top: 10px;">
                             <span class="prompt">root@visitor:~$</span>
-                            <span class="t-set-return" style="color: #64748b;">set_return_path</span>
+                            <span style="color: #64748b;">set_return_path</span>
                         </div>
                         <div class="cmd-line">
                             <span class="prompt">></span>
-                            <input type="email" class="cmd-input t-placeholder-email" placeholder="Enter your email...">
+                            <input type="email" class="cmd-input" placeholder="Enter your email...">
                         </div>
 
                         <div class="cmd-line" style="margin-top: 10px;">
                             <span class="prompt">root@visitor:~$</span>
-                            <span class="t-def-payload" style="color: #64748b;">define_payload</span>
+                            <span style="color: #64748b;">define_payload</span>
                         </div>
                         <div class="cmd-line">
                             <span class="prompt">></span>
-                            <input type="text" class="cmd-input t-placeholder-msg" placeholder="Type your message here...">
+                            <input type="text" class="cmd-input" placeholder="Type your message here...">
                         </div>
 
                         <button class="btn-transmit">
-                            <span>▶</span> <span class="t-transmit-btn">TRANSMIT DATA PACKET</span>
+                            <span>▶</span> TRANSMIT DATA PACKET
                         </button>
                     </div>
                 </div>
@@ -814,8 +778,8 @@
 
     <div id="methodologies-view" class="view">
         <div class="section-header">
-            <div class="t-kb-header" style="font-family: var(--font-code); color: var(--primary); margin-bottom: 10px;">KNOWLEDGE BASE</div>
-            <h2 class="t-kb-title">Core Pretexting Vectors</h2>
+            <div style="font-family: var(--font-code); color: var(--primary); margin-bottom: 10px;">KNOWLEDGE BASE</div>
+            <h2>Core Pretexting Vectors</h2>
         </div>
 
         <div class="cards-grid">
@@ -823,95 +787,89 @@
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <div class="card-icon-circle">👮‍♂️</div>
-                        <h3 class="t-card-auth-title">Authority</h3>
-                        <p class="t-card-auth-desc" style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Impersonating executives, legal entities, or sysadmins.</p>
-                        <div class="reveal-hint t-reveal">Click to Decrypt</div>
+                        <h3>Authority</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Impersonating executives, legal entities, or sysadmins.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
                     </div>
                     <div class="flip-card-back">
-                        <h4 class="t-vector-analysis" style="color: #60a5fa">Vector Analysis</h4>
-                        <p class="t-card-auth-analysis" style="font-size: 0.9rem; line-height: 1.6;">Targets are conditioned to comply with superiors to avoid insubordination.</p>
-                        <div class="example-box t-card-auth-ex" style="border-color: #60a5fa">> "This is the CEO. Wire funds for acquisition Project X immediately."</div>
+                        <h4 style="color: #60a5fa">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Targets are conditioned to comply with superiors to avoid insubordination.</p>
+                        <div class="example-box" style="border-color: #60a5fa">> "This is the CEO. Wire funds for acquisition Project X immediately."</div>
                     </div>
                 </div>
             </div>
-            <!-- ... (Other Cards Logic is handled in JS via translation map) ... -->
-            <!-- Placeholder for Urgency Card -->
             <div class="flip-card style-urge" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <div class="card-icon-circle">🧨</div>
-                        <h3 class="t-card-urge-title">Urgency</h3>
-                        <p class="t-card-urge-desc" style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Demanding immediate action to prevent disaster.</p>
-                        <div class="reveal-hint t-reveal">Click to Decrypt</div>
+                        <h3>Urgency</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Demanding immediate action to prevent disaster.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
                     </div>
                     <div class="flip-card-back">
-                        <h4 class="t-vector-analysis" style="color: var(--accent-red)">Vector Analysis</h4>
-                        <p class="t-card-urge-analysis" style="font-size: 0.9rem; line-height: 1.6;">Fear induces cognitive tunneling. When victims believe time is running out, critical thinking is suspended.</p>
-                        <div class="example-box t-card-urge-ex" style="border-color: var(--accent-red)">> "Account suspension in 5 min. Verify credentials NOW."</div>
+                        <h4 style="color: var(--accent-red)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Fear induces cognitive tunneling. When victims believe time is running out, critical thinking is suspended.</p>
+                        <div class="example-box" style="border-color: var(--accent-red)">> "Account suspension in 5 min. Verify credentials NOW."</div>
                     </div>
                 </div>
             </div>
-            <!-- Trust -->
             <div class="flip-card style-trust" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <div class="card-icon-circle">🤝</div>
-                        <h3 class="t-card-trust-title">Trust & Rapport</h3>
-                        <p class="t-card-trust-desc" style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Leveraging OSINT to appear as a friend or colleague.</p>
-                        <div class="reveal-hint t-reveal">Click to Decrypt</div>
+                        <h3>Trust & Rapport</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Leveraging OSINT to appear as a friend or colleague.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
                     </div>
                     <div class="flip-card-back">
-                        <h4 class="t-vector-analysis" style="color: var(--accent-green)">Vector Analysis</h4>
-                        <p class="t-card-trust-analysis" style="font-size: 0.9rem; line-height: 1.6;">Building familiarity lowers natural defenses. Attackers mine social media for shared interests.</p>
-                        <div class="example-box t-card-trust-ex" style="border-color: var(--accent-green)">> "Loved your Bali pics! Btw, can you send that Q3 sheet?"</div>
+                        <h4 style="color: var(--accent-green)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Building familiarity lowers natural defenses. Attackers mine social media for shared interests.</p>
+                        <div class="example-box" style="border-color: var(--accent-green)">> "Loved your Bali pics! Btw, can you send that Q3 sheet?"</div>
                     </div>
                 </div>
             </div>
-            <!-- Curiosity -->
             <div class="flip-card style-curiosity" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <div class="card-icon-circle">🧐</div>
-                        <h3 class="t-card-curiosity-title">Curiosity</h3>
-                        <p class="t-card-curiosity-desc" style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Enticing the victim with hidden or forbidden information.</p>
-                        <div class="reveal-hint t-reveal">Click to Decrypt</div>
+                        <h3>Curiosity</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Enticing the victim with hidden or forbidden information.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
                     </div>
                     <div class="flip-card-back">
-                        <h4 class="t-vector-analysis" style="color: var(--accent-purple)">Vector Analysis</h4>
-                        <p class="t-card-curiosity-analysis" style="font-size: 0.9rem; line-height: 1.6;">Humans have an innate desire to know the unknown. Vague filenames trigger clicks.</p>
-                        <div class="example-box t-card-curiosity-ex" style="border-color: var(--accent-purple)">> "Fwd: Layoff_Plan_Q4_FINAL.docx - Do not share"</div>
+                        <h4 style="color: var(--accent-purple)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Humans have an innate desire to know the unknown. Vague filenames trigger clicks.</p>
+                        <div class="example-box" style="border-color: var(--accent-purple)">> "Fwd: Layoff_Plan_Q4_FINAL.docx - Do not share"</div>
                     </div>
                 </div>
             </div>
-            <!-- Scarcity -->
             <div class="flip-card style-scarcity" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <div class="card-icon-circle">💎</div>
-                        <h3 class="t-card-scarcity-title">Scarcity</h3>
-                        <p class="t-card-scarcity-desc" style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Creating a false sense of limited availability.</p>
-                        <div class="reveal-hint t-reveal">Click to Decrypt</div>
+                        <h3>Scarcity</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Creating a false sense of limited availability.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
                     </div>
                     <div class="flip-card-back">
-                        <h4 class="t-vector-analysis" style="color: var(--accent-gold)">Vector Analysis</h4>
-                        <p class="t-card-scarcity-analysis" style="font-size: 0.9rem; line-height: 1.6;">FOMO drives impulsive action. Offers that seem "too good to be true" usually are.</p>
-                        <div class="example-box t-card-scarcity-ex" style="border-color: var(--accent-gold)">> "Only 2 spots left for the Executive Bonus Program."</div>
+                        <h4 style="color: var(--accent-gold)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">FOMO drives impulsive action. Offers that seem "too good to be true" usually are.</p>
+                        <div class="example-box" style="border-color: var(--accent-gold)">> "Only 2 spots left for the Executive Bonus Program."</div>
                     </div>
                 </div>
             </div>
-            <!-- Quid Pro Quo -->
             <div class="flip-card style-quid" onclick="this.classList.toggle('flipped')">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <div class="card-icon-circle">🎁</div>
-                        <h3 class="t-card-quid-title">Quid Pro Quo</h3>
-                        <p class="t-card-quid-desc" style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Offering a benefit or service in exchange for info.</p>
-                        <div class="reveal-hint t-reveal">Click to Decrypt</div>
+                        <h3>Quid Pro Quo</h3>
+                        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Offering a benefit or service in exchange for info.</p>
+                        <div class="reveal-hint">Click to Decrypt</div>
                     </div>
                     <div class="flip-card-back">
-                        <h4 class="t-vector-analysis" style="color: var(--accent-teal)">Vector Analysis</h4>
-                        <p class="t-card-quid-analysis" style="font-size: 0.9rem; line-height: 1.6;">"Something for something". Attackers offer help (often technical) to get credentials.</p>
-                        <div class="example-box t-card-quid-ex" style="border-color: var(--accent-teal)">> "I can fix that slow network speed, just need your pass."</div>
+                        <h4 style="color: var(--accent-teal)">Vector Analysis</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">"Something for something". Attackers offer help (often technical) to get credentials.</p>
+                        <div class="example-box" style="border-color: var(--accent-teal)">> "I can fix that slow network speed, just need your pass."</div>
                     </div>
                 </div>
             </div>
@@ -922,94 +880,94 @@
         <aside class="sim-sidebar">
             
             <div class="sim-tabs">
-                <div class="sim-tab active t-tab-basic" onclick="switchTab('basic')">BASIC TRAINING</div>
-                <div class="sim-tab t-tab-advanced" onclick="switchTab('advanced')">ADVANCED OPS</div>
+                <div class="sim-tab active" onclick="switchTab('basic')">BASIC TRAINING</div>
+                <div class="sim-tab" onclick="switchTab('advanced')">ADVANCED OPS</div>
             </div>
 
             <div id="list-basic" class="sc-list visible">
                 <div class="scenario-item active" onclick="loadSim('ceo', 'basic')" id="btn-ceo">
-                    <div class="sc-header"><span class="t-sc-ceo-title">The 'Urgent' CEO</span><span class="badge badge-med">MEDIUM</span></div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)" class="t-sc-ceo-desc">Email payload from high-value target...</div>
+                    <div class="sc-header"><span>The 'Urgent' CEO</span><span class="badge badge-med">MEDIUM</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Email payload from high-value target...</div>
                 </div>
                 <div class="scenario-item" onclick="loadSim('it', 'basic')" id="btn-it">
-                    <div class="sc-header"><span class="t-sc-it-title">IT Support Reset</span><span class="badge badge-easy">EASY</span></div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)" class="t-sc-it-desc">Direct message requesting auth tokens...</div>
+                    <div class="sc-header"><span>IT Support Reset</span><span class="badge badge-easy">EASY</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Direct message requesting auth tokens...</div>
                 </div>
                 <div class="scenario-item" onclick="loadSim('job', 'basic')" id="btn-job">
-                    <div class="sc-header"><span class="t-sc-job-title">Dream Job Recruiter</span><span class="badge badge-hard">HARD</span></div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)" class="t-sc-job-desc">LinkedIn lure with malicious attachment...</div>
+                    <div class="sc-header"><span>Dream Job Recruiter</span><span class="badge badge-hard">HARD</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">LinkedIn lure with malicious attachment...</div>
                 </div>
                 <div class="scenario-item" onclick="loadSim('wsp', 'basic')" id="btn-wsp">
-                    <div class="sc-header"><span class="t-sc-wsp-title">Vendor Pay Update</span><span class="badge badge-med">MEDIUM</span></div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)" class="t-sc-wsp-desc">WhatsApp msg from known supplier...</div>
+                    <div class="sc-header"><span>Vendor Pay Update</span><span class="badge badge-med">MEDIUM</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">WhatsApp msg from known supplier...</div>
                 </div>
             </div>
 
             <div id="list-advanced" class="sc-list">
                 <div class="scenario-item" onclick="loadSim('gov_ato', 'advanced')" id="btn-gov_ato">
-                    <div class="sc-header"><span class="t-sc-gov-title">Operation: Civic Duty</span><span class="badge badge-adv">ADVANCED</span></div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)" class="t-sc-gov-desc">Multi-channel attack (Voice + SMS)...</div>
+                    <div class="sc-header"><span>Operation: Civic Duty</span><span class="badge badge-adv">ADVANCED</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Multi-channel attack (Voice + SMS)...</div>
                 </div>
                 <div class="scenario-item" onclick="loadSim('mfa_fatigue', 'advanced')" id="btn-mfa_fatigue">
-                    <div class="sc-header"><span class="t-sc-mfa-title">Midnight Storm</span><span class="badge badge-adv">ADVANCED</span></div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)" class="t-sc-mfa-desc">High volume notification request...</div>
+                    <div class="sc-header"><span>Midnight Storm</span><span class="badge badge-adv">ADVANCED</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">High volume notification request...</div>
                 </div>
                 <div class="scenario-item" onclick="loadSim('recruitment', 'advanced')" id="btn-recruitment">
-                    <div class="sc-header"><span class="t-sc-recruit-title">Headhunter Verification</span><span class="badge badge-adv">ADVANCED</span></div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)" class="t-sc-recruit-desc">Multi-stage Recruitment Ops...</div>
+                    <div class="sc-header"><span>Headhunter Verification</span><span class="badge badge-adv">ADVANCED</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Multi-stage Recruitment Ops...</div>
                 </div>
                 <!-- NEW MULTI-STAGE CHALLENGE -->
                 <div class="scenario-item" onclick="loadSim('multistage', 'advanced')" id="btn-multistage">
-                    <div class="sc-header"><span class="t-sc-multi-title">Operation: TechNova</span><span class="badge badge-adv">COMPLEX</span></div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)" class="t-sc-multi-desc">Persistent threat chain. 5 Stages.</div>
+                    <div class="sc-header"><span>Operation: TechNova</span><span class="badge badge-adv">COMPLEX</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">Persistent threat chain. 5 Stages.</div>
                 </div>
             </div>
 
             <div class="control-panel visible" id="panel-analysis">
-                <div class="panel-title t-analyst-console" style="color: var(--primary)">ANALYST CONSOLE</div>
-                <p style="font-size: 0.85rem;" class="t-identify-lever">Identify the primary psychological lever:</p>
+                <div class="panel-title" style="color: var(--primary)">ANALYST CONSOLE</div>
+                <p style="font-size: 0.85rem;">Identify the primary psychological lever:</p>
                 <select id="analysis-select">
-                    <option value="" class="t-opt-select">-- Select Vector --</option>
-                    <option value="authority" class="t-opt-auth">Abuse of Authority</option>
-                    <option value="urgency" class="t-opt-urge">False Sense of Urgency</option>
-                    <option value="rapport" class="t-opt-rap">Fabricated Rapport</option>
-                    <option value="curiosity" class="t-opt-cur">Curiosity / Mystery</option>
-                    <option value="scarcity" class="t-opt-scar">Scarcity / Greed</option>
-                    <option value="quidproquo" class="t-opt-quid">Quid Pro Quo</option>
-                    <option value="multivector" class="t-opt-multi">Complex / Multi-Vector APT</option>
+                    <option value="">-- Select Vector --</option>
+                    <option value="authority">Abuse of Authority</option>
+                    <option value="urgency">False Sense of Urgency</option>
+                    <option value="rapport">Fabricated Rapport</option>
+                    <option value="curiosity">Curiosity / Mystery</option>
+                    <option value="scarcity">Scarcity / Greed</option>
+                    <option value="quidproquo">Quid Pro Quo</option>
+                    <option value="multivector">Complex / Multi-Vector APT</option>
                 </select>
-                <button class="btn-hero btn-primary t-btn-submit" style="width: 100%; margin-top: 10px;" onclick="submitAnalysis()">SUBMIT REPORT</button>
+                <button class="btn-hero btn-primary" style="width: 100%; margin-top: 10px;" onclick="submitAnalysis()">SUBMIT REPORT</button>
             </div>
 
             <div class="control-panel" id="panel-verdict">
                 <div id="verdict-buttons-container">
-                    <div class="t-decision-req" style="color: var(--accent-gold); font-family: var(--font-code); font-size: 0.8rem;">DECISION REQUIRED</div>
-                    <p class="t-is-legit" style="font-size: 0.9rem; margin: 5px 0;">Is this communication legitimate?</p>
+                    <div style="color: var(--accent-gold); font-family: var(--font-code); font-size: 0.8rem;">DECISION REQUIRED</div>
+                    <p style="font-size: 0.9rem; margin: 5px 0;">Is this communication legitimate?</p>
                     <div class="verdict-btns">
-                        <button class="btn-verdict btn-legit t-btn-legit" onclick="submitAdvanced(true)">✅ LEGITIMATE</button>
-                        <button class="btn-verdict btn-mal t-btn-mal" onclick="submitAdvanced(false)">❌ MALICIOUS</button>
+                        <button class="btn-verdict btn-legit" onclick="submitAdvanced(true)">✅ LEGITIMATE</button>
+                        <button class="btn-verdict btn-mal" onclick="submitAdvanced(false)">❌ MALICIOUS</button>
                     </div>
                 </div>
                 
                 <!-- Zero Trust Verification Panel (Initially Hidden) -->
                 <div id="zero-trust-panel" style="display: none;">
-                    <div style="color: var(--accent-teal); font-family: var(--font-code); font-size: 0.8rem; margin-bottom: 10px;" class="t-zt-protocol">ZERO TRUST PROTOCOL</div>
-                    <p style="font-size: 0.85rem; margin-bottom: 15px;" class="t-zt-verify">Verify indicators before verdict:</p>
+                    <div style="color: var(--accent-teal); font-family: var(--font-code); font-size: 0.8rem; margin-bottom: 10px;">ZERO TRUST PROTOCOL</div>
+                    <p style="font-size: 0.85rem; margin-bottom: 15px;">Verify indicators before verdict:</p>
                     
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="check-box"></div>
-                        <div style="font-size: 0.8rem;" class="t-chk-linkedin">Verified LinkedIn Profile</div>
+                        <div style="font-size: 0.8rem;">Verified LinkedIn Profile</div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="check-box"></div>
-                        <div style="font-size: 0.8rem;" class="t-chk-domain">Checked Email Domain</div>
+                        <div style="font-size: 0.8rem;">Checked Email Domain</div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="check-box"></div>
-                        <div style="font-size: 0.8rem;" class="t-chk-headers">Headers/SPF Verified</div>
+                        <div style="font-size: 0.8rem;">Headers/SPF Verified</div>
                     </div>
 
-                    <button class="btn-hero btn-primary t-btn-confirm" style="width: 100%; margin-top: 10px;" onclick="unlockVerdict()">CONFIRM CHECKS</button>
+                    <button class="btn-hero btn-primary" style="width: 100%; margin-top: 10px;" onclick="unlockVerdict()">CONFIRM CHECKS</button>
                 </div>
             </div>
         </aside>
@@ -1017,114 +975,298 @@
         <main class="sim-viewport">
             
             <div id="sim-ceo" class="os-window active">
-                <!-- Content handled by JS render/reset mostly, keeping structure static -->
                 <div class="window-bar">
                     <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
                     <div class="address-bar">🔒 mail.corp-internal.net</div>
                 </div>
                 <div class="email-body">
                     <div class="email-meta">
-                        <h2 style="font-size: 1.4rem; margin-bottom: 10px;" class="t-ceo-subject">URGENT: Wire Transfer Required</h2>
+                        <h2 style="font-size: 1.4rem; margin-bottom: 10px;">URGENT: Wire Transfer Required</h2>
                         <div style="font-size: 0.9rem;"><strong>From:</strong> <span class="sender-tag">e.musk@tesla-motors.com</span><br><strong style="color: #64748b">To:</strong> <span class="user-target">You</span> (Finance Dept)</div>
                     </div>
                     <div style="font-family: serif; font-size: 1.1rem; line-height: 1.6;">
-                        <p style="margin-bottom: 15px;" class="t-ceo-p1">Hi <span class="user-target">there</span>,</p>
-                        <p style="margin-bottom: 15px;" class="t-ceo-p2">I'm currently stuck in a meeting with partners in Tokyo and my company card is being declined. This is embarrassing and critical for the acquisition deal.</p>
-                        <p style="margin-bottom: 15px;" class="t-ceo-p3">Process an immediate wire transfer of <strong>$14,500</strong> to the vendor account attached below. Do not discuss this with anyone yet as the deal is under NDA.</p>
-                        <p style="margin-bottom: 20px;" class="t-ceo-p4">Process this NOW. I will sign paperwork when I land.</p>
+                        <p style="margin-bottom: 15px;">Hi <span class="user-target">there</span>,</p>
+                        <p style="margin-bottom: 15px;">I'm currently stuck in a meeting with partners in Tokyo and my company card is being declined. This is embarrassing and critical for the acquisition deal.</p>
+                        <p style="margin-bottom: 15px;">Process an immediate wire transfer of <strong>$14,500</strong> to the vendor account attached below. Do not discuss this with anyone yet as the deal is under NDA.</p>
+                        <p style="margin-bottom: 20px;">Process this NOW. I will sign paperwork when I land.</p>
                         <p style="font-style: italic; color: #64748b;">Sent from my iPhone</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Other simulation windows structure maintained, text content will be dynamic via JS if needed, but for brevity, mostly relying on static + simple JS replace -->
-            <!-- ... (Other simulation containers: IT, Job, WSP, Gov, MFA, Recruit, MultiStage) ... -->
-            <!-- NOTE: For full bilingual support, ideally ALL text content inside sims needs classes. I will add classes to critical elements. -->
-
             <div id="sim-it" class="os-window">
-                <!-- ... IT Window ... -->
-                <div class="window-bar"><div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div><div class="address-bar"># slack-internal</div></div>
+                <div class="window-bar">
+                    <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                    <div class="address-bar"># slack-internal</div>
+                </div>
                 <div class="chat-body">
-                    <div class="chat-row"><div class="avatar">🦄</div><div class="bubble"><span class="msg-name">SysAdmin_Helpdesk</span><span class="t-it-msg1">Hi <span class="user-target">there</span>. We've detected a critical syncing error with your Active Directory profile. It looks like your account is flagging 403 errors on the main server.</span></div></div>
-                    <div class="chat-row"><div class="avatar">🦄</div><div class="bubble"><span class="msg-name">SysAdmin_Helpdesk</span><span class="t-it-msg2">We need to re-authenticate your session token manually to prevent a lockout. <span style="color: #f87171; font-weight: bold;">Please reply with your current temporary 2FA code</span> so I can resync the database.</span></div></div>
+                    <div class="chat-row"><div class="avatar">🦄</div><div class="bubble"><span class="msg-name">SysAdmin_Helpdesk</span>Hi <span class="user-target">there</span>. We've detected a critical syncing error with your Active Directory profile. It looks like your account is flagging 403 errors on the main server.</div></div>
+                    <div class="chat-row"><div class="avatar">🦄</div><div class="bubble"><span class="msg-name">SysAdmin_Helpdesk</span>We need to re-authenticate your session token manually to prevent a lockout. <span style="color: #f87171; font-weight: bold;">Please reply with your current temporary 2FA code</span> so I can resync the database.</div></div>
                     <div style="color: var(--primary); font-size: 0.8rem; font-family: var(--font-code);">SysAdmin_Helpdesk is typing...</div>
                 </div>
             </div>
 
             <div id="sim-job" class="os-window">
-                <!-- ... Job Window ... -->
-                <div class="window-bar"><div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div><div class="address-bar">🔒 linkedin.com/inbox</div></div>
+                <div class="window-bar">
+                    <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                    <div class="address-bar">🔒 linkedin.com/inbox</div>
+                </div>
                 <div class="email-body" style="border-top: 4px solid #0a66c2;">
-                    <div class="email-meta" style="border-bottom: none;"><h2 style="font-size: 1.2rem; margin-bottom: 5px;">Lead Security Architect (Remote)</h2><div style="font-size: 0.85rem; color: #64748b;">From: Sarah J. (Tech Recruiter at Gooogle)</div></div>
-                    <p class="t-job-msg1" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">Hey <span class="user-target">there</span>! I stumbled upon your profile and I'm blown away. We have a confidential opening that fits your skills perfectly. Pays 60% above market.</p>
-                    <p class="t-job-msg2" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">We are closing applications <strong>tonight</strong>. I've attached the full compensation breakdown and role details below.</p>
+                    <div class="email-meta" style="border-bottom: none;">
+                        <h2 style="font-size: 1.2rem; margin-bottom: 5px;">Lead Security Architect (Remote)</h2>
+                        <div style="font-size: 0.85rem; color: #64748b;">From: Sarah J. (Tech Recruiter at Gooogle)</div>
+                    </div>
+                    <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">Hey <span class="user-target">there</span>! I stumbled upon your profile and I'm blown away. We have a confidential opening that fits your skills perfectly. Pays 60% above market.</p>
+                    <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px;">We are closing applications <strong>tonight</strong>. I've attached the full compensation breakdown and role details below.</p>
                     <div style="background: #f1f5f9; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; font-weight: 600; color: #0f172a;">📄 Compensation_Pkg_Macro_Enabled.doc</div>
                 </div>
             </div>
 
             <div id="sim-wsp" class="os-window">
-                <!-- ... WSP Window ... -->
-                <div class="window-bar" style="background: #202c33; border-bottom: none;"><div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div><div class="address-bar" style="background: #111b21; color: #aebac1;">web.whatsapp.com</div></div>
-                <div class="wsp-header"><div class="wsp-avatar">🏢</div><div><div style="font-weight: 600; font-size: 0.95rem;">Global Suppliers Inc. (Alex)</div><div style="font-size: 0.75rem; color: #8696a0;">online</div></div></div>
+                <div class="window-bar" style="background: #202c33; border-bottom: none;">
+                    <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                    <div class="address-bar" style="background: #111b21; color: #aebac1;">web.whatsapp.com</div>
+                </div>
+                <div class="wsp-header">
+                    <div class="wsp-avatar">🏢</div>
+                    <div><div style="font-weight: 600; font-size: 0.95rem;">Global Suppliers Inc. (Alex)</div><div style="font-size: 0.75rem; color: #8696a0;">online</div></div>
+                </div>
                 <div class="wsp-body">
-                    <div class="wsp-msg wsp-in"><span class="t-wsp-msg1">Hey <span class="user-target">Tom</span>! 👋 Hope you're having a good week. Just wanted to flag something about Invoice #9092 for the server racks.</span><div class="wsp-time">10:15 AM</div></div>
-                    <div class="wsp-msg wsp-out"><span class="t-wsp-msg2">Hi Alex. What's the issue? We scheduled that for payment this Friday.</span><div class="wsp-time">10:18 AM</div></div>
-                    <div class="wsp-msg wsp-in"><span class="t-wsp-msg3">Yeah, that's the thing. Our corporate audit froze our main USD account this morning. Bureaucracy 🙄</span><div class="wsp-time">10:20 AM</div></div>
-                    <div class="wsp-msg wsp-in"><span class="t-wsp-msg4">Can you reroute the payment to our subsidiary's account in Singapore? I'll send the new IBAN now. Needs to go out today or shipping gets delayed 2 weeks. 😬</span><div class="wsp-time">10:20 AM</div></div>
+                    <div class="wsp-msg wsp-in">Hey <span class="user-target">Tom</span>! 👋 Hope you're having a good week. Just wanted to flag something about Invoice #9092 for the server racks.<div class="wsp-time">10:15 AM</div></div>
+                    <div class="wsp-msg wsp-out">Hi Alex. What's the issue? We scheduled that for payment this Friday.<div class="wsp-time">10:18 AM</div></div>
+                    <div class="wsp-msg wsp-in">Yeah, that's the thing. Our corporate audit froze our main USD account this morning. Bureaucracy 🙄<div class="wsp-time">10:20 AM</div></div>
+                    <div class="wsp-msg wsp-in">Can you reroute the payment to our subsidiary's account in Singapore? I'll send the new IBAN now. Needs to go out today or shipping gets delayed 2 weeks. 😬<div class="wsp-time">10:20 AM</div></div>
                 </div>
             </div>
 
             <div id="sim-gov_ato" class="phone-mockup">
-                <div class="phone-screen"><div class="phone-overlay"></div><div class="sms-popup"><div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#666; margin-bottom:5px;"><span>MESSAGES</span> <span>now</span></div><div style="font-size:0.9rem;" class="t-gov-sms"><strong>WhatsApp:</strong> Your verification code is 449-120. Do not share this with anyone.</div></div><div class="call-ui"><div class="caller-avatar">🏛️</div><div style="font-size:1.5rem; font-weight:600;" class="t-gov-caller">Ministry of Health</div><div style="opacity:0.8;">Mobile +54 9 11...</div><p class="t-gov-script" style="margin-top: 30px; font-size: 0.9rem; padding: 0 30px; font-style: italic;">"Hello <span class="user-target"></span>, we are calling regarding your vaccination appointment. We sent a code via SMS to confirm identity..."</p><div style="display: flex; gap: 40px; justify-content: center; margin-top: 60px;"><div style="width: 60px; height: 60px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📞</div><div style="width: 60px; height: 60px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📞</div></div></div></div>
-            </div>
-
-            <div id="sim-mfa_fatigue" class="phone-mockup">
-                <div class="phone-screen" style="background-color: #111; display:flex; flex-direction:column; justify-content:center; align-items:center;"><div style="font-size: 3rem; margin-bottom: 20px;">🔒</div><h2 style="margin-bottom: 20px; color:white;">Authenticator</h2><div style="background: #333; padding: 20px; border-radius: 12px; width:80%; margin-bottom: 10px; animation: shake 0.5s; color:white;"><h3 class="t-mfa-approve">Approve sign-in?</h3><p style="color: #aaa; font-size: 0.8rem; margin:5px 0 15px 0;">Azure AD • California, US</p><div style="display: flex; gap: 10px;"><button style="flex:1; padding: 10px; background: #444; border:none; color: white; border-radius: 4px;" class="t-mfa-deny">Deny</button><button style="flex:1; padding: 10px; background: var(--primary); border:none; color: white; border-radius: 4px;" class="t-mfa-allow">Approve</button></div></div><div style="background: #333; padding: 20px; border-radius: 12px; width:80%; opacity: 0.5; transform: scale(0.95); color:white;"><h3 class="t-mfa-approve">Approve sign-in?</h3></div></div>
-            </div>
-
-            <!-- RECRUITMENT CHALLENGE CONTAINER -->
-            <div id="sim-recruitment" style="display: none; width: 100%; height: 100%; justify-content: center; align-items: center; position: relative;">
-                <div class="btn-switch-view" onclick="toggleRecruitmentView()"><span>🔄</span> Switch Device</div>
-                <div id="sim-recruitment-phone" class="phone-mockup" style="display: block;">
-                    <div class="phone-screen"><div class="phone-overlay"></div>
-                    <div style="background: #075e54; height: 80px; padding: 40px 20px 10px; color: white; display: flex; align-items: center; gap: 15px;"><div style="width: 35px; height: 35px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #075e54; font-weight: bold;">E</div><div><div style="font-weight: 600;">Elena (TechFlow HR)</div><div style="font-size: 0.7rem; opacity: 0.8;">Online</div></div></div>
-                    <div style="padding: 20px; background: #e5ddd5; height: calc(100% - 80px); display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');"><div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;"><span class="t-rec-msg1">Hi <span class="user-target">Tom</span>! 👋 I'm Elena from TechFlow. I saw your profile on LinkedIn and it's exactly what we are looking for.</span><div class="wsp-time">09:30 AM</div></div><div class="wsp-msg wsp-out" style="background: #dcf8c6; color: black; align-self: flex-end;"><span class="t-rec-msg2">Hi Elena. Thanks for reaching out. What role is this for?</span><div class="wsp-time">09:35 AM</div></div><div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;"><span class="t-rec-msg3">It's for the Senior SecOps Lead. Fully remote, $140k/yr + equity. 🚀</span><div class="wsp-time">09:36 AM</div></div><div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;"><span class="t-rec-msg4">I just sent the formal offer letter and benefits package to your email address. Let me know when you receive it!</span><div class="wsp-time">09:37 AM</div></div></div>
+                <div class="phone-screen">
+                    <div class="phone-overlay"></div>
+                    <div class="sms-popup">
+                        <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#666; margin-bottom:5px;"><span>MESSAGES</span> <span>now</span></div>
+                        <div style="font-size:0.9rem;"><strong>WhatsApp:</strong> Your verification code is 449-120. Do not share this with anyone.</div>
                     </div>
-                </div>
-                <!-- Email part omitted for brevity in placeholder, same structure -->
-                <div id="sim-recruitment-email" class="os-window" style="display: none;">
-                    <div class="window-bar"><div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div><div class="address-bar">🔒 mail.google.com</div></div>
-                    <div class="email-body">
-                        <div class="email-meta"><h2 style="font-size: 1.4rem; margin-bottom: 10px;">Official Offer: Senior Security Operations Lead</h2><div style="font-size: 0.9rem;"><strong>From:</strong> <span class="sender-tag" style="background: #d1fae5; color: #065f46;">elena.gomez@techflow.io</span> ✅<br><strong style="color: #64748b">To:</strong> <span class="user-target-email">tom.doe</span>@gmail.com</div></div>
-                        <div style="font-family: sans-serif; font-size: 1rem; line-height: 1.6; color: #334155;">
-                            <p class="t-rec-email1">Dear <span class="user-target">Tom</span>,</p>
-                            <p class="t-rec-email2">Following our conversation, we are thrilled to offer you the position of <strong>Senior SecOps Lead</strong> at TechFlow Inc.</p>
-                            <div style="background: #f1f5f9; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px;"><div style="font-size: 2rem;">📄</div><div><div style="font-weight: 700; color: #0f172a;">TechFlow_Offer_Letter_<span class="user-initials">TD</span>.pdf</div><div style="font-size: 0.8rem; color: #64748b;">1.2 MB • No threats detected</div></div></div>
+                    <div class="call-ui">
+                        <div class="caller-avatar">🏛️</div>
+                        <div style="font-size:1.5rem; font-weight:600;">Ministerio de Salud</div>
+                        <div style="opacity:0.8;">Mobile +54 9 11...</div>
+                        <p style="margin-top: 30px; font-size: 0.9rem; padding: 0 30px; font-style: italic;">"Hola <span class="user-target"></span>, le llamamos por su turno de vacunación. Le enviamos un código SMS para confirmar identidad..."</p>
+                        <div style="display: flex; gap: 40px; justify-content: center; margin-top: 60px;">
+                            <div style="width: 60px; height: 60px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📞</div>
+                            <div style="width: 60px; height: 60px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📞</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- NEW MULTI-STAGE ATTACK CONTAINER (Simplified for length, similar structure) -->
-            <div id="sim-multistage" style="display: none; width: 100%; height: 100%; justify-content: center; align-items: center; position: relative;">
-                <div class="timeline-controls">
-                    <button class="btn-timeline" onclick="changeStage(0)">◀</button>
-                    <div class="timeline-dot active" onclick="changeStage(0)"></div><div class="timeline-dot" onclick="changeStage(1)"></div><div class="timeline-dot" onclick="changeStage(2)"></div><div class="timeline-dot" onclick="changeStage(3)"></div><div class="timeline-dot" onclick="changeStage(4)"></div>
-                    <button class="btn-timeline" onclick="changeStage('next')">▶</button>
-                </div>
-                <!-- Stages 0-4 are here, same as previous version but with classes for translation if needed -->
-                <div id="stage-0" class="os-window active">
-                    <div class="window-bar"><div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div><div class="address-bar">🔒 outlook.office365.com</div></div>
-                    <div class="email-body">
-                        <div class="email-meta"><h2 style="font-size: 1.4rem; margin-bottom: 10px; color: #d93025;" class="t-multi-s0-subj">Urgent Benefits Update - Action Required Today</h2><div style="font-size: 0.9rem;"><strong>From:</strong> <span class="sender-tag" style="background: #fef2f2; color: #991b1b;">maria.torres@tech-nova-hr.com</span> ⚠️</div></div>
-                        <div style="font-family: sans-serif; font-size: 1rem; line-height: 1.6; color: #334155;"><p class="t-multi-s0-body">Hello <span class="user-target">Tom</span>, due to a 2025 platform update, you must review your info by 12:00.</p><a href="#" style="display: block; padding: 10px; background: #2563eb; color: white; text-align: center; border-radius: 4px; text-decoration: none; margin: 20px 0;">👉 https://tecnova-benefits-secure.com/update</a></div>
+            <div id="sim-mfa_fatigue" class="phone-mockup">
+                <div class="phone-screen" style="background-color: #111; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🔒</div>
+                    <h2 style="margin-bottom: 20px; color:white;">Authenticator</h2>
+                    <div style="background: #333; padding: 20px; border-radius: 12px; width:80%; margin-bottom: 10px; animation: shake 0.5s; color:white;">
+                        <h3>Approve sign-in?</h3>
+                        <p style="color: #aaa; font-size: 0.8rem; margin:5px 0 15px 0;">Azure AD • California, US</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button style="flex:1; padding: 10px; background: #444; border:none; color: white; border-radius: 4px;">Deny</button>
+                            <button style="flex:1; padding: 10px; background: var(--primary); border:none; color: white; border-radius: 4px;">Approve</button>
+                        </div>
+                    </div>
+                    <div style="background: #333; padding: 20px; border-radius: 12px; width:80%; opacity: 0.5; transform: scale(0.95); color:white;">
+                        <h3>Approve sign-in?</h3>
                     </div>
                 </div>
-                <!-- ... other stages ... -->
-                <div id="stage-1" class="phone-mockup" style="display:none;"><div class="phone-screen"><div style="padding:20px; color:white; padding-top:50px;">Carlos (IT): "Hi! We noticed unusual activity. Did you get an HR email? Need to verify identity via SMS."</div></div></div>
-                <div id="stage-2" class="phone-mockup" style="display:none;"><div class="phone-screen"><div style="padding:50px; color:white; text-align:center;"><h2>Ana Robles</h2><p>Security</p><p>"Calling about suspicious login from Argentina..."</p></div></div></div>
-                <div id="stage-3" class="os-window" style="display:none; background:darkred;"><div style="padding:50px; color:white; text-align:center;"><h2>⚠️ Threat Detected</h2><p>Fake Windows Defender Popup</p></div></div>
-                <div id="stage-4" class="os-window" style="display:none;"><div class="chat-body"><div class="bubble">Luis (Slack): "Hey, did you get the HR email too? I checked with Carlos, it's legit."</div></div></div>
+            </div>
+
+            <!-- RECRUITMENT CHALLENGE CONTAINER -->
+            <div id="sim-recruitment" style="display: none; width: 100%; height: 100%; justify-content: center; align-items: center; position: relative;">
+                
+                <div class="btn-switch-view" onclick="toggleRecruitmentView()">
+                    <span>🔄</span> Switch Device
+                </div>
+
+                <!-- Part 1: WhatsApp -->
+                <div id="sim-recruitment-phone" class="phone-mockup" style="display: block;">
+                    <div class="phone-screen">
+                        <div class="phone-overlay"></div>
+                        <div style="background: #075e54; height: 80px; padding: 40px 20px 10px; color: white; display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 35px; height: 35px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #075e54; font-weight: bold;">E</div>
+                            <div>
+                                <div style="font-weight: 600;">Elena (TechFlow HR)</div>
+                                <div style="font-size: 0.7rem; opacity: 0.8;">Online</div>
+                            </div>
+                        </div>
+                        <div style="padding: 20px; background: #e5ddd5; height: calc(100% - 80px); display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');">
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">Hi <span class="user-target">Tom</span>! 👋 I'm Elena from TechFlow. I saw your profile on LinkedIn and it's exactly what we are looking for.<div class="wsp-time">09:30 AM</div></div>
+                            <div class="wsp-msg wsp-out" style="background: #dcf8c6; color: black; align-self: flex-end;">Hi Elena. Thanks for reaching out. What role is this for?<div class="wsp-time">09:35 AM</div></div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">It's for the Senior SecOps Lead. Fully remote, $140k/yr + equity. 🚀<div class="wsp-time">09:36 AM</div></div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">I just sent the formal offer letter and benefits package to your email address. Let me know when you receive it!<div class="wsp-time">09:37 AM</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part 2: Email -->
+                <div id="sim-recruitment-email" class="os-window" style="display: none;">
+                    <div class="window-bar">
+                        <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                        <div class="address-bar">🔒 mail.google.com</div>
+                    </div>
+                    <div class="email-body">
+                        <div class="email-meta">
+                            <h2 style="font-size: 1.4rem; margin-bottom: 10px;">Official Offer: Senior Security Operations Lead</h2>
+                            <div style="font-size: 0.9rem;">
+                                <strong>From:</strong> <span class="sender-tag" style="background: #d1fae5; color: #065f46;">elena.gomez@techflow.io</span> ✅<br>
+                                <strong style="color: #64748b">To:</strong> <span class="user-target-email">tom.doe</span>@gmail.com
+                            </div>
+                            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 5px;">
+                                Security: Standard encryption (TLS) • Signed by: techflow.io
+                            </div>
+                        </div>
+                        <div style="font-family: sans-serif; font-size: 1rem; line-height: 1.6; color: #334155;">
+                            <p style="margin-bottom: 15px;">Dear <span class="user-target">Tom</span>,</p>
+                            <p style="margin-bottom: 15px;">Following our conversation, we are thrilled to offer you the position of <strong>Senior SecOps Lead</strong> at TechFlow Inc.</p>
+                            <p style="margin-bottom: 15px;">Attached you will find the formal offer letter outlining the compensation package, equity details, and benefits.</p>
+                            <p style="margin-bottom: 20px;">We are excited to have you join the team!</p>
+                            
+                            <div style="background: #f1f5f9; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 2rem;">📄</div>
+                                <div>
+                                    <div style="font-weight: 700; color: #0f172a;">TechFlow_Offer_Letter_<span class="user-initials">TD</span>.pdf</div>
+                                    <div style="font-size: 0.8rem; color: #64748b;">1.2 MB • No threats detected</div>
+                                </div>
+                            </div>
+
+                            <p style="margin-top: 20px; font-style: italic; color: #64748b;">
+                                Best regards,<br>
+                                Elena Gomez<br>
+                                HR Director | TechFlow Inc.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- NEW MULTI-STAGE ATTACK CONTAINER -->
+            <div id="sim-multistage" style="display: none; width: 100%; height: 100%; justify-content: center; align-items: center; position: relative;">
+                
+                <div class="timeline-controls">
+                    <button class="btn-timeline" onclick="changeStage(0)">◀</button>
+                    <div class="timeline-dot active" onclick="changeStage(0)"></div>
+                    <div class="timeline-dot" onclick="changeStage(1)"></div>
+                    <div class="timeline-dot" onclick="changeStage(2)"></div>
+                    <div class="timeline-dot" onclick="changeStage(3)"></div>
+                    <div class="timeline-dot" onclick="changeStage(4)"></div>
+                    <button class="btn-timeline" onclick="changeStage('next')">▶</button>
+                </div>
+
+                <!-- STAGE 1: EMAIL -->
+                <div id="stage-0" class="os-window active">
+                    <div class="window-bar">
+                        <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                        <div class="address-bar">🔒 outlook.office365.com</div>
+                    </div>
+                    <div class="email-body">
+                        <div class="email-meta">
+                            <h2 style="font-size: 1.4rem; margin-bottom: 10px; color: #d93025;">Actualización urgente de beneficios – Acción requerida hoy</h2>
+                            <div style="font-size: 0.9rem;">
+                                <strong>From:</strong> <span class="sender-tag" style="background: #fef2f2; color: #991b1b;">maria.torres@tech-nova-hr.com</span> ⚠️<br>
+                                <strong style="color: #64748b">To:</strong> <span class="user-target-email">tom.doe</span>@technova.com
+                            </div>
+                        </div>
+                        <div style="font-family: sans-serif; font-size: 1rem; line-height: 1.6; color: #334155;">
+                            <p>Hola <span class="user-target">Tom</span>,</p>
+                            <p>Por una actualización en la plataforma de beneficios 2025 debes revisar tu información antes de las 12:00.</p>
+                            <p>Accede aquí:</p>
+                            <a href="#" style="display: block; padding: 10px; background: #2563eb; color: white; text-align: center; border-radius: 4px; text-decoration: none; margin: 20px 0;">👉 https://tecnova-benefits-secure.com/update</a>
+                            <p style="font-size: 0.9rem; color: #d93025;">Si no completas el formulario podrías quedar temporalmente sin cobertura médica.</p>
+                            <p style="margin-top: 20px; color: #64748b;">– María Torres, RRHH</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STAGE 2: WHATSAPP -->
+                <div id="stage-1" class="phone-mockup" style="display: none;">
+                    <div class="phone-screen">
+                        <div class="phone-overlay"></div>
+                        <div style="background: #075e54; height: 80px; padding: 40px 20px 10px; color: white; display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 35px; height: 35px; background: #128c7e; border-radius: 50%; display: flex; align-items: center; justify-content: center;">💻</div>
+                            <div>
+                                <div style="font-weight: 600;">Carlos - Soporte TI</div>
+                                <div style="font-size: 0.7rem; opacity: 0.8;">Online</div>
+                            </div>
+                        </div>
+                        <div style="padding: 20px; background: #e5ddd5; height: calc(100% - 80px); display: flex; flex-direction: column; gap: 10px; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');">
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">Hola! Soy Carlos de TI. Notamos que tu sesión en Outlook ha tenido actividad inusual.</div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">¿Recibiste un correo de RRHH hoy?</div>
+                            <div class="wsp-msg wsp-in" style="background: white; color: black; align-self: flex-start;">Si sí, necesito validar tu identidad para evitar que bloqueen tu cuenta. Envíame por favor el código que te llegará por SMS.</div>
+                            <div class="sms-popup" style="animation: slideDown 0.5s forwards; opacity: 1; transform: translateY(0); top: 120px;">
+                                <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#666; margin-bottom:5px;"><span>Microsoft</span> <span>now</span></div>
+                                <div style="font-size:0.9rem;">Use code 882910 for Microsoft authentication.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STAGE 3: CALL -->
+                <div id="stage-2" class="phone-mockup" style="display: none;">
+                    <div class="phone-screen" style="background: radial-gradient(circle at center, #1f2937, #000);">
+                        <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 60px 20px;">
+                            <div style="text-align: center; color: white;">
+                                <div style="width: 100px; height: 100px; background: #374151; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 20px;">🛡️</div>
+                                <h2 style="font-size: 1.8rem; font-weight: 400; margin-bottom: 5px;">Ana Robles</h2>
+                                <p style="color: #9ca3af;">Seguridad Interna</p>
+                                <p style="color: #4ade80; margin-top: 10px;">04:12</p>
+                            </div>
+                            <div style="width: 100%; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; color: #e5e7eb; font-size: 0.9rem; font-style: italic;">
+                                "Hola, te llamo porque tu cuenta aparece vinculada a un movimiento sospechoso desde Argentina. Necesito confirmar tu ID de empleado y modelo de equipo para evitar suspensión..."
+                            </div>
+                            <div style="display: flex; gap: 40px;">
+                                <div style="width: 65px; height: 65px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🎤</div>
+                                <div style="width: 65px; height: 65px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer;">📞</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STAGE 4: FAKE AV -->
+                <div id="stage-3" class="os-window" style="display: none; height: 100%; background: url('https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2574&auto=format&fit=crop') center/cover;">
+                    <div class="fake-av-overlay">
+                        <div class="fake-av-window">
+                            <div class="av-header">
+                                <span>🛡️ Windows Defender Security Center</span>
+                            </div>
+                            <div style="padding: 30px; text-align: center;">
+                                <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
+                                <h2 style="margin-bottom: 10px;">Threat Detected!</h2>
+                                <p style="margin-bottom: 20px; color: #444;">Se detectó actividad maliciosa proveniente de su cuenta. Trojan.Win32.Generic</p>
+                                <button style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">Descargar herramienta de reparación (Fix-Security2025.exe)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STAGE 5: SLACK -->
+                <div id="stage-4" class="os-window" style="display: none;">
+                    <div class="window-bar">
+                        <div class="traffic-light tl-red"></div><div class="traffic-light tl-yellow"></div><div class="traffic-light tl-green"></div>
+                        <div class="address-bar"># general - Slack</div>
+                    </div>
+                    <div class="chat-body" style="background: #1a1d21; height: 100%;">
+                        <div class="chat-row" style="align-items: flex-start;">
+                            <div class="avatar" style="background: #e01e5a; min-width: 40px;">L</div>
+                            <div style="display: flex; flex-direction: column; width: 100%;">
+                                <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 5px;">
+                                    <span style="color: white; font-weight: bold;">Luis (IT Support)</span>
+                                    <span style="color: #9ca3af; font-size: 0.75rem;">11:45 AM</span>
+                                </div>
+                                <div style="color: #d1d5db; font-size: 0.95rem; line-height: 1.5;">
+                                    Oye, ¿tú también recibiste lo de RRHH? Yo ya validé con Carlos de TI. Todo está bien. 👍 Ellos solo están actualizando sistemas.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </main>
@@ -1134,10 +1276,10 @@
         
         <div class="modal-card" id="modal-defense">
             <div class="modal-header">
-                <h3 class="t-threat-id" style="color: var(--accent-gold)">⚠️ THREAT IDENTIFIED. INITIATE COUNTERMEASURE.</h3>
+                <h3 style="color: var(--accent-gold)">⚠️ THREAT IDENTIFIED. INITIATE COUNTERMEASURE.</h3>
             </div>
             <div class="modal-body">
-                <p class="t-choose-defense" style="margin-bottom: 20px; font-size: 1.1rem;">You have correctly identified the attack vector. How do you proceed? Select the most secure response.</p>
+                <p style="margin-bottom: 20px; font-size: 1.1rem;">You have correctly identified the attack vector. How do you proceed? Select the most secure response.</p>
                 <div class="defense-options" id="defense-options-container">
                     </div>
             </div>
@@ -1145,28 +1287,28 @@
 
         <div class="modal-card" id="modal-analysis">
             <div class="modal-header">
-                <h3 class="t-debrief-title" style="color: var(--primary)">🛡️ MISSION DEBRIEF & ANALYSIS</h3>
+                <h3 style="color: var(--primary)">🛡️ MISSION DEBRIEF & ANALYSIS</h3>
                 <button onclick="closeModal()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="coach-grid">
                     <div class="coach-box">
-                        <span class="coach-label t-lbl-tech">ATTACK TECHNIQUE (CIALDINI)</span>
+                        <span class="coach-label">ATTACK TECHNIQUE (CIALDINI)</span>
                         <div id="coach-tech">...</div>
                     </div>
                     <div class="coach-box">
-                        <span class="coach-label t-lbl-ling">LINGUISTIC TRIGGERS (VRIJ)</span>
+                        <span class="coach-label">LINGUISTIC TRIGGERS (VRIJ)</span>
                         <div id="coach-ling">...</div>
                     </div>
                 </div>
                 <div class="coach-box" style="margin-top: 20px; border-left: 3px solid var(--accent-green);">
-                    <span class="coach-label t-lbl-proto" style="color: var(--accent-green)">CORRECT DEFENSIVE PROTOCOL</span>
+                    <span class="coach-label" style="color: var(--accent-green)">CORRECT DEFENSIVE PROTOCOL</span>
                     <div id="coach-proto">...</div>
                 </div>
                 <div style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">
-                    <strong class="t-lbl-why">Why you succeeded:</strong> <span id="coach-why"></span>
+                    <strong>Why you succeeded:</strong> <span id="coach-why"></span>
                 </div>
-                <button class="btn-hero btn-primary t-btn-return" style="width: 100%; margin-top: 20px;" onclick="closeModal()">RETURN TO LAB</button>
+                <button class="btn-hero btn-primary" style="width: 100%; margin-top: 20px;" onclick="closeModal()">RETURN TO LAB</button>
             </div>
         </div>
 
@@ -1181,186 +1323,6 @@
     </div>
 
     <script>
-        // --- TRANSLATION DATA ---
-        const langData = {
-            en: {
-                nav: { home: "Home", intel: "Intel", about: "ABOUT ME", launch: "LAUNCH SIM" },
-                hero: { title: "DECONSTRUCT THE ART OF<br><span>DECEPTION</span>", desc: "Interactive training environment designed to deconstruct social engineering attacks. Analyze payloads, identify pretexts, and harden your human firewall.", btnVectors: "VIEW VECTORS", btnStart: "START SIMULATION_" },
-                profile: { conn: "> ESTABLISH CONNECTION", init: "Initializing... Loading profile", originT: "📂 ORIGIN", originD: "Argentinian specializing in information security...", interestsT: "🧬 INTERESTS", interestsD: "Obsessed with the mechanics of social engineering...", opsT: "OPERATIONAL VECTORS", seD: "Crafting sophisticated pretexts...", secD: "Identifying vulnerabilities...", uplink: "ESTABLISH UPLINK", send: "set_sender_id", ret: "set_return_path", pay: "define_payload", transmit: "TRANSMIT DATA PACKET" },
-                kb: { header: "KNOWLEDGE BASE", title: "Core Pretexting Vectors", reveal: "Click to Decrypt", analysis: "Vector Analysis" },
-                cards: { 
-                    auth: { t: "Authority", d: "Impersonating executives...", a: "Targets are conditioned to comply...", e: "> \"This is the CEO...\"" },
-                    urge: { t: "Urgency", d: "Demanding immediate action...", a: "Fear induces cognitive tunneling...", e: "> \"Account suspension in 5 min...\"" },
-                    trust: { t: "Trust & Rapport", d: "Leveraging OSINT...", a: "Building familiarity lowers defenses...", e: "> \"Loved your Bali pics...\"" },
-                    curiosity: { t: "Curiosity", d: "Enticing with hidden info...", a: "Innate desire to know unknown...", e: "> \"Fwd: Layoff_Plan...\"" },
-                    scarcity: { t: "Scarcity", d: "False sense of limited availability...", a: "FOMO drives impulsive action...", e: "> \"Only 2 spots left...\"" },
-                    quid: { t: "Quid Pro Quo", d: "Offering benefit for info...", a: "\"Something for something\"...", e: "> \"I can fix that slow network...\"" }
-                },
-                sim: {
-                    tabs: { basic: "BASIC TRAINING", adv: "ADVANCED OPS" },
-                    scenarios: { ceo: "The 'Urgent' CEO", it: "IT Support Reset", job: "Dream Job Recruiter", wsp: "Vendor Pay Update", gov: "Operation: Civic Duty", mfa: "Midnight Storm", rec: "Headhunter Verification", multi: "Operation: TechNova" },
-                    console: "ANALYST CONSOLE", identify: "Identify the primary psychological lever:",
-                    opts: { def: "-- Select Vector --", auth: "Abuse of Authority", urge: "False Sense of Urgency", rap: "Fabricated Rapport", cur: "Curiosity / Mystery", scar: "Scarcity / Greed", quid: "Quid Pro Quo", multi: "Complex / Multi-Vector APT" },
-                    submit: "SUBMIT REPORT",
-                    verdict: { req: "DECISION REQUIRED", q: "Is this communication legitimate?", leg: "✅ LEGITIMATE", mal: "❌ MALICIOUS" },
-                    zt: { title: "ZERO TRUST PROTOCOL", verify: "Verify indicators before verdict:", confirm: "CONFIRM CHECKS", li: "Verified LinkedIn Profile", dom: "Checked Email Domain", head: "Headers/SPF Verified" }
-                },
-                modal: { threat: "⚠️ THREAT IDENTIFIED. INITIATE COUNTERMEASURE.", choose: "You have correctly identified the attack vector. How do you proceed?", debrief: "🛡️ MISSION DEBRIEF & ANALYSIS", tech: "ATTACK TECHNIQUE", ling: "LINGUISTIC TRIGGERS", proto: "CORRECT DEFENSIVE PROTOCOL", why: "Why you succeeded:", ret: "RETURN TO LAB" }
-            },
-            es: {
-                nav: { home: "Inicio", intel: "Intel", about: "SOBRE MÍ", launch: "INICIAR SIM" },
-                hero: { title: "DECONSTRUYE EL ARTE DEL<br><span>ENGAÑO</span>", desc: "Entorno de entrenamiento interactivo diseñado para deconstruir ataques de ingeniería social. Analiza payloads, identifica pretextos y fortalece tu firewall humano.", btnVectors: "VER VECTORES", btnStart: "INICIAR SIMULACIÓN_" },
-                profile: { conn: "> ESTABLECER CONEXIÓN", init: "Inicializando... Cargando perfil", originT: "📂 ORIGEN", originD: "Argentino especializado en seguridad de la información...", interestsT: "🧬 INTERESES", interestsD: "Obsesionado con la mecánica de la ingeniería social...", opsT: "VECTORES OPERATIVOS", seD: "Creación de pretextos sofisticados...", secD: "Identificación de vulnerabilidades...", uplink: "ESTABLECER ENLACE", send: "set_id_remitente", ret: "set_ruta_retorno", pay: "definir_payload", transmit: "TRANSMITIR PAQUETE DE DATOS" },
-                kb: { header: "BASE DE CONOCIMIENTO", title: "Vectores Principales", reveal: "Clic para Decriptar", analysis: "Análisis del Vector" },
-                cards: { 
-                    auth: { t: "Autoridad", d: "Suplantar ejecutivos o legales...", a: "Objetivos condicionados a cumplir...", e: "> \"Soy el CEO. Transfiere fondos...\"" },
-                    urge: { t: "Urgencia", d: "Exigir acción inmediata...", a: "El miedo induce visión de túnel...", e: "> \"Suspensión de cuenta en 5 min...\"" },
-                    trust: { t: "Confianza", d: "Apalancar OSINT...", a: "La familiaridad baja las defensas...", e: "> \"Amé tus fotos de Bali...\"" },
-                    curiosity: { t: "Curiosidad", d: "Atraer con info oculta...", a: "Deseo innato de saber...", e: "> \"Fwd: Plan_Despidos_Q4...\"" },
-                    scarcity: { t: "Escasez", d: "Falsa disponibilidad limitada...", a: "FOMO impulsa acción impulsiva...", e: "> \"Solo quedan 2 lugares...\"" },
-                    quid: { t: "Quid Pro Quo", d: "Ofrecer beneficio por info...", a: "\"Algo por algo\"...", e: "> \"Puedo arreglar la red lenta...\"" }
-                },
-                sim: {
-                    tabs: { basic: "ENTRENAMIENTO BÁSICO", adv: "OPS AVANZADAS" },
-                    scenarios: { ceo: "El CEO 'Urgente'", it: "Reinicio de Soporte IT", job: "Reclutador Soñado", wsp: "Pago a Proveedor", gov: "Operación: Deber Cívico", mfa: "Tormenta de Medianoche", rec: "Verificación Headhunter", multi: "Operación: TechNova" },
-                    console: "CONSOLA DE ANALISTA", identify: "Identifica el disparador psicológico:",
-                    opts: { def: "-- Seleccionar Vector --", auth: "Abuso de Autoridad", urge: "Falsa Urgencia", rap: "Rapport Fabricado", cur: "Curiosidad / Misterio", scar: "Escasez / Codicia", quid: "Quid Pro Quo", multi: "APT Compleja / Multi-Vector" },
-                    submit: "ENVIAR REPORTE",
-                    verdict: { req: "DECISIÓN REQUERIDA", q: "¿Es legítima esta comunicación?", leg: "✅ LEGÍTIMO", mal: "❌ MALICIOSO" },
-                    zt: { title: "PROTOCOLO ZERO TRUST", verify: "Verificar indicadores antes del veredicto:", confirm: "CONFIRMAR CHEQUEOS", li: "Perfil LinkedIn Verificado", dom: "Dominio Email Chequeado", head: "Cabeceras/SPF Verificados" }
-                },
-                modal: { threat: "⚠️ AMENAZA IDENTIFICADA. INICIAR CONTRAMEDIDA.", choose: "Has identificado el vector correctamente. ¿Cómo procedes? Selecciona la respuesta más segura.", debrief: "🛡️ DEBRIEF DE MISIÓN Y ANÁLISIS", tech: "TÉCNICA DE ATAQUE", ling: "DISPARADORES LINGÜÍSTICOS", proto: "PROTOCOLO DEFENSIVO CORRECTO", why: "Por qué tuviste éxito:", ret: "VOLVER AL LAB" }
-            }
-        };
-
-        let currentLang = 'en';
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'es' : 'en';
-            
-            // Toggle UI classes
-            document.getElementById('lang-en').classList.toggle('active');
-            document.getElementById('lang-es').classList.toggle('active');
-
-            updateTexts();
-        }
-
-        function updateTexts() {
-            const t = langData[currentLang];
-
-            // Nav & Hero
-            document.querySelector('.t-home').innerText = t.nav.home;
-            document.querySelector('.t-intel').innerText = t.nav.intel;
-            document.querySelector('.t-about').innerText = t.nav.about;
-            document.querySelector('.t-launch').innerText = t.nav.launch;
-            document.querySelector('.t-hero-title').innerHTML = t.hero.title;
-            document.querySelector('.t-hero-desc').innerText = t.hero.desc;
-            document.querySelector('.t-view-vectors').innerText = t.hero.btnVectors;
-            document.querySelector('.t-start-sim').innerText = t.hero.btnStart;
-
-            // Profile
-            document.querySelector('.t-establish-conn').innerText = t.profile.conn;
-            document.querySelector('.t-init-profile').innerText = t.profile.init;
-            document.querySelector('.t-bio-origin-title').innerHTML = `<span style="font-size: 1.2rem;">📂</span> ${t.profile.originT}`;
-            document.querySelector('.t-bio-origin-text').innerText = t.profile.originD;
-            document.querySelector('.t-bio-interests-title').innerHTML = `<span style="font-size: 1.2rem;">🧬</span> ${t.profile.interestsT}`;
-            document.querySelector('.t-bio-interests-text').innerText = t.profile.interestsD;
-            document.querySelector('.t-ops-vectors-title').innerText = t.profile.opsT;
-            document.querySelector('.t-se-desc').innerText = t.profile.seD;
-            document.querySelector('.t-sec-desc').innerText = t.profile.secD;
-            document.querySelector('.t-establish-uplink').innerText = t.profile.uplink;
-            document.querySelector('.t-set-sender').innerText = t.profile.send;
-            document.querySelector('.t-set-return').innerText = t.profile.ret;
-            document.querySelector('.t-def-payload').innerText = t.profile.pay;
-            document.querySelector('.t-transmit-btn').innerText = t.profile.transmit;
-
-            // Knowledge Base
-            document.querySelector('.t-kb-header').innerText = t.kb.header;
-            document.querySelector('.t-kb-title').innerText = t.kb.title;
-            document.querySelectorAll('.t-reveal').forEach(el => el.innerText = t.kb.reveal);
-            document.querySelectorAll('.t-vector-analysis').forEach(el => el.innerText = t.kb.analysis);
-            
-            // Cards (Example for Auth, others follow same pattern in a real full implementation, simplified here for brevity but logic holds)
-            document.querySelector('.t-card-auth-title').innerText = t.cards.auth.t;
-            document.querySelector('.t-card-auth-desc').innerText = t.cards.auth.d;
-            document.querySelector('.t-card-auth-analysis').innerText = t.cards.auth.a;
-            document.querySelector('.t-card-auth-ex').innerText = t.cards.auth.e;
-            
-            // ... MAPPING OTHER CARDS ...
-            document.querySelector('.t-card-urge-title').innerText = t.cards.urge.t;
-            document.querySelector('.t-card-urge-desc').innerText = t.cards.urge.d;
-            document.querySelector('.t-card-urge-analysis').innerText = t.cards.urge.a;
-            document.querySelector('.t-card-urge-ex').innerText = t.cards.urge.e;
-            
-            document.querySelector('.t-card-trust-title').innerText = t.cards.trust.t;
-            document.querySelector('.t-card-trust-desc').innerText = t.cards.trust.d;
-            document.querySelector('.t-card-trust-analysis').innerText = t.cards.trust.a;
-            document.querySelector('.t-card-trust-ex').innerText = t.cards.trust.e;
-
-            document.querySelector('.t-card-curiosity-title').innerText = t.cards.curiosity.t;
-            document.querySelector('.t-card-curiosity-desc').innerText = t.cards.curiosity.d;
-            document.querySelector('.t-card-curiosity-analysis').innerText = t.cards.curiosity.a;
-            document.querySelector('.t-card-curiosity-ex').innerText = t.cards.curiosity.e;
-
-            document.querySelector('.t-card-scarcity-title').innerText = t.cards.scarcity.t;
-            document.querySelector('.t-card-scarcity-desc').innerText = t.cards.scarcity.d;
-            document.querySelector('.t-card-scarcity-analysis').innerText = t.cards.scarcity.a;
-            document.querySelector('.t-card-scarcity-ex').innerText = t.cards.scarcity.e;
-
-            document.querySelector('.t-card-quid-title').innerText = t.cards.quid.t;
-            document.querySelector('.t-card-quid-desc').innerText = t.cards.quid.d;
-            document.querySelector('.t-card-quid-analysis').innerText = t.cards.quid.a;
-            document.querySelector('.t-card-quid-ex').innerText = t.cards.quid.e;
-
-
-            // Sim Sidebar
-            document.querySelector('.t-tab-basic').innerText = t.sim.tabs.basic;
-            document.querySelector('.t-tab-advanced').innerText = t.sim.tabs.adv;
-            document.querySelector('.t-analyst-console').innerText = t.sim.console;
-            document.querySelector('.t-identify-lever').innerText = t.sim.identify;
-            document.querySelector('.t-btn-submit').innerText = t.sim.submit;
-            
-            document.querySelector('.t-opt-select').innerText = t.sim.opts.def;
-            document.querySelector('.t-opt-auth').innerText = t.sim.opts.auth;
-            document.querySelector('.t-opt-urge').innerText = t.sim.opts.urge;
-            document.querySelector('.t-opt-rap').innerText = t.sim.opts.rap;
-            document.querySelector('.t-opt-cur').innerText = t.sim.opts.cur;
-            document.querySelector('.t-opt-scar').innerText = t.sim.opts.scar;
-            document.querySelector('.t-opt-quid').innerText = t.sim.opts.quid;
-            document.querySelector('.t-opt-multi').innerText = t.sim.opts.multi;
-
-            document.querySelector('.t-sc-ceo-title').innerText = t.sim.scenarios.ceo;
-            document.querySelector('.t-sc-it-title').innerText = t.sim.scenarios.it;
-            document.querySelector('.t-sc-job-title').innerText = t.sim.scenarios.job;
-            document.querySelector('.t-sc-wsp-title').innerText = t.sim.scenarios.wsp;
-            document.querySelector('.t-sc-gov-title').innerText = t.sim.scenarios.gov;
-            document.querySelector('.t-sc-mfa-title').innerText = t.sim.scenarios.mfa;
-            document.querySelector('.t-sc-recruit-title').innerText = t.sim.scenarios.rec;
-            document.querySelector('.t-sc-multi-title').innerText = t.sim.scenarios.multi;
-
-            // Verdict Panel
-            document.querySelector('.t-decision-req').innerText = t.sim.verdict.req;
-            document.querySelector('.t-is-legit').innerText = t.sim.verdict.q;
-            document.querySelector('.t-btn-legit').innerText = t.sim.verdict.leg;
-            document.querySelector('.t-btn-mal').innerText = t.sim.verdict.mal;
-            document.querySelector('.t-zt-protocol').innerText = t.sim.zt.title;
-            document.querySelector('.t-zt-verify').innerText = t.sim.zt.verify;
-            document.querySelector('.t-btn-confirm').innerText = t.sim.zt.confirm;
-            document.querySelector('.t-chk-linkedin').innerText = t.sim.zt.li;
-            document.querySelector('.t-chk-domain').innerText = t.sim.zt.dom;
-            document.querySelector('.t-chk-headers').innerText = t.sim.zt.head;
-
-            // Modal
-            document.querySelector('.t-threat-id').innerText = t.modal.threat;
-            document.querySelector('.t-choose-defense').innerText = t.modal.choose;
-            document.querySelector('.t-debrief-title').innerText = t.modal.debrief;
-            document.querySelector('.t-lbl-tech').innerText = t.modal.tech;
-            document.querySelector('.t-lbl-ling').innerText = t.modal.ling;
-            document.querySelector('.t-lbl-proto').innerText = t.modal.proto;
-            document.querySelector('.t-lbl-why').innerText = t.modal.why;
-            document.querySelector('.t-btn-return').innerText = t.modal.ret;
-        }
-
         // --- ONBOARDING & PERSONALIZATION LOGIC ---
         let currentUser = localStorage.getItem('operatorAlias') || "Operator";
 
