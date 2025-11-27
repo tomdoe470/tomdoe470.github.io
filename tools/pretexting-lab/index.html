@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pretexting Defense Lab | Elite + Advanced</title>
+    <title>Pretexting Defense Lab | Elite + Profile</title>
     <style>
         /* --- FUENTES: Inter para UI limpia, JetBrains Mono para toque Cyber --- */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
@@ -202,6 +202,148 @@
             font-family: var(--font-code); font-size: 0.8rem; color: #e2e8f0;
         }
 
+        /* --- PROFILE VIEW (ABOUT ME - NEW MODULE) --- */
+        #profile-view {
+            padding: 40px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .profile-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 40px;
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Profile Left Sidebar */
+        .profile-sidebar {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: fit-content;
+            box-shadow: 0 0 40px rgba(0,0,0,0.3);
+            border-left: 2px solid var(--primary);
+        }
+
+        .profile-pic-container {
+            width: 150px; height: 150px;
+            position: relative; margin-bottom: 25px;
+        }
+        .profile-pic {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            filter: grayscale(100%);
+            transition: 0.3s;
+        }
+        .profile-pic:hover { filter: grayscale(0%); }
+        .online-dot {
+            position: absolute; bottom: 10px; right: 10px;
+            width: 15px; height: 15px; background: var(--accent-green);
+            border-radius: 50%; border: 3px solid var(--bg-panel);
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        .profile-name { font-family: var(--font-code); font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 5px; color: white;}
+        .profile-role { font-family: var(--font-code); color: var(--text-muted); font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 1px; }
+
+        .profile-stats {
+            width: 100%;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .stat-item {
+            background: rgba(255,255,255,0.03);
+            padding: 15px; border-radius: 8px;
+            border: 1px solid transparent;
+            cursor: pointer; transition: 0.2s;
+        }
+        .stat-item:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.05); }
+        .stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-family: var(--font-code); letter-spacing: 1px; }
+        .stat-value { font-size: 1.1rem; color: var(--text-main); font-weight: 600; margin-top: 5px; }
+
+        /* Profile Main Content */
+        .profile-content { display: flex; flex-direction: column; gap: 30px; }
+
+        .decrypt-header {
+            font-family: var(--font-code);
+            font-size: 3rem; font-weight: 800;
+            color: var(--text-main);
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .decrypt-header::after { content: '_'; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .bio-section {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        }
+        .bio-card {
+            background: var(--bg-panel); border: var(--border);
+            padding: 25px; border-radius: 12px;
+            position: relative; overflow: hidden;
+        }
+        .bio-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+        }
+        .bio-title {
+            color: var(--primary); font-family: var(--font-code);
+            font-size: 1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+        }
+        
+        .vectors-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
+        }
+        .skill-card {
+            background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255,255,255,0.05);
+            padding: 20px; border-radius: 8px; transition: 0.3s;
+        }
+        .skill-card:hover { transform: translateY(-5px); border-color: var(--accent-green); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .skill-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: white; font-weight: 600; }
+        .tags-container { display: flex; gap: 8px; flex-wrap: wrap; }
+        .skill-tag { 
+            font-family: var(--font-code); font-size: 0.7rem; 
+            padding: 4px 8px; background: rgba(16, 185, 129, 0.1); 
+            color: var(--accent-green); border-radius: 4px;
+        }
+
+        /* Terminal Contact Form */
+        .uplink-terminal {
+            background: #050505; border: 1px solid #333;
+            border-radius: 10px; padding: 0; overflow: hidden;
+            font-family: var(--font-code);
+        }
+        .terminal-header {
+            background: #1a1a1a; padding: 10px 15px; color: #666; font-size: 0.8rem;
+            border-bottom: 1px solid #333; display: flex; justify-content: space-between;
+        }
+        .terminal-body { padding: 30px; display: flex; flex-direction: column; gap: 15px; }
+        
+        .cmd-line { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .prompt { color: var(--accent-green); white-space: nowrap; }
+        .cmd-input {
+            background: transparent; border: none; color: white;
+            font-family: var(--font-code); font-size: 0.95rem; width: 100%;
+        }
+        .btn-transmit {
+            background: var(--primary); color: white; border: none;
+            padding: 12px; font-family: var(--font-code); font-weight: 700;
+            margin-top: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: 0.2s;
+        }
+        .btn-transmit:hover { background: var(--accent-green); color: #000; }
+
+
         /* --- SIMULATOR (Dashboard UI) --- */
         #simulator-view { padding: 0; height: calc(100vh - 70px); display: none; }
         #simulator-view.active { display: flex; }
@@ -377,41 +519,7 @@
         .toast.show { transform: translateX(0); }
         .toast.error { border-left-color: var(--accent-red); }
 
-        /* --- ESTILOS DEL TOUR (Driver.js Custom) --- */
-        .driver-popover.driverjs-theme {
-            background-color: var(--bg-element);
-            color: var(--text-main);
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-            font-family: var(--font-ui);
-        }
-        .driver-popover.driverjs-theme .driver-popover-title {
-            font-family: var(--font-code);
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        .driver-popover.driverjs-theme .driver-popover-description {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        .driver-popover.driverjs-theme button {
-            background-color: var(--bg-panel);
-            color: var(--text-main);
-            border: 1px solid var(--text-muted);
-            text-shadow: none;
-            font-family: var(--font-code);
-            border-radius: 4px;
-        }
-        .driver-popover.driverjs-theme button:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
-    
 </head>
 <body>
 
@@ -422,6 +530,7 @@
         <div class="nav-links">
             <button onclick="navTo('home')" class="active">Home</button>
             <button onclick="navTo('methodologies')">Intel</button>
+            <button onclick="navTo('profile')">PROFILE</button>
             <button onclick="navTo('simulator')" class="btn-launch">LAUNCH SIM</button>
         </div>
     </nav>
@@ -436,6 +545,121 @@
                 <button class="btn-hero btn-secondary" onclick="navTo('methodologies')">VIEW VECTORS</button>
                 <button class="btn-hero btn-primary" onclick="navTo('simulator')">START SIMULATION_</button>
             </div>
+        </div>
+    </div>
+
+    <!-- NEW PROFILE MODULE -->
+    <div id="profile-view" class="view">
+        <div class="profile-container">
+            <aside class="profile-sidebar">
+                <div class="profile-pic-container">
+                    <img src="https://ui-avatars.com/api/?name=Agent+Zero&background=0f172a&color=3b82f6&size=200" alt="Profile" class="profile-pic">
+                    <div class="online-dot"></div>
+                </div>
+                <h2 class="profile-name">AGENT_ZERO</h2>
+                <div class="profile-role">SOCIAL ENGINEER</div>
+
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">IDENTITY</div>
+                        <div class="stat-value">WHO AM I</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">PROTOCOLS</div>
+                        <div class="stat-value">WHAT I DO</div>
+                    </div>
+                    <div class="stat-item" style="border-left: 2px solid var(--accent-green);">
+                        <div class="stat-label" style="color: var(--accent-green);">UPLINK</div>
+                        <div class="stat-value">CONTACT ME</div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="profile-content">
+                <div>
+                    <h1 class="decrypt-header" id="typing-text">DECRYPTING...</h1>
+                    <p style="color: var(--text-muted); font-family: var(--font-code);">Initializing bio-data... Subject is a specialist in Human Intelligence and Digital Forensics. Directives: Assess threats, reconstruct events, neutralize vectors.</p>
+                </div>
+
+                <div class="bio-section">
+                    <div class="bio-card">
+                        <div class="bio-title"><span style="font-size: 1.2rem;">📂</span> ORIGIN</div>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #cbd5e1;">Born in the analog era, forged in the digital revolution. I specialize in the psychological aspects of information security, understanding that every system is only as strong as the human operating it.</p>
+                    </div>
+                    <div class="bio-card">
+                        <div class="bio-title"><span style="font-size: 1.2rem;">🧬</span> INTERESTS</div>
+                        <p style="font-size: 0.9rem; line-height: 1.6; color: #cbd5e1;">Obsessed with the mechanics of manipulation and the art of detection. When offline, I delve into retro-tech restoration and study behavioral psychology to better understand the human vector.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-family: var(--font-code); margin-bottom: 20px; color: var(--primary);">OPERATIONAL VECTORS</h3>
+                    <div class="vectors-grid">
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <span style="font-size: 1.5rem;">⚙️</span> SOCIAL ENGINEERING
+                            </div>
+                            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px;">Crafting complex pretexts and manipulating human psychology to bypass authentication protocols.</p>
+                            <div class="tags-container">
+                                <span class="skill-tag">[OSINT]</span>
+                                <span class="skill-tag">[VISHING]</span>
+                                <span class="skill-tag">[PRETEXTING]</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <span style="font-size: 1.5rem;">🛡️</span> SECURITY & PENTESTING
+                            </div>
+                            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 15px;">Identifying vulnerabilities in physical and digital infrastructure. Hardening systems against intrusion.</p>
+                            <div class="tags-container">
+                                <span class="skill-tag">[OWASP]</span>
+                                <span class="skill-tag">[BURP SUITE]</span>
+                                <span class="skill-tag">[PYTHON]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uplink-terminal">
+                    <div class="terminal-header">
+                        <span>ESTABLISH UPLINK</span>
+                        <span>root@system:~/profile/contact</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="cmd-line">
+                            <span class="prompt">root@visitor:~$</span>
+                            <span style="color: #64748b;">set_sender_id</span>
+                        </div>
+                        <div class="cmd-line">
+                            <span class="prompt">></span>
+                            <input type="text" class="cmd-input" placeholder="Enter your name/alias...">
+                        </div>
+                        
+                        <div class="cmd-line" style="margin-top: 10px;">
+                            <span class="prompt">root@visitor:~$</span>
+                            <span style="color: #64748b;">set_return_path</span>
+                        </div>
+                        <div class="cmd-line">
+                            <span class="prompt">></span>
+                            <input type="email" class="cmd-input" placeholder="Enter your email...">
+                        </div>
+
+                        <div class="cmd-line" style="margin-top: 10px;">
+                            <span class="prompt">root@visitor:~$</span>
+                            <span style="color: #64748b;">define_payload</span>
+                        </div>
+                        <div class="cmd-line">
+                            <span class="prompt">></span>
+                            <input type="text" class="cmd-input" placeholder="Type your message here...">
+                        </div>
+
+                        <button class="btn-transmit">
+                            <span>▶</span> TRANSMIT DATA PACKET
+                        </button>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 
@@ -760,7 +984,7 @@
         </div>
     </div>
 
-<script>
+    <script>
         // --- MATRIX EFFECT ---
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
@@ -779,75 +1003,34 @@
         }
         setInterval(draw, 33);
 
-        // --- TOUR EXPLICATIVO (Lógica Nueva) ---
-        function startOnboarding() {
-            const driver = window.driver.js.driver;
-            
-            const driverObj = driver({
-                showProgress: true,
-                popoverClass: 'driverjs-theme',
-                steps: [
-                    { 
-                        element: '.sim-sidebar', 
-                        popover: { 
-                            title: '1. Panel de Misiones', 
-                            description: 'Aquí seleccionas los casos. Empieza con los de nivel Básico y avanza hacia los ataques complejos.' 
-                        } 
-                    },
-                    { 
-                        element: '.sim-viewport', 
-                        popover: { 
-                            title: '2. Entorno de Análisis', 
-                            description: 'Aquí verás el correo, chat o SMS simulado. Lee atentamente buscando señales de peligro.' 
-                        } 
-                    },
-                    { 
-                        element: '#panel-analysis', 
-                        popover: { 
-                            title: '3. Tu Herramienta', 
-                            description: 'Una vez detectes el engaño, usa este menú para clasificar qué técnica psicológica están usando.' 
-                        } 
-                    },
-                    { 
-                        element: '#panel-verdict', 
-                        popover: { 
-                            title: '4. Veredicto (Avanzado)', 
-                            description: 'En misiones avanzadas, tendrás que decidir si el mensaje es Legítimo o Malicioso.' 
-                        } 
-                    }
-                ]
-            });
-
-            driverObj.drive();
-        }
-
-        // --- NAVIGATION (Modificada para activar el Tour) ---
+        // --- NAVIGATION ---
         function navTo(viewId) {
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId + '-view').classList.add('active');
             document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
-            
-            // Activar botón del menú
-            const btnMap = { 'home': 0, 'methodologies': 1, 'simulator': 2 };
-            const navButtons = document.querySelectorAll('.nav-links button');
-            if(navButtons[btnMap[viewId]]) navButtons[btnMap[viewId]].classList.add('active');
+            // Find the button that called this, if available, otherwise manual check
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
 
-            // --- DETECTOR DE PRIMERA VEZ ---
-            if (viewId === 'simulator') {
-                // Comprobamos si ya vio el tutorial
-                const hasSeen = localStorage.getItem('pretext_tour_seen_v2'); 
-                
-                if (!hasSeen) {
-                    // Esperamos 800ms a que la animación de la ventana termine
-                    setTimeout(() => {
-                        startOnboarding();
-                        localStorage.setItem('pretext_tour_seen_v2', 'true');
-                    }, 800);
+            // Typing effect trigger for profile
+            if(viewId === 'profile') {
+                const text = "DECRYPTING...";
+                const el = document.getElementById('typing-text');
+                el.innerText = "";
+                let i = 0;
+                const type = () => {
+                    if (i < text.length) {
+                        el.innerText += text.charAt(i);
+                        i++;
+                        setTimeout(type, 100);
+                    }
                 }
+                type();
             }
         }
 
-        // --- SIMULATOR TABS LOGIC ---
+        // --- SIMULATOR TABS LOGIC (Added from Code 2) ---
         function switchTab(mode) {
             document.querySelectorAll('.sim-tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
@@ -914,8 +1097,9 @@
                     why: "You separated the relationship from the transaction."
                 }
             },
+            // --- ADVANCED SCENARIOS (Merged & Normalized to Code 1 Format) ---
             'gov_ato': {
-                isMalicious: true,
+                isMalicious: true, // Specific for Advanced Logic
                 defensiveOptions: [
                     { text: "Read the code to the caller.", correct: false },
                     { text: "Hang up immediately.", correct: true },
@@ -929,7 +1113,7 @@
                 }
             },
             'mfa_fatigue': {
-                isMalicious: true,
+                isMalicious: true, // Specific for Advanced Logic
                 defensiveOptions: [
                     { text: "Approve to stop the noise.", correct: false },
                     { text: "Report Account Compromise immediately.", correct: true },
@@ -952,14 +1136,20 @@
             document.querySelectorAll('.scenario-item').forEach(el => el.classList.remove('active'));
             document.getElementById('btn-' + simId).classList.add('active');
             
+            // Hide all windows (both Code 1 OS windows and Code 2 Phones)
             document.querySelectorAll('.os-window, .phone-mockup').forEach(el => el.classList.remove('active'));
+            
+            // Show target
             document.getElementById('sim-' + simId).classList.add('active');
             
+            // Reset selectors
             document.getElementById('analysis-select').value = "";
         }
 
+        // BASIC MODE SUBMISSION (Code 1 Logic)
         function submitAnalysis() {
             const val = document.getElementById('analysis-select').value;
+            
             let correct = false;
             if (currentSim === 'ceo' && (val === 'authority' || val === 'urgency')) correct = true;
             if (currentSim === 'it' && (val === 'urgency' || val === 'quidproquo')) correct = true;
@@ -974,6 +1164,7 @@
             }
         }
 
+        // ADVANCED MODE SUBMISSION (Code 2 Logic adapted to Code 1 UI)
         function submitAdvanced(userSaysLegit) {
             const data = scenarioData[currentSim];
             const userSaysMalicious = !userSaysLegit;
@@ -1000,6 +1191,7 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
+        // --- MODAL LOGIC (Shared) ---
         function openDefenseModal() {
             const data = scenarioData[currentSim];
             const container = document.getElementById('defense-options-container');
@@ -1021,9 +1213,11 @@
         function checkDefenseChoice(index) {
             const data = scenarioData[currentSim];
             if (data.defensiveOptions[index].correct) {
+                // Correct Defense -> Show Coach
                 document.getElementById('modal-defense').style.display = 'none';
                 document.getElementById('modal-analysis').style.display = 'block';
                 
+                // Populate Coach
                 document.getElementById('coach-tech').innerHTML = data.analysis.tech;
                 document.getElementById('coach-ling').innerHTML = data.analysis.ling;
                 document.getElementById('coach-proto').innerHTML = data.analysis.proto;
